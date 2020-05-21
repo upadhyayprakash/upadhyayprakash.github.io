@@ -1,2 +1,253 @@
-<h1>Hello World</h1>
-<a href="./second.html">Second Page</a>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link rel="stylesheet" href="./style.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</head>
+<body class="p-3 text-center" style="font-family:arial;">
+<p class="h5">Learn</p>
+<p class="h5">Research</p>
+<p class="h5">Compete</p>
+<p class="h5">Repeat</p>
+<br />
+<br />
+<br />
+<h2 class="h1 mb-5 p-2 text-center d-inline-block" style="color:#ffffff; background-color:#7c17bb;">CHAPTER-1<br/><span class="h5">Deep Neural Network</span></h2>
+<p class="h2">Let's get started...</p>
+<br />
+<p class="h5" style="text-align: center;">This is how we want you to feel when you think about DNNs</p>
+<br />
+<p class="md-end-block md-p"><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img01.gif" alt="img01.gif" data-api-endpoint="" data-api-returntype="File"></p>
+<p class="md-end-block md-p"> </p>
+<p><a class="instructure_file_link instructure_image_thumbnail" title="BRAIN.gif" href="/courses/1587436/files/76552780/download?wrap=1" data-api-returntype="File" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1587436/files/76552780"></a></p>
+<br />
+<br />
+<h3 style="text-align: center;">Building the Intuition!</h3>
+<br />
+<br />
+<br />
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img02.gif" alt="img02.gif" width="658" height="370" data-api-endpoint="" data-api-returntype="File"></p>
+<br />
+<p style="text-align: center;">An ultra-dense connected network of flowing information</p>
+<a class="font-weight-bold" href='https://science.howstuffworks.com/life/inside-the-mind/human-brain/brain1.htm'>More about how brain works</a>
+<br />
+<br />
+<br />
+<br />
+<h2 class="md-end-block md-heading md-focus" style="text-align: center;"><span class="md-plain md-expand" style="background-color: #000000; color: #ffffff;">EYES</span></h2>
+<br />
+<p><span class="md-plain md-expand" style="background-color: #000000; color: #ffffff;"><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img03.jpeg" alt="" width="739" height="415"></span></p>
+<br />
+<br />
+<p>EVA is going to focus on vision, and concepts we'd learn here can be implemented on any kind of data. </p>
+<p>Everything w.r.t vision starts with our eyes. Eye is our vision sensor and similar to our eyes, we have the camera sensor, which reacts to the light based on the amplitude of the wavelength falling over it. </p>
+<br />
+<br />
+<br />
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img04.jpg" alt="CrossSection.JPG" width="656" height="381" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047008" data-api-returntype="File"></p>
+<br />
+<br />
+<br />
+<br />
+<br />
+<p style="text-align: center;">Here is how our physical camera systems look now:</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img05.jpg" alt="Module-Nokia-S.jpg" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047010" data-api-returntype="File"></p>
+<br />
+<br />
+<p style="text-align: center;">This is how our retina would look under the electron microscope:</p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"><img src="./images/img06.jpg" alt="©-Micronaut-Human-Retina-006364.jpg" width="800" height="600" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047017" data-api-returntype="File"></p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;">this is where what we see gets converted into rgb or bnw! As you are aware, we have 3 channels (they are not purely RGB though)</p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;">and this is how our camera sensor would look under the electron-microscope:</p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"><img src="./images/img07.jpg" alt="topleft1.jpg" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047022" data-api-returntype="File"></p>
+<p style="text-align: center;"> </p>
+<br />
+<br />
+<h3 style="text-align: center;"><span style="background-color: #000000; color: #ffffff;"><strong>  CHANNELS  </strong></span></h3>
+<p style="text-align: center;">We need to start to think about channels in a different manner now. You are aware of RGB, and probably CMYK as well. </p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"><img src="./images/img08.jpg" alt="how-to-convert-RGB-to-CMYK.jpg" width="776" height="406" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047023" data-api-returntype="File"></p>
+<br />
+<br />
+<p style="text-align: center;">Look at this painting below, and try to see only one color at a time. That is how we need to think about the channels from now on!</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img09.jpg" alt="nappy.jpg" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047029" data-api-returntype="File"></p>
+<br />
+<p style="text-align: center;">While we are at this image, can you try and convince yourself that your eyes "like more" to follow gradients, curves, edges and features in this image, as compared to just plain colors?</p>
+<br />
+<br />
+<br />
+<p style="text-align: center;">Imagine that instead of breaking images into RGB, we divide it into 4 colors. (That's what we do in the newspapers already)</p>
+<br />
+<p style="text-align: center;"><img src="./images/img10.gif" alt="ezgif-4-216babfdc5.gif" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047036" data-api-returntype="File"></p>
+<br />
+<br />
+<h2 class="md-end-block md-heading"> </h2>
+<h2 class="md-end-block md-heading"> </h2>
+<h4 class="md-end-block md-heading" style="text-align: center;">The connection to remember here is <span style="background-color: #000000; color: #ffffff;">CHANNELS</span>
+</h4>
+<br />
+<br />
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img011.jpg" alt="Music_Band_resize1__953x420.jpg" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047043" data-api-returntype="File"></p>
+<p class="md-end-block md-heading md-focus" style="text-align: center;">When we think in terms of channels, you can split the song being played above in it's individual components, like sound made by piano, guitar, base, drum, etc.</p>
+<br />
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img12.png" alt="test.png" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047067" data-api-returntype="File"></p>
+<br />
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img13.jpg" alt="red.jpg" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047071" data-api-returntype="File"></p>
+<br />
+<br />
+<br />
+<br />
+<h2 class="md-end-block md-heading md-focus" style="text-align: center;"><span class="md-plain md-expand" style="color: #ffffff; background-color: #000000;">THE BORED CAT EXPERIMENT</span></h2>
+<br />
+<p style="text-align: center;"><span class="md-plain md-expand" style="color: #ffffff; background-color: #000000;">CAT1</span></p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img14.gif" alt="Bored-cat.gif" width="503" height="347" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047084" data-api-returntype="File"></p>
+<br />
+<br />
+<p style="text-align: center;"><span class="md-plain md-expand" style="color: #ffffff; background-color: #000000;">CAT2</span></p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img15.gif" alt="giphy.gif" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047092" data-api-returntype="File"></p>
+<br />
+<br />
+<br />
+<br />
+<br />
+<p style="text-align: center;"><span class="md-plain md-expand">CAT #1 Experiment Results:</span></p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img16.gif" alt="retinotopicmap.gif" width="692" height="273" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047096" data-api-returntype="File"></p>
+<br />
+<br />
+<p style="text-align: center;"><span class="md-plain md-expand">When we see the image on the left, right gets "printed" on our brain!</span></p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"><span class="md-plain md-expand"><strong>CAT#2 Experiment Results</strong></span></p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"><span class="md-plain md-expand"><strong><img src="./images/img17.jpg" alt="8_05.jpg" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047104" data-api-returntype="File"></strong></span></p>
+<br />
+<br />
+<br />
+<br />
+<p style="text-align: center;"><span class="md-plain md-expand">Our brain has several edge detectors (along with many other things)!</span></p>
+<br />
+<br />
+<h3 class="md-end-block md-heading md-focus" style="text-align: center;"><span class="md-plain md-expand">How do we build complex things?</span></h3>
+<p style="text-align: center;"><span class="md-plain md-expand"><img src="./images/img18.jpg" alt="gradients.jpg" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047110" data-api-returntype="File"></span></p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"><span class="md-plain md-expand">We start very simple, but then we can mix those simple building blocks to something very beautiful and detailed!</span></p>
+<p><span class="md-plain md-expand"><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img19.png" alt="image4.png" width="797" height="250" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047116" data-api-returntype="File"></span></p>
+<br />
+<br />
+<p style="text-align: center;">Let's look at this time lapse to appreciate how simple strokes can make something really beautiful!</p>
+<p style="text-align: center;"><iframe width="560" height="315" src="https://www.youtube.com/embed/jC6qegT972c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;">The connection to remember that very complex things can be built from simple strokes like we can make stories from only 26 alphabets. </p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<br />
+<h2 class="md-end-block md-heading md-focus" style="text-align: center;"><span class="md-plain md-expand" style="background-color: #000000; color: #ffffff;">Cortex Processing</span></h2>
+<br />
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img20.png" alt="Screen Shot 2012-08-24 at 11.36.20 PM.png" width="645" height="390" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047171" data-api-returntype="File"></p>
+<p style="text-align: center;"><span class="md-plain md-expand">Happens at the back of our brain. We have 4 core layers. </span></p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<br />
+<h3 style="text-align: center;"><span style="color: #ffffff; background-color: #000000;"><strong> NEURAL COMPUTING  </strong></span></h3>
+<p style="text-align: center;">We need feature extraction methods and then combining methods</p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<p class="md-end-block md-p"><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img21.png" alt="Hl2H6.png" width="717" height="393" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047177" data-api-returntype="File"></p>
+<p class="md-end-block md-p"> </p>
+<p class="md-end-block md-p"> </p>
+<h3 style="text-align: center;"> </h3>
+<h3 style="text-align: center;"> </h3>
+<h3 style="text-align: center;"><span style="background-color: #000000; color: #ffffff;"><strong>  CONVOLUTIONS - FEATURES OR ALPHABETS  </strong></span></h3>
+<p class="md-end-block md-p"> </p>
+<p class="md-end-block md-p"><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img22.jpg" alt="main-qimg-4bfdf63a4c5b24590f0deec9673eaee5-c.jpg" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047182" data-api-returntype="File"></p>
+<br />
+<br />
+<br />
+<br />
+<br />
+<h3 class="md-end-block md-heading md-focus" style="text-align: center;"><span class="md-plain md-expand">Can you imagine this happening? </span></h3>
+<br />
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img23.png" alt="screen-shot-2016-08-10-at-12-58-30-pm.png" width="422" height="445" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047184" data-api-returntype="File"></p>
+<br />
+<br />
+<p style="text-align: center;"><span class="md-plain md-expand">Before we Proceed: <span class="md-link md-expand"><a href="http://scs.ryerson.ca/~aharley/vis/conv/flat.html">http://scs.ryerson.ca/~aharley/vis/conv/flat.html</a></span> Play with this</span></p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<h3 style="text-align: center;"><span style="background-color: #000000; color: #ffffff;"><strong>  CORE CONCEPT - CONVOLUTION  </strong></span></h3>
+<br />
+<br />
+<br />
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img24.gif" alt="4-2ConvolutionSmall.gif" width="650" height="366" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047195" data-api-returntype="File"></p>
+<p style="text-align: center;">3x3 on 4x4</p>
+<h1 class="md-end-block md-heading md-focus"> </h1>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img25.gif" alt="5-3ConvolutionSmall.gif" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047199" data-api-returntype="File"></p>
+<p style="text-align: center;">3x3 on 5x5</p>
+<br />
+<br />
+<h4 class="md-end-block md-heading md-focus" style="text-align: center;"><span class="md-plain md-expand" style="background-color: #000000; color: #ffffff;">LETS BUILD A NETWORK FOR 400x400 IMAGE! HOW MANY LAYERS WOULD WE NEED?</span></h4>
+<br />
+<br />
+<p><span class="md-plain md-expand"><a class="instructure_file_link instructure_image_thumbnail" title="4-2ConvolutionSmall.gif" href="/courses/1587436/files/76552847/download?wrap=1" data-api-returntype="File" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1587436/files/76552847"></a></span></p>
+<p><span class="md-plain md-expand"><a class="instructure_file_link instructure_image_thumbnail" title="4-2ConvolutionSmall.gif" href="/courses/1587436/files/76552847/download?wrap=1" data-api-returntype="File" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1587436/files/76552847"></a></span></p>
+<p><span class="md-plain md-expand"><a class="instructure_file_link instructure_image_thumbnail" title="4-2ConvolutionSmall.gif" href="/courses/1587436/files/76552847/download?wrap=1" data-api-returntype="File" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1587436/files/76552847"></a></span></p>
+<p><span class="md-plain md-expand"><a class="instructure_file_link instructure_image_thumbnail" title="4-2ConvolutionSmall.gif" href="/courses/1587436/files/76552847/download?wrap=1" data-api-returntype="File" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1587436/files/76552847"></a></span></p>
+<ul>
+<li>One assumption which we will need to make while we are making this network involves assuming we are going to use only 3x3 kernel. Why?</li>
+</ul>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<h1 class="md-end-block md-heading md-focus"> </h1>
+<br />
+<h3 style="text-align: center;"><span style="background-color: #000000; color: #ffffff;"><strong>  THE MOST IMPORTANT IMAGE YOU'LL EVER SEE!  </strong></span></h3>
+<p><span class="md-plain md-expand"><a class="instructure_file_link instructure_image_thumbnail" title="4-2ConvolutionSmall.gif" href="/courses/1587436/files/76552847/download?wrap=1" data-api-returntype="File" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1587436/files/76552847"></a></span></p>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<p style="text-align: center;"><img src="./images/img26.gif" alt="0.8y3e18blaxk.gif" width="636" height="358" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047225" data-api-returntype="File"></p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;">Receptive fields. The core of our course and Deep Learning. This is where we will end today and start next time. </p>
+<div class="text-left ml-auto m-auto" style="width:60%; margin-top:160px !important">
+<h3>Assignment-A (Python 101 Assignment)</h3>
+<ul>
+	<li>Open this Colab Notebook: <a href="https://colab.research.google.com/drive/1lnw5tyDde1ldBn5TUn6OhpNS3AY5D4fK">Python 101 Notebook</a></li>
+	<li>Create a New colab notebook in Google Colab(File -> New Notebook)</li>
+	<li>Refer to the above notebook and run each of the Code-Cell one-at-a-time.</li>
+	<li>Create a GitHub Repo(name "visionai" and create a file named "Assignment-A.md" under folder "ch01" & submit your response to all the questions from Q1 to Q20 in a GitHub file and push it.</li>
+</ul>
+<h3 class="mt-4">Assignment-B (QnA)</h3>
+<ul>
+	<li>Answer the following question in MAXIMUM 200 words using YOUR OWN words. You can use publicly available figures/images to explain.</li>
+	<ol>
+		<li>What are Channels and Kernels (according to VisionAI course)?</li>
+		<li>Why should we (nearly) always use 3x3 kernels?</li>
+		<li>How many times to we need to perform 3x3 convolutions operations to reach close to 1x1 from 199x199 (type each layer output like 199x199 > 197x197...)</li>
+		<li>What happens during the training of a DNN?</li>
+	</ol>
+	<li>Create a GitHub file named "Assignment-B" under "ch01" folder and write all your answers.</li>
+	
+</ul>
+</div>
+</body>
