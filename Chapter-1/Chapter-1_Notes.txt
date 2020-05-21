@@ -1,0 +1,23 @@
+21st May | Chapter-1
+====================
+Time: 8 PM
+Duration: 1 Hr
+
+Topics:
+- Overview of Channels
+- Convolution Basics
+- Assignment
+
+------------------------------------------------------------------------------------
+### What is "VisionAI" course?
+- Beginner-friendly in-depth coaching of Neural Network concepts for Vision related Neural Networks(e.g. CNN, GAN, AutoEncoders)
+- Graded Assignments
+- Course Completion Certificate
+
+### Before you start(Administrative Stuffs):
+- Make sure you have:
+	- Google Colab Account (covered in previous sessions)
+	- GitHub Account - you assignments will be submitted via GitHub.
+	- 
+
+### What are Channels?
