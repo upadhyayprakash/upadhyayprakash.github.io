@@ -1,0 +1,278 @@
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link rel="stylesheet" href="./style.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</head>
+<body class="p-3 text-center m-auto" style="font-family:arial; width:80%">
+<p class="h5">Learn</p>
+<p class="h5">Research</p>
+<p class="h5">Compete</p>
+<p class="h5">Repeat</p>
+<br />
+<br />
+<br />
+<h2 class="h1 mb-5 p-2 text-center d-inline-block" style="color:#ffffff; background-color:#7c17bb;">CHAPTER-2<br/><span class="h5">Neural Architecture</span></h2>
+<p style="text-align: center;"><span class="md-plain">Let's re-look at some of the important concepts we covered in the last session. </span></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<h1 class="md-end-block md-heading md-focus" style="text-align: center;"><span class="md-plain md-expand" style="background-color: #000000; color: #ffffff;">Concepts From Session 1</span></h1>
+<p> </p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img03.gif" alt="4-2ConvolutionSmall.gif" width="650" height="366" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047195" data-api-returntype="File"></p>
+<p> </p>
+<p> </p>
+<p><span class="md-plain md-expand">Here we see a 3x3 kernel convolving on an image/channel of size 4x4. </span></p>
+<p><span class="md-plain md-expand">Every purple pixel we see represents a value, so in total, we are looking at 16 values. These values are generated from the image on which we are convolving, so we have no control over them. </span></p>
+<p> </p>
+<p><span class="md-plain md-expand">The dark purple 3x3 moving box is our kernel. We initialize it (and all other kernels) randomly. We do have control over the values in the kernel, and that is what we want we (backpropagation) would be changing, such that they become the feature extractor (like a vertical edge detector). </span></p>
+<p> </p>
+<p><span class="md-plain md-expand">Whenever our kernel is stopping, we are looking at 9 multiplications, we then sum all these 9 values, and pass the sum to the green channel. This green channel is called an output channel. </span></p>
+<p> </p>
+<p><span class="md-plain md-expand">Whenever we perform a convolution with 3x3 kernel on an image of 4x4 in size, the output channel would have a resolution of 2x2. We essentially lose 2 pixels in x as well as the y-axis. </span></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p style="text-align: center;"><span style="background-color: #000000; color: #ffffff;"><strong><span class="md-plain md-expand">Convolving a 3x3 channel on 5x5</span></strong></span></p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"><span style="background-color: #000000; color: #ffffff;"><strong><span class="md-plain md-expand"><img src="./images/img04.gif" alt="5-3ConvolutionSmall.gif" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047199" data-api-returntype="File"></span></strong></span></p>
+<p> </p>
+<p> </p>
+<p><span class="md-plain md-expand">Similarly, if we convolve a 3x3 kernel on a 5x5 image, the output channel we would create will have a resolution of 3x3. This is true only in the case when:</span></p>
+<ol>
+<li><span class="md-plain md-expand">we are not using any padding (we are not adding additional 0s (what else can we add?) on the boundaries of our input image, changing its resolution, say from 5x5 to 7x7), and</span></li>
+<li><span class="md-plain md-expand">we are not using a stride of more than 1. </span></li>
+</ol>
+<p><span class="md-plain md-expand">In the images above, you see, that whenever the kernel moves, it skips just 1 pixel. If it were to skip 2 pixels, that would be called a stride of 2. </span></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<h3 style="text-align: center;"><span style="background-color: #000000; color: #ffffff;"><strong><span class="md-plain md-expand">Why do we add layers? </span></strong></span></h3>
+<p>We add layers in a DNN for multiple reasons:</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img11.jpg" alt="learning-of-object-parts.jpg" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86363450" data-api-returntype="File"></p>
+<p> </p>
+<ol>
+<li>we have an objective (say detecting an object), and we can do that easily if we could detect the parts of the objects. Parts of the objects can be built from some patterns, and these patterns in-turn can be made from textures. To make any kind of texture, we would need edges and gradients. We add layers to procedurally do exactly this. We expect that our first layers would be able to extract simple features like edges and gradients. Next layers would then build slightly complex features like textures, and the patterns. Then later layers could build parts of objects, which can then be combined into objects. This can be seen in the image above.</li>
+<li>we progressively add layers, the receptive field of the network slowly increases. If we are using 3x3 kernels, then each pixel in the second layers has only "seen" (receptive field) 3x3 pixels. Before the network can take any decision, the whole image needs to be processed. We add layers to achieve this. Also, consider the fact that required or important edges and gradients can be made or<strong> seen within 11x11 pixels</strong> in an image of 400x400. But say, we were looking at a face, the parts of the face would take much more area (or the number of pixels). </li>
+</ol>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img10.jpg" alt="labroador-dog-unsplash.jpg" width="705" height="470" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86363481" data-api-returntype="File"></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<h2 style="text-align: center;"><span style="background-color: #000000; color: #ffffff;"><strong>Receptive Field</strong></span></h2>
+<p> </p>
+<p> </p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img01.gif" alt="0.8y3e18blaxk.gif" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86047225" data-api-returntype="File"></p>
+<p>Here we see our first layer as a 5x5 image. We are convolving this 5x5 image with a kernel of size 3x3, and hence the resulting output resolution will be a channel with 3x3 pixels/values. When we convolve on this 3x3 channel with a kernel of size 3x3, we will get only 1 output. We have added 2 layers here. </p>
+<p> </p>
+<p>To get the final output of 1 or 1x1, we could have used a 5x5 kernel directly. This means that using a 3x3 kernel twice is equivalent to using a 5x5 kernel. This also means that two layers of 3x3 have a resulting receptive field of 5x5. </p>
+<p> </p>
+<p>As we have discussed in the class, we want the final global receptive field (at the final prediction layer or output layer) to be equal to the size of the image. This is important as the network needs to "see" the whole image before it can predict exactly what the image is all about. </p>
+<p> </p>
+<p>This would mean that we need to add as many layers are required to reach the final receptive field equal to the size of the <strong>object</strong>. Since we have decided to consider the size of the object to be equal to the size of the image (for first few sessions), our final receptive field is going to be the size of the image. (We know this is not true, images can have objects of any size, but we need to consider this restriction to build our concepts. Later we would work on what needs to be done to remove this restriction). </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p style="text-align: center;"><span style="background-color: #000000; color: #ffffff;"><strong>The Convolution Mathematics</strong></span></p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img02.gif" alt="1_Zx-ZMLKab7VOCQTxdZ1OAw.gif" width="535" height="299" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86363494" data-api-returntype="File"></p>
+<p> </p>
+<p>We can see above that our 3x3 kernel has these values:</p>
+<p style="padding-left: 40px;">0 1 2<br>2 2 0<br>0 1 2</p>
+<p>Whenever our kernel is stopping on a 3x3 area, we are looking at 9 multiplications and the sum of the resulting 9 multiplications being passed on to the output (green) channel as shown in the image above. </p>
+<p>The values in the output channel can be considered as the "confidence" of finding a particular feature. Higher the value, higher the confidence, and lower (or more negative) the value, <strong>"higher"</strong> the confidence of the <strong>non-existence</strong> of the feature.</p>
+<p>Some examples of edge detectors would be:</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img07.jpg" alt="conv-line-detection.jpg" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86363512" data-api-returntype="File"></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p>When we use the <em>horizontal edge detector kernel </em>with the values, as shown above, we get the following result:</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img08.jpg" alt="conv-line-detection-horizontal-result.jpg" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86363514" data-api-returntype="File"></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p>Let's look at this through some numbers. Let us look at how a vertical edge would look like in an image:</p>
+<p> </p>
+<p> </p>
+<h2 style="text-align: center;">0.2 0.2 <strong>0.9</strong> 0.2 0.5<br>0.1 0.1 <strong>0.9</strong> 0.3 0.2<br>0.0 0.2 <strong>0.8</strong> 0.1 0.1<br>0.2 0.3 <strong>0.9</strong> 0.1 0.2<br>0.1 0.1 <strong>0.9 </strong>0.3 0.2</h2>
+<p style="padding-left: 40px;"> </p>
+<p style="padding-left: 40px;"> </p>
+<p style="text-align: center;">The values shown in <strong>bold</strong> represents a vertical line in this image</p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;">Let us define our vertical kernel as:</p>
+<p style="text-align: center;"> </p>
+<h3 style="padding-left: 40px; text-align: center;">-1 2 -1<br>-1 2 -1<br>-1 2 -1</h3>
+<p> </p>
+<p> </p>
+<p> </p>
+<p style="text-align: center;">After convolving the values we get are:</p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<h2 style="padding-left: 40px; text-align: center;">
+<strong>-2.0 4.3 -2.3</strong><br><strong>-1.7 4.1 -2.1</strong><br><strong>-1.7 4.1 -2.1</strong>
+</h2>
+<p> </p>
+<p> </p>
+<p><span class="md-plain md-expand">We can clearly see in this example that the central vertical values in the 3x3 output layer above, the detection of the vertical line. <strong>Not only we have detected the vertical line, we are also passing on an image/channel which shows a vertical line. </strong></span></p>
+<p> </p>
+<p><span class="md-plain md-expand" style="background-color: #cc99ff;">Spend a few moments to think about this bold line. <br></span></p>
+<p> </p>
+<p> </p>
+<p><strong>How many layers would we need to move from 400x400 image to 1x1?</strong></p>
+<p> </p>
+<p> </p>
+<p>As we saw in the last lecture, we need to add around 200 layers (as we add each layer we reduce the size of the image/channel by 2, so 400/2 = 200, gives us the number of layers we need to add). </p>
+<p> </p>
+<p> </p>
+<p>Now, these are an insanely large number of layers. We can do much better than this.</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<h2 style="text-align: center;"><span style="background-color: #000000; color: #ffffff;"><strong>MaxPooling</strong></span></h2>
+<p> </p>
+<p> </p>
+<p> </p>
+<p>As we learned in the last lecture, we can use something called MaxPooling to solve this, as shown in the image below:</p>
+<p> </p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img13.gif" alt="MaxPoolSmall.gif" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86363521" data-api-returntype="File"></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p>We saw this image and discussed that we rarely (rather never) use MaxPooling with 3x3, but rather use 2x2. </p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img14.png" alt="13244_2018_639_Fig6_HTML.png" width="963" height="912" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86363533" data-api-returntype="File"></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<h3 style="text-align: center;"><span style="background-color: #000000; color: #ffffff;"><strong>MaxPooling adds a bit of:</strong></span></h3>
+<p style="text-align: center;"><strong>Shift Invariance</strong></p>
+<p style="text-align: center;"><strong>Rotational Invariance</strong></p>
+<p style="text-align: center;"><strong>Scale Invariance</strong></p>
+<p><strong><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img12.png" alt="MaxPooling.png" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86363812" data-api-returntype="File"><br></strong></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<h3 style="text-align: center;"><span style="background-color: #000000; color: #ffffff;"><strong>How many layers would we need now?</strong></span></h3>
+<h2 style="text-align: center;">
+<strong><span class="md-plain" style="font-size: 10pt;">400 | 398 | 396 | 394 | 392 | 390 | MP (2x2)<br></span></strong><strong><span class="md-plain" style="font-size: 10pt;">195 | 193 | 191 | 189 | 187 | 185 | MP (2x2)<br></span></strong><strong><span class="md-plain" style="font-size: 10pt;">92 | 90 | 88 | 86 | 84 | 82 | MP (2x2)<br></span></strong><strong><span class="md-plain" style="font-size: 10pt;">41 | 39 | 37 | 35 | 33 | 31 | MP (2x2)<br></span></strong><strong><span class="md-plain md-expand" style="font-size: 10pt;">15 | 13 | 11| 9 | 7 | 5 | 3 | 1</span></strong>
+</h2>
+<p> </p>
+<p> </p>
+<p style="text-align: center;">By using MaxPooling we have reduced the layer count from 200 to 27. That's much better. </p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+<p> </p>
+<h2 class="md-end-block md-heading md-focus" style="text-align: center;"><span class="md-plain md-expand" style="background-color: #000000; color: #ffffff;">How many kernels did we add in the first layer?</span></h2>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<h3 style="text-align: center;"><span style="background-color: #000000; color: #ffffff;">How many kernels are required?</span></h3>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p><span class="md-plain md-expand">We would need a set of edges and gradients to be detected to be able to represent the whole image. Through experiments, we have learned that we should use around 32 or 64 kernels in the first layer, increasing the number of kernels slowly. Let's us assume we add 32 kernels in the first layer, 64 in second, 128 in thrid and so on. </span></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p style="text-align: center;"><strong>Our Network would look something like this:</strong></p>
+<p style="text-align: center;"> </p>
+<h2 style="text-align: center;"><span class="md-plain md-expand">400x400 | (3x3)x32 | 398x398x32<br>398x398 | (3x3)x64 | 396x396x64<br>...</span></h2>
+<p> </p>
+<p> </p>
+<p><span class="md-plain md-expand">One need to observe here that the input to the second layer is not <strong>398x398</strong> but 398x398<strong>x32</strong>, as we added 32 kernels. Each kernel would create its own channel. </span></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<h2 class="md-end-block md-heading md-focus" style="text-align: center;"><strong><span class="md-plain md-expand" style="background-color: #000000; color: #ffffff;">3x3 is misleading!</span></strong></h2>
+<p> </p>
+<p> </p>
+<p><span class="md-plain md-expand">What we meant here is that unless we write the total channels in the 3x3 kernels, we are not representing it properly. We should write our kernel as 3x3<strong>x1</strong>. If we were to re-write our network above again, it should be:</span></p>
+<p> </p>
+<h2 style="text-align: center;"><span class="md-plain md-expand">400x400<strong>x1</strong> | (3x3<strong>x1</strong>)x32 | 398x398x32<br>398x398<strong>x32</strong> | (3x3<strong>x32</strong>)x64 | 396x396x64<br>...</span></h2>
+<p> </p>
+<p> </p>
+<p><span class="md-plain md-expand">Notice that our kernels in the second layer have 32 channels. </span></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p><span class="md-plain md-expand"><strong>Our kernels must have an equal number of channels as in the input channel</strong>. Since input has 32 channels in the second layer, our kernel will have 32 channels. Each channel in the kernel (say channel # 23) will look only at 1 channel (channel number 23 in the input). </span></p>
+<p><span class="md-plain md-expand">Let's look at this animation:</span></p>
+<p> </p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img09.gif" alt="convolution.gif" width="765" height="431" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86363569" data-api-returntype="File"></p>
+<p> </p>
+<p> </p>
+<p>In this animation, you can see that each kernel has 3 channels. Three channels are required as the input (5x5) has three channels. We are using 4 kernels here, that means we would have 4 channels in the output. Hence the output is 3x3x4. </p>
+<p> </p>
+<p>If we have an infinite number of channels in the input, our kernels must have infinite channels. This has nothing to do with the number of channels in the output. <strong>Output channels</strong> are equal to the <strong>number of kernels</strong> we use. </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<h2 class="md-end-block md-heading md-focus" style="text-align: center;"><span class="md-plain md-expand" style="background-color: #000000; color: #ffffff;">Multi Channel Convolution</span></h2>
+<p> </p>
+<p> </p>
+<p> </p>
+<p><span class="md-plain md-expand">Look at this image below, now you can understand how multi-channels are handled. (Please note that the bias is obsolete, and not used/focused on anymore)</span></p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="./images/img06.gif" alt="cnn_1.gif" width="1042" height="586" data-api-endpoint="https://canvas.instructure.com/api/v1/courses/1804302/files/86363571" data-api-returntype="File"></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<h2 class="md-end-block md-heading md-focus" style="text-align: center;"><span class="md-plain md-expand" style="background-color: #000000; color: #ffffff;">Let's build a network again!</span></h2>
+<p> </p>
+<p> </p>
+<p style="text-align: center;">We are adding an increasing number of kernels as generally required:</p>
+<p style="text-align: center;"> </p>
+<h3 style="text-align: center;"><span class="md-plain md-expand">400x400x1     | (3x3)x32     | 398x398x32<br>398x398x32   | (3x3)x64     | 396x396x64<br>396x396x64   | (3x3)x128   | 394x394x128<br>394x394x128 | (3x3)x256   | 392x392x256<br>392x392x256 | (3x3)x512   | 390x390x512<br>MaxPooling</span></h3>
+<h3 style="text-align: center;"><span class="md-plain md-expand">195x195x512...</span></h3>
+<p> </p>
+<p> </p>
+<p><span class="md-plain md-expand">We have a problem here. Even though till now we have used 32+64+128+256+512 kernels (which is a small number), we right now have 992 images in our Memory. We solved the issue of large channel size by using MaxPooling, but we need to figure out a way to reduce these number of the channel while making sure, that, </span><span class="md-plain md-expand">we are not defeating the purpose of increasing the number of channels (something we desperately want). </span></p>
+<p> </p>
+<p><span class="md-plain md-expand">That's the topic of 3rd session!</span></p>
+<p> </p>
+<p> </p>
+<div class="text-left ml-auto m-auto" style="width:60%; margin-top:160px !important">
+<h2 class="md-end-block md-heading md-focus"><span class="md-plain md-expand">Assignment 2:</span></h2>
+<ol>
+<li><span class="md-plain md-expand">Open this link: <a href="https://colab.research.google.com/drive/1uJZvJdi5VprOQHROtJIHy0mnY2afjNlx">COLABLINK</a></span></li>
+<li><span class="md-plain md-expand">Duplicate this file to your Collaboratory</span></li>
+<li>
+<span class="md-plain md-expand">Then:</span>
+<ol>
+<li><span class="md-plain md-expand">read the file carefully</span></li>
+<li><span class="md-plain md-expand">add comments to all the cells carefully, explaining exactly what that cell does (for your own good)!</span></li>
+<li>
+<span class="md-plain md-expand">in the cell where the main model is defined:</span>
+<ol>
+<li><span class="md-plain md-expand">write receptive field of each layer as a comment</span></li>
+<li><span class="md-plain md-expand">write the input channel dimensions</span></li>
+</ol>
+</li>
+<li><span class="md-plain md-expand">run each cell one by one</span></li>
+<li><span class="md-plain md-expand">experiment</span></li>
+<li><span class="md-plain md-expand">Once you are done with your experiments, attempt ch02 Quiz. You will have 45 minutes to answer questions about this code. You will also be running the code once/twice within this 45 minutes. </span></li>
+<li><span class="md-plain md-expand">Read the ch02 Quiz carefully before attempting it. </span></li>
+</ol>
+</li>
+<li><span class="md-plain md-expand">You have actual quiz called Q2 as well. </span></li>
+<li><span class="md-plain md-expand">Fixed deadlines unless WW3 starts.</span></li>
+</div>
+</body>
