@@ -1,231 +1,191 @@
-pre,
-code {
-  font-family: Menlo, Monaco, "Courier New", monospace;
-}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Prakash Upadhyay - Resume</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+    <script type="text/javascript">
+      window.addEventListener("DOMContentLoaded", (event) => {
+        var sections = document.querySelector(".sections");
+        sections.addEventListener(
+          "mouseover",
+          function (e) {
+            if (e.target.classList.contains("heading")) {
+              e.target.classList.add("focused");
+            }
+          },
+          false
+        );
+        sections.addEventListener(
+          "mouseout",
+          function (e) {
+            if (e.target.classList.contains("heading")) {
+              e.target.classList.remove("focused");
+            }
+          },
+          false
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1 id="prakash-upadhyay">Prakash Upadhyay</h1>
+    <h3 id="fullstack-software-developer-8-years-">
+      Fullstack Software Developer (8 years)
+    </h3>
+    <blockquote>
+      <p>
+        &quot;I envision, believe in Usable Apps, and am passionate about
+        Startups.&quot;
+      </p>
+    </blockquote>
+    <div class="metainfo">
+      <ul>
+        <li>
+          <a href="mailto:prakash.upadhyay93@yahoo.com"
+            >prakash.upadhyay93@yahoo.com</a
+          >
+        </li>
+        <li><a href="tel:+918861006191">8861006191</a></li>
+        <li>Mumbai, India</li>
+        <li>
+          <a href="https://linkedin.com/in/upadhyayprakash"
+            >linkedin.com/in/upadhyayprakash</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="sections">
+      <h2 class="heading" id="skills">SKILLS</h2>
+      <ul>
+        <li>ReactJS(v16+)</li>
+        <li>NodeJS(v12)</li>
+        <li>NestJS(v7.0+)</li>
+        <li>MongoDB</li>
+        <li>MySQL</li>
+        <li>Redis</li>
+        <li>Django(v3)</li>
+        <li>CI/CD Pipeline</li>
+        <li>AWS - IAM, R53, EC2, S3, CloudFront</li>
+        <li>UX - Figma</li>
+      </ul>
+      <h2 class="heading" id="organizations">ORGANIZATIONS</h2>
+      <h4 id="goto-financials-indonesia-05-2022-present-">
+        GoTo Financials, Indonesia (05/2022 - Present)
+      </h4>
+      <blockquote><p>Senior Fullstack Developer</p></blockquote>
+      <h4 id="paytm-insider-04-2021-04-2022-">
+        PayTM Insider (04/2021 - 04/2022)
+      </h4>
+      <blockquote><p>Senior Fullstack Developer</p></blockquote>
+      <h4 id="inkersai-04-2019-04-2020-">InkersAI (04/2019 - 04/2020)</h4>
+      <blockquote><p>Fullstack Developer (MERN)</p></blockquote>
+      <h4 id="sap-labs-05-2015-06-2018-">SAP Labs (05/2015 - 06/2018)</h4>
+      <blockquote><p>Software Developer</p></blockquote>
+      <h4 id="accenture-avanade-06-2014-04-2015-">
+        Accenture (Avanade) (06/2014 - 04/2015)
+      </h4>
+      <blockquote><p>Associate Software Engineer</p></blockquote>
+      <h2 class="heading" id="work-experience">WORK EXPERIENCE</h2>
+      <h4 id="senior-fullstack-developer-gopay">
+        <b>Senior Fullstack Developer, GoPay (GoTo Financials)</b>
+        <em>(05/2022 - Present)</em>
+      </h4>
 
-pre {
-  padding: .5rem;
-  line-height: 1.25;
-  overflow-x: scroll;
-}
-
-@media print {
-  *,
-  *:before,
-  *:after {
-    background: transparent !important;
-    color: #000 !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-  }
-
-  a,
-  a:visited {
-    text-decoration: underline;
-  }
-
-  a[href]:after {
-    content: " (" attr(href) ")";
-  }
-
-  abbr[title]:after {
-    content: " (" attr(title) ")";
-  }
-
-  a[href^="#"]:after,
-  a[href^="javascript:"]:after {
-    content: "";
-  }
-
-  pre,
-  blockquote {
-    border: 1px solid #999;
-    page-break-inside: avoid;
-  }
-
-  thead {
-    display: table-header-group;
-  }
-
-  tr,
-  img {
-    page-break-inside: avoid;
-  }
-
-  img {
-    max-width: 100% !important;
-  }
-
-  p,
-  h2,
-  h3 {
-    orphans: 3;
-    widows: 3;
-  }
-
-  h2,
-  h3 {
-    page-break-after: avoid;
-  }
-}
-
-a,
-a:visited {
-  color: #01ff70;
-}
-
-a:hover,
-a:focus,
-a:active {
-  color: #2ecc40;
-}
-
-.retro-no-decoration {
-  text-decoration: none;
-}
-
-html {
-  font-size: 12px;
-}
-
-@media screen and (min-width: 32rem) and (max-width: 48rem) {
-  html {
-    font-size: 15px;
-  }
-}
-
-@media screen and (min-width: 48rem) {
-  html {
-    font-size: 16px;
-  }
-}
-
-body {
-  line-height: 1.85;
-}
-
-p,
-.retro-p {
-  font-size: 1rem;
-  margin-bottom: 1.3rem;
-}
-
-h1,
-.retro-h1,
-h2,
-.retro-h2,
-h3,
-.retro-h3,
-h4,
-.retro-h4 {
-  margin: 1.414rem 0 .5rem;
-  font-weight: inherit;
-  line-height: 1.42;
-}
-
-h1,
-.retro-h1 {
-  margin-top: 0;
-  font-size: 3.998rem;
-}
-
-h2,
-.retro-h2 {
-  font-size: 2.827rem;
-}
-
-h3,
-.retro-h3 {
-  font-size: 1.999rem;
-}
-
-h4,
-.retro-h4 {
-  font-size: 1.414rem;
-}
-
-h5,
-.retro-h5 {
-  font-size: 1.121rem;
-}
-
-h6,
-.retro-h6 {
-  font-size: .88rem;
-}
-
-small,
-.retro-small {
-  font-size: .707em;
-}
-
-/* https://github.com/mrmrs/fluidity */
-
-img,
-canvas,
-iframe,
-video,
-svg,
-select,
-textarea {
-  max-width: 100%;
-}
-
-html,
-body {
-  background-color: #222;
-  min-height: 100%;
-}
-
-html {
-  font-size: 18px;
-}
-
-body {
-  color: #fafafa;
-  font-family: "Courier New";
-  line-height: 1.45;
-  margin: 6rem auto 1rem;
-  max-width: 48rem;
-  padding: .25rem;
-}
-
-pre {
-  background-color: #333;
-}
-
-blockquote {
-  border-left: 3px solid #01ff70;
-  padding-left: 1rem;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-li {
-  padding-left: 1em; 
-  text-indent: -.7em;
-}
-
-li::before {
-  content: "\2022  ";
-  color: #01ff70; /* or whatever color you prefer */
-}
-
-.metainfo {
-  border: 1px solid #01ff70;
-  padding: 2rem;
-}
-
-.sections h2.focused {
-  color: #01ff70;
-  transform: translate(10px);
-  transition: 0.25s ease-in-out;
-}
-
-h2 {
-  transition: 0.25s ease-in-out;
-}
+      <p>Bangalore, India gotofinancial.com/en</p>
+      <h4 id="achievements-tasks">Achievements/Tasks</h4>
+      <ul>
+        <li>
+          Revamping the existing payment customer App(GoPay) to handle 5.6m
+          daily monitored transactions, responding within 63ms on an average.
+        </li>
+        <li>
+          <strong>Tech Stack</strong>: Java, ReactJS, AWS, GitLab CI/CD, Istio
+          (other internal tech-tools)
+        </li>
+        <li>
+          Establishing a process-driven development (Agile) with focus on
+          quality code and optimum UX (reviewed).
+        </li>
+      </ul>
+      <h2 class="heading" id="publications">PUBLICATIONS</h2>
+      <p><em>Patent</em></p>
+      <h3 id="voice-enabled-user-interface-framework">
+        Voice-enabled User Interface Framework (03/2021)
+      </h3>
+      <p>
+        <a href="https://uspto.report/patent/grant/10936288" target="_blank"
+          >USPTO: 10936288</a
+        >
+      </p>
+      <p>
+        A User Interface framework (primarily Web) that enables voice
+        interactions with the UI elements and navigation capabilities across the
+        application views/screens.
+      </p>
+      <h2 class="heading" id="honor-awards">HONOR AWARDS</h2>
+      <h4 id="sap-global-iot-challenge-16-winner-in-logistics-09-2016-">
+        SAP Global IoT Challenge&#39;16 - WINNER in Logistics (09/2016)
+      </h4>
+      <p><em>(SAP Labs Global)</em></p>
+      <ul>
+        <li>
+          Developed hybrid Warehouse Management IoT System combining cloud
+          services with On-prem analytics for EWM for transport unit inbound
+          scenario.
+        </li>
+        <li>SAP Logistics 2.0 released the features by Dec&#39;16.</li>
+      </ul>
+      <h4 id="sudocode-3-0-winners-06-2016-">
+        SudoCode 3.0 - WINNERS (06/2016)
+      </h4>
+      <p><em>(SAP Labs India)</em></p>
+      <ul>
+        <li>
+          Voice Interacted Web UI Framework for Cloud Enterprise Apps in SAP
+          UI5.
+        </li>
+        <li>The tool is successfully filed for Patent through SAP.</li>
+      </ul>
+      <h4 id="ecs-ml-hackathon-podium-10-2017-">
+        ECS ML Hackathon - Podium (10/2017)
+      </h4>
+      <p><em>(SAP Labs India (AIS))</em></p>
+      <ul>
+        <li>
+          Prediction challenge to build analytics tool to visualise and predict
+          the server resource consumption by using model ensembling and
+          time-series visualisations.
+        </li>
+      </ul>
+      <h4 id="codeforcharity-2-0-winner-05-2016-">
+        CodeForCharity 2.0 - WINNER (05/2016)
+      </h4>
+      <p><em>(SAP Labs India, HOPE Foundation)</em></p>
+      <ul>
+        <li>
+          In a 24 hours over-night hackathon, built an Android app for NGOs
+          (HOPE Foundation) to take surveys and manage volunteers.
+        </li>
+      </ul>
+      <h2 class="heading" id="personal-projects">PERSONAL PROJECTS</h2>
+      <h4>Ed-Tech SaaS Product (09/2018 - 02/2019)</h4>
+      <p><em>(TestPod)</em></p>
+      <ul>
+        <li>
+          A web app for Teachers to create Test papers from a large pool of
+          questions Assessment paper creation Wizard UI (from FIGMA design to
+          ReactJS App).
+        </li>
+        <li>
+          Backend (in NestJS) for user roles (Teachers and Admins), & Searching,
+          Filtering the Qs and publishing the question papers in PDF format.
+        </li>
+      </ul>
+      <h2 class="heading" id="education">EDUCATION</h2>
+      <p>
+        Computer Science / IT Vivekanand Education Society&#39;s Institute of
+        Technology(VESIT), Mumbai 06/2011 - 06/2014, Mumbai, India
+      </p>
+    </div>
+  </body>
+</html>
