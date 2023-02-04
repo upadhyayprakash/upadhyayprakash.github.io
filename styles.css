@@ -198,3 +198,19 @@ blockquote {
   border-left: 3px solid #01ff70;
   padding-left: 1rem;
 }
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding-left: 1em; 
+  text-indent: -.7em;
+}
+
+li::before {
+  content: "\2022  ";
+  color: #01ff70; /* or whatever color you prefer */
+}
