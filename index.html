@@ -5,25 +5,29 @@
     <link rel="stylesheet" type="text/css" href="./styles.css" />
     <script type="text/javascript">
       window.addEventListener("DOMContentLoaded", (event) => {
-        var sections = document.querySelector(".sections");
-        sections.addEventListener(
-          "mouseover",
-          function (e) {
-            if (e.target.classList.contains("heading")) {
-              e.target.classList.add("focused");
+        // Using IntersectionObserver API for highlighting headings when visible
+        let options = {
+          root: null,
+          rootMargin: "0px",
+          threshold: [0.0, 0.75],
+        };
+
+        const callback = function (entries, observer) {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("focused");
+              console.log({ entering: entry.target.innerText });
+            } else {
+              entry.target.classList.remove("focused");
+              console.log({ EXITING: entry.target.innerText });
             }
-          },
-          false
-        );
-        sections.addEventListener(
-          "mouseout",
-          function (e) {
-            if (e.target.classList.contains("heading")) {
-              e.target.classList.remove("focused");
-            }
-          },
-          false
-        );
+          });
+        };
+
+        let observer = new IntersectionObserver(callback, options);
+
+        let target = document.querySelectorAll("h2");
+        target.forEach((ele) => observer.observe(ele));
       });
     </script>
   </head>
