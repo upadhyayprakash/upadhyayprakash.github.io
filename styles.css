@@ -72,6 +72,7 @@ pre {
 a,
 a:visited {
   color: #01ff70;
+  word-break: break-all;
 }
 
 a:hover,
@@ -220,12 +221,13 @@ li::before {
   padding: 2rem;
 }
 
-.sections h2.focused {
-  color: #01ff70;
-  transform: translate(10px);
-  transition: 0.25s ease-in-out;
+h2 {
+  transition: 0.5s ease-in-out;
 }
 
-h2 {
-  transition: 0.25s ease-in-out;
+h2.focused {
+  color: #01ff70;
+  transform: translate(10px);
+  transition: 0.5s ease-in-out;
 }
+
