@@ -214,3 +214,18 @@ li::before {
   content: "\2022  ";
   color: #01ff70; /* or whatever color you prefer */
 }
+
+.metainfo {
+  border: 1px solid #01ff70;
+  padding: 2rem;
+}
+
+.sections h2.focused {
+  color: #01ff70;
+  transform: translate(10px);
+  transition: 0.25s ease-in-out;
+}
+
+h2 {
+  transition: 0.25s ease-in-out;
+}
