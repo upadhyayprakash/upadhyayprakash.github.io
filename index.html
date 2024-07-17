@@ -1,112 +1,327 @@
+
 <!DOCTYPE html>
 <html>
   <head>
     <title>Prakash Upadhyay - Resume</title>
-    <link rel="stylesheet" type="text/css" href="./styles.css" />
     <link type="text/style" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css"/>
-    <script type="text/javascript">
-      window.addEventListener("DOMContentLoaded", (event) => {
-        // Using IntersectionObserver API for highlighting headings when visible
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <script>
+
+      window.addEventListener('DOMContentLoaded', function() {
         let options = {
-          root: null,
-          rootMargin: "0px",
-          threshold: [0.0, 0.75],
+          root: document.querySelector("main"),
+          threshold: [0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1],
         };
+
+        const header = document.querySelector("header");
 
         const callback = function (entries, observer) {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("focused");
-              console.log({ entering: entry.target.innerText });
-            } else {
-              entry.target.classList.remove("focused");
-              console.log({ EXITING: entry.target.innerText });
-            }
+              header.style.background = `rgba(255, 255, 255,${1 - entry.intersectionRatio})`;
+              header.style.boxShadow = `0px -28px 50px 2px rgb(195, 191, 191, ${(1 - entry.intersectionRatio)})`;
           });
         };
 
         let observer = new IntersectionObserver(callback, options);
 
-        let target = document.querySelectorAll("h2");
-        // target.forEach((ele) => observer.observe(ele));
+        let homeTarget = document.querySelector("section#home");
+        observer.observe(homeTarget);
       });
     </script>
   </head>
   <body>
-    <form method="get" action="./content/prakash_upadhyay_resume.pdf">
-      <button class="button-56" type="submit">Download Resume</button>
-    </form>
+    <div id="container">
+      <header class="scrolled">
+        <div class="content">
+          <div>
+            <a href="#home"><span class="name-logo">PU</span></a>
+          </div>
+          <div style="display:flex">
+            <a href="#projects"><span title="Projects">Projects</span></a>
+            <a href="#experience"><span title="Work Experience">Work Experience</span></a>
+            <a href="#competitions"><span title="Competitions">Competitions</span></a>
+          </div>
+        </div>
+      </header>
+      <main>
+        <section id="home">
+          <div class="content" style="padding-top:4em">
+            <a ><p class="text-medium text-secondary">Hey there,</p></a>
+            <p class="text-big">I'm Prakash Upadhyay</p><br/>
+            <p class="text-medium text-secondary">a software developer passionate about making impact with technology!</p><br/>
+            <a target="_blank" class="download-btn" download href="./content/prakash_upadhyay_resume.pdf"><p class="text-medium text-secondary">Download Resume</p></a>
+          </div>
+        </section>
+        <section id="projects">
+          <div class="content">
+            <a><p class="text-big text-secondary">Projects</p></a>
+            <p style="font-size:3em;color:#bbb;height:100%;display:flex;align-items:center;justify-content:center">(coming soon)</p>
+          </div>
+        </section>
+        <section id="experience">
+          <div class="content">
+            <a><p class="text-big text-secondary">Experience</p></a>
+            <p style="font-size:3em;color:#bbb;height:100%;display:flex;align-items:center;justify-content:center">(coming soon)</p>
+          </div>
+        </section>
+        <section id="competitions">
+          <div class="content">
+            <a><p class="text-big text-secondary">Competitions</p></a>
+            <p style="font-size:3em;color:#bbb;height:100%;display:flex;align-items:center;justify-content:center">(coming soon)</p>
+          </div>
+        </section>
+      </main>
+      <footer>
+        <div class="content">
+          <div></div>
+          <div>
+            <a target="_blank" href="https://www.linkedin.com/in/upadhyayprakash/"><i class="fa-brands fa-linkedin-in"></i><span>LinkedIn</span></a>
+            <a target="_blank" href="https://github.com/upadhyayprakash/"><i class="fa-brands fa-github"></i><span>GitHub</span></a>
+            <a target="_blank" href="mailto:prakash.upadhyay93@yahoo.com?subject=Hello!"><i class="fa-solid fa-envelope"></i><span>Contact Me</span></a>
+          </div>
+        </div>
+      </footer>
+    </div>
   </body>
   <style>
+    /*
+      1. Use a more-intuitive box-sizing model.
+    */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    /*
+      2. Remove default margin
+    */
+    * {
+      margin: 0;
+    }
+    /*
+      Typographic tweaks!
+      3. Add accessible line-height
+      4. Improve text rendering
+    */
     body {
-      height: 100vh;
-      width: 100vh;
-      max-width: initial;
+      -webkit-font-smoothing: antialiased;
+    }
+    /*
+      5. Improve media defaults
+    */
+    img, picture, video, canvas, svg {
+      display: block;
+      max-width: 100%;
+    }
+    /*
+      6. Remove built-in form typography styles
+    */
+    input, button, textarea, select {
+      font: inherit;
+    }
+    /*
+      7. Avoid text overflows
+    */
+    p, h1, h2, h3, h4, h5, h6 {
+      overflow-wrap: break-word;
+    }
+    /*
+      8. Create a root stacking context
+    */
+    #root, #__next {
+      isolation: isolate;
+    }
+
+    *, html {
+      scroll-behavior: smooth !important;
+    }
+
+    html {
+      height: 100%;
+      margin: 0;
+    }
+    
+    body {
+      display: flex;
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      background-color: #FFFFFF;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center; 
-    }
-
-    .button-56 {
-      align-items: center;
-      background-color: #fee6e3;
-      border: 2px solid #111;
-      border-radius: 8px;
-      box-sizing: border-box;
-      color: #111;
-      cursor: pointer;
-      display: flex;
+      background-color: #fcfaff;
       font-family: Inter,sans-serif;
       font-size: 16px;
-      height: 48px;
-      justify-content: center;
-      line-height: 24px;
-      max-width: 100%;
-      padding: 0 25px;
-      position: relative;
-      text-align: center;
-      text-decoration: none;
-      user-select: none;
-      -webkit-user-select: none;
-      touch-action: manipulation;
     }
-    
-    .button-56:after {
-      background-color: #111;
-      border-radius: 8px;
-      content: "";
-      display: block;
-      height: 48px;
-      left: 0;
+
+    header {
+      display: flex;
+      height:70px;
       width: 100%;
-      position: absolute;
-      top: -2px;
-      transform: translate(8px, 8px);
-      transition: transform .2s ease-out;
-      z-index: -1;
     }
     
-    .button-56:hover:after {
-      transform: translate(0, 0);
+    header.scrolled {
+      background: #ffffff;
+    }
+
+    header .content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
     }
     
-    .button-56:active {
-      background-color: #ffdeda;
-      outline: 0;
+    header a {
+      margin-right: 2em;
+      text-align:center;
+    }
+
+    header a i {
+      margin-right: 0.3em;
+      color: #555;
+    }
+
+    header a span {
+      color: #555;
+      font-size: 1.1em;
+      font-weight: 400;
+      display: inline-block;
+    }
+
+    header a span:hover {
+      font-weight: 600;
+    }
+
+    /* Using for bold letter without shifting: https://stackoverflow.com/a/20249560 */
+    header a span::before { 
+      display: block;
+      content: attr(title);
+      font-weight: 600;
+      height: 0;
+      overflow: hidden;
+      visibility: hidden;
+    }
+
+    header .name-logo {
+      display: inline-flex;
+      width: 40px;
+      height: 40px;
+      border: 1px solid #333;
+      border-radius: 100px;
+      background: #333;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      font-size: 2em;
+      color: #332121;
+      padding: 1rem;
+      border: 1px solid #332121;
+    }
+
+    .text-big {
+      font-size: 2rem;
+      font-weight: 300;
+    }
+
+    .text-medium {
+      font-size: 1.5rem;
+      font-weight: 300;
+    }
+
+    .text-small {
+      font-size: 0.75rem;
+      font-weight: 300;
+    }
+
+    .text-secondary {
+      color: #555;
+      font-weight: 300;
     }
     
-    .button-56:hover {
-      outline: 0;
+    footer {
+      display: flex;
+      height:50px;
+      width: 100%;
     }
-    
-    @media (min-width: 768px) {
-      .button-56 {
-        padding: 0 40px;
+
+    footer .content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    footer a {
+      margin-right: 2em;
+    }
+
+    footer a i {
+      margin-right: 0.3em;
+      color: #555;
+    }
+
+    footer a span {
+      color: #555;
+    }
+
+    html, body {
+      margin: 0;
+      height: 100%; /* can also use viewport units (height: 100vh) */
+    }
+
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+main {
+  flex: 1; /* takes the remaining height of the "container" div */
+  overflow: auto; /* to scroll just the "main" div */
+  width: 100%;
+}
+
+section {
+  height: 100%; /* takes the visible area of the "main" div */
+  overflow: auto; /* recommended */
+  padding: 3em 0;
+  display: flex;
+}
+
+section.center {
+  align-items: center;
+}
+
+.content {
+  width: 768px;
+  margin: 0 auto;
+}
+
+section:last-child {border: none}
+
+    @media only screen and (max-width: 560px) {
+      .text-big {
+        font-size: 4rem;
+        font-weight: 300;
+      }
+
+      .text-medium {
+        font-size: 2rem;
+      }
+
+      .text-small {
+        font-size: 0.75rem;
+      }
+
+      .download-text {
+        font-size: 2em;
+        color: #332121;
+        text-decoration: underline;
       }
     }
   </style>
