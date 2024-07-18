@@ -14,11 +14,20 @@
         };
 
         const header = document.querySelector("header");
+        const footer = document.querySelector("footer");
 
         const callback = function (entries, observer) {
           entries.forEach((entry) => {
               header.style.background = `rgba(255, 255, 255,${1 - entry.intersectionRatio})`;
               header.style.boxShadow = `0px -28px 50px 2px rgb(195, 191, 191, ${(1 - entry.intersectionRatio)})`;
+
+              footer.style.background = `rgba(22, 20, 28,${1 - entry.intersectionRatio})`;
+              footer.style.boxShadow = `0px 28px 50px 2px rgb(195, 191, 191, ${(1 - entry.intersectionRatio)})`;
+            
+              if(!entry.isIntersecting)
+                footer.classList.add('dark');
+              else
+                footer.classList.remove('dark');
           });
         };
 
@@ -54,22 +63,30 @@
               </div>
               <span title="GitHub">GitHub</span>
             </a>
-            <!-- <a href="#competitions"><span title="Competitions">Competitions</span></a> -->
           </div>
         </div>
       </header>
       <main>
         <section id="home">
-          <div class="content" style="padding-top:4em">
-            <p class="text-medium">Hey,</p>
-            <p class="text-big">I'm Prakash Upadhyay</p><br/>
-            <p class="text-medium">a software developer passionate about making impact with technology.</p><br/>
-            <a target="_blank" class="download-btn" download href="./content/prakash_upadhyay_resume.pdf"><p class="text-medium">Download Resume</p></a>
+          <div class="content" style="justify-content: space-between;">
+            <div  style="padding-top:4em">
+              <p class="text-big">Hey,</p>
+              <p class="text-big">I'm Prakash Upadhyay</p><br/>
+              <p class="text-medium">A software engineer with passion for making impact with technology.</p><br/>
+              <a target="_blank" class="download-btn" download href="./content/prakash_upadhyay_resume.pdf"><p class="text-medium">Download Resume</p></a>
+            </div>
+            <div style="display: flex;justify-content: center;">
+              <div class="svg-icon-medium dangling-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                  <path d="M460-276.85V-740q0-8.54 5.73-14.27T480-760q8.54 0 14.27 5.73T500-740v463.15l217.54-217.53q5.84-5.85 13.77-6.12 7.92-.27 14.54 6.35 6.38 6.61 6.5 14.15.11 7.54-6.5 14.15L502.62-222.62q-5.24 5.24-10.7 7.35-5.46 2.12-11.92 2.12t-11.92-2.12q-5.46-2.11-10.7-7.35L214.15-465.85q-5.61-5.61-6-13.65-.38-8.04 6-14.65 6.62-6.62 14.27-6.62 7.66 0 14.27 6.62L460-276.85Z"/>
+                </svg>
+              </div>
+            </div>
           </div>
         </section>
         <section id="projects">
           <div class="content">
-            <a><p class="text-big text-secondary">Projects</p></a>
+            <a><p class="text-big text-secondary">projects</p></a>
             <div class="section-content">
               <div class="svg-icon-big">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" >
@@ -81,12 +98,35 @@
         </section>
         <section id="competitions">
           <div class="content">
-            <a><p class="text-big text-secondary">Competitions</p></a>
+            <a><p class="text-big text-secondary">competitions</p></a>
             <div class="section-content">
               <div class="svg-icon-big">
-                
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                   <path d="M240-40v-329L110-580l185-300h370l185 300-130 211v329l-240-80-240 80Zm80-111 160-53 160 53v-129H320v129Zm20-649L204-580l136 220h280l136-220-136-220H340Zm98 383L296-558l57-57 85 85 169-170 57 56-226 227ZM320-280h320-320Z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="publications">
+          <div class="content">
+            <a><p class="text-big text-secondary">publications</p></a>
+            <div class="section-content">
+              <div class="svg-icon-big">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                  <path d="M264.62-120q-27.62 0-46.12-18.5Q200-157 200-184.62v-590.76q0-27.62 18.5-46.12Q237-840 264.62-840h430.76q27.62 0 46.12 18.5Q760-803 760-775.38v590.76q0 27.62-18.5 46.12Q723-120 695.38-120H264.62Zm0-40h430.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-590.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H640v216.54q0 9.69-8.08 14.42-8.07 4.73-16.54-.5l-39-23.08q-8.46-5.23-16.65-5.23-8.19 0-16.65 5.23l-39 23.08q-8.46 5.23-16.27.5-7.81-4.73-7.81-14.42V-800H264.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v590.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69ZM240-160v-640 640Zm240-422.69v-.77q0 9.69 7.81 14.42t16.27-.5l39-23.08q8.46-5.23 16.65-5.23 8.19 0 16.65 5.23l39 23.08q8.47 5.23 16.54.5 8.08-4.73 8.08-14.42v.77q0 8.92-8.08 13.65-8.07 4.73-16.54.27l-39-23.85q-8.46-5.23-16.65-5.23-8.19 0-16.65 5.23l-39 23.85q-8.46 4.46-16.27-.27-7.81-4.73-7.81-13.65Z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="blogs">
+          <div class="content">
+            <a><p class="text-big text-secondary">blogs</p></a>
+            <div class="section-content">
+              <div class="svg-icon-big">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#e8eaed">
+                  <path d="M160-120v-170l527-526q12-12 27-18t30-6q16 0 30.5 6t25.5 18l56 56q12 11 18 25.5t6 30.5q0 15-6 30t-18 27L330-120H160Zm80-80h56l393-392-28-29-29-28-392 393v56Zm560-503-57-57 57 57Zm-139 82-29-28 57 57-28-29ZM560-120q74 0 137-37t63-103q0-36-19-62t-51-45l-59 59q23 10 36 22t13 26q0 23-36.5 41.5T560-200q-17 0-28.5 11.5T520-160q0 17 11.5 28.5T560-120ZM183-426l60-60q-20-8-31.5-16.5T200-520q0-12 18-24t76-37q88-38 117-69t29-70q0-55-44-87.5T280-840q-45 0-80.5 16T145-785q-11 13-9 29t15 26q13 11 29 9t27-13q14-14 31-20t42-6q41 0 60.5 12t19.5 28q0 14-17.5 25.5T262-654q-80 35-111 63.5T120-520q0 32 17 54.5t46 39.5Z"/>
                 </svg>
               </div>
             </div>
@@ -97,18 +137,21 @@
         <div class="content">
           <div></div>
           <div class="footer-social-icons">
-            <a target="_blank" href="mailto:prakash.upadhyay93@yahoo.com?subject=Hello!">
-              <!-- <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512">
-                <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
-              </svg> -->
-              <span title="Blogs">Blogs</span>
-            </a>
-            <a target="_blank" href="mailto:prakash.upadhyay93@yahoo.com?subject=Hello!">
-              <!-- <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512">
-                <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
-              </svg> -->
-              <span title="Contact">Contact</span>
-            </a>
+            <div>
+              <a href="#publications">
+                <span title="Publications">Publications</span>
+              </a>
+            </div>
+            <div>
+              <a href="#blogs">
+                <span title="Blogs">Blogs</span>
+              </a>
+            </div>
+            <div>
+              <a target="_blank" href="mailto:prakash.upadhyay93@yahoo.com?subject=Hello!">
+                <span title="Contact">Contact</span>
+              </a>
+            </div>
           </div>
         </div>
       </footer>
@@ -206,7 +249,7 @@
       display: flex;
       align-items: center;
       gap: .3em;
-      margin-right: 2em;
+      margin-right: 1.5em;
       text-align:center;
     }
 
@@ -256,6 +299,16 @@
       fill: #444444;
     }
 
+    .svg-icon-medium {
+      width: 40px;
+      height: 40px;
+    }
+
+    .dangling-arrow{
+      fill: #444;
+      animation: MoveUpDown 1s cubic-bezier(0.5, -0.26, 0, 1) infinite;
+    }
+
     .svg-icon-big {
       width: 100px;
       height: 100px;
@@ -273,19 +326,26 @@
       display: inline-flex;
       font-size: 2em;
       color: #332121;
-      padding: 1rem;
+      padding: .2em .5em;
       border: 1px solid #332121;
       align-self: flex-start;
+    }
+
+    .download-btn:hover {
+      color: white;
+      background: #222;
     }
 
     .text-big {
       font-size: 2rem;
       font-weight: 300;
+      line-height: 140%;
     }
 
     .text-medium {
       font-size: 1.5rem;
       font-weight: 300;
+      line-height: 150%;
     }
 
     .text-small {
@@ -315,22 +375,35 @@
     footer .footer-social-icons {
       display: flex;
       align-items: center;
-      gap: .3em;
+    }
+
+    footer .footer-social-icons div {
+      padding: 0 .5em;
+      text-align: center;
+      border-right: 1px solid #444;
+    }
+
+    footer.dark .footer-social-icons div {
+      border-right: 1px solid white;
+    }
+
+    /* No border for last item */
+    footer .footer-social-icons div:last-child {
+      border: none;
     }
 
     footer a {
       display: flex;
       align-items: center;
       gap: .3em;
-      margin-right: 2em;
-    }
-
-    footer a:last-child {
-      margin-right: 0;
     }
 
     footer a span {
       color: #555;
+    }
+
+    footer.dark a span {
+      color: white;
     }
 
     html, body {
@@ -355,7 +428,7 @@
     section {
       height: 100%; /* takes the visible area of the "main" div */
       overflow: auto; /* recommended */
-      padding: 3em 0;
+      padding: 2em 0;
       display: flex;
     }
 
@@ -374,13 +447,30 @@
       margin: 0 auto;
     }
 
+    @keyframes MoveUpDown {
+      0%, 100% {
+        margin-bottom: 0;
+      }
+      50% {
+        margin-bottom: 30px;
+      }
+    }
+
     @media only screen and (max-width: 420px) {
       header, footer, section {
         padding: 0 1em;
       }
 
+      section {
+        padding-top: 1em;
+      }
+
+      footer div.footer-social-icons div {
+        padding: 0 1em;
+      }
+
       header a, footer a {
-        margin-right: 1em;
+        /* margin-right: 1em; */
         gap: .2em;
       }
 
@@ -390,10 +480,6 @@
 
       footer div.content {
         justify-content: center;
-      }
-      
-      footer div.content div:first-child {
-        display: none;
       }
 
       svg {
