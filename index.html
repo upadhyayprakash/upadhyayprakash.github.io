@@ -70,9 +70,8 @@
         <section id="home">
           <div class="content" style="justify-content: space-between;">
             <div  style="padding-top:4em">
-              <p class="text-big">Hey,</p>
-              <p class="text-big">I'm Prakash Upadhyay</p><br/>
-              <p class="text-medium">A software engineer with passion for making impact with technology.</p><br/>
+              <p class="hero-text">Prakash Upadhyay</p><br/>
+              <p class="text-medium">I'm a passionate software engineer who <em><b>envisions</b></em> and </em><b>believes</b></em> in usable apps that impact everyone's lives.</p><br/>
               <a target="_blank" class="download-btn" download href="./content/prakash_upadhyay_resume.pdf"><p class="text-medium">Download Resume</p></a>
             </div>
             <div style="display: flex;justify-content: center;">
@@ -358,6 +357,10 @@
       font-weight: 300;
       letter-spacing: .01em;
     }
+
+    .text-bold {
+      font-weight: 500;
+    }
     
     footer {
       display: flex;
@@ -428,8 +431,13 @@
     section {
       height: 100%; /* takes the visible area of the "main" div */
       overflow: auto; /* recommended */
-      padding: 2em 0;
+      padding: 1em 0 0;
       display: flex;
+    }
+
+    section .hero-text {
+       font-weight: 800;
+       font-size:3em;
     }
 
     section .section-content {
@@ -464,6 +472,11 @@
       section {
         padding-top: 1em;
       }
+
+      section .hero-text {
+       font-weight: 800;
+       font-size:2em;
+    }
 
       footer div.footer-social-icons div {
         padding: 0 1em;
