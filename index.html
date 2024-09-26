@@ -1,16 +1,14 @@
-
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Prakash Upadhyay - Resume</title>
     <script>
-
-      window.addEventListener('DOMContentLoaded', function() {
+      window.addEventListener("DOMContentLoaded", function () {
         let options = {
           root: document.querySelector("main"),
-          threshold: [0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1],
+          threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
         };
 
         const header = document.querySelector("header");
@@ -18,16 +16,22 @@
 
         const callback = function (entries, observer) {
           entries.forEach((entry) => {
-              header.style.background = `rgba(255, 255, 255,${1 - entry.intersectionRatio})`;
-              header.style.boxShadow = `0px -28px 50px 2px rgb(195, 191, 191, ${(1 - entry.intersectionRatio)})`;
+            header.style.background = `rgba(255, 255, 255,${
+              1 - entry.intersectionRatio
+            })`;
+            header.style.boxShadow = `0px -28px 50px 2px rgb(195, 191, 191, ${
+              1 - entry.intersectionRatio
+            })`;
 
-              footer.style.background = `rgba(22, 20, 28,${1 - entry.intersectionRatio})`;
-              footer.style.boxShadow = `0px 28px 50px 2px rgb(195, 191, 191, ${(1 - entry.intersectionRatio)})`;
-            
-              if(!entry.isIntersecting)
-                footer.classList.add('dark');
-              else
-                footer.classList.remove('dark');
+            footer.style.background = `rgba(22, 20, 28,${
+              1 - entry.intersectionRatio
+            })`;
+            footer.style.boxShadow = `0px 28px 50px 2px rgb(195, 191, 191, ${
+              1 - entry.intersectionRatio
+            })`;
+
+            if (!entry.isIntersecting) footer.classList.add("dark");
+            else footer.classList.remove("dark");
           });
         };
 
@@ -35,8 +39,35 @@
 
         let homeTarget = document.querySelector("section#home");
         observer.observe(homeTarget);
+
+        // Switching roles
+        const roles = [
+          "a Developer",
+          "an Innovator",
+          "a Patent Holder",
+          "a UI/UX Designer",
+        ];
+        let roleContainer =
+          document.getElementsByClassName("role-container")[0];
+        let roleEle = document.createElement("span");
+        roleEle.innerText = roles[0];
+        roleEle.classList.add("animation", "role");
+        roleContainer.appendChild(roleEle);
+        roleEle.addEventListener("remove", () => {
+          console.log("removing...");
+          console.log("removing...");
+        });
+        let i = 1;
+        const roleChangeInterval = setInterval(() => {
+          roleContainer.removeChild(roleEle);
+          roleEle = document.createElement("span");
+          roleEle.innerText = roles[i++ % roles.length];
+          roleEle.classList.add("animation", "role");
+          roleContainer.appendChild(roleEle);
+        }, 2000);
       });
     </script>
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <div id="container">
@@ -45,20 +76,35 @@
           <div>
             <a href="#home"><span class="name-logo">PU</span></a>
           </div>
-          <div style="display:flex">
+          <div style="display: flex">
             <a href="#projects"><span title="Projects">Projects</span></a>
-            <a target="_blank" href="https://www.linkedin.com/in/upadhyayprakash/">
+            <a
+              target="_blank"
+              href="https://www.linkedin.com/in/upadhyayprakash/"
+            >
               <div class="svg-icon-small">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" preserveAspectRatio="xMidYMin slice">
-                  <path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 448 512"
+                  preserveAspectRatio="xMidYMin slice"
+                >
+                  <path
+                    d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"
+                  />
                 </svg>
               </div>
               <span title="LinkedIn">LinkedIn</span>
             </a>
             <a target="_blank" href="https://github.com/upadhyayprakash/">
               <div class="svg-icon-small">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" preserveAspectRatio="xMidYMin slice">
-                  <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 496 512"
+                  preserveAspectRatio="xMidYMin slice"
+                >
+                  <path
+                    d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"
+                  />
                 </svg>
               </div>
               <span title="GitHub">GitHub</span>
@@ -68,29 +114,55 @@
       </header>
       <main>
         <section id="home">
-          <div class="content" style="justify-content: space-between;">
-            <div class="hero-content" style="padding-top:4em">
-                <p class="hero-text"><span>Prakash Upadhyay</span><span></span></p>
-                <p class="text-medium">I'm a passionate software engineer who <span class="highlight-text">envisions</span> and <span class="highlight-text">believes</span> in usable apps that impact everyone's lives.</p><br/>
-                <a target="_blank" class="download-btn" download href="./content/prakash_upadhyay_resume.pdf"><p class="text-medium">Download Resume</p></a>
+          <div class="content" style="justify-content: space-between">
+            <div class="hero-content" style="padding-top: 4em">
+              <p class="text-medium text-thin">I'm</p>
+              <div class="hero-text">
+                <span>Prakash Upadhyay</span>
+                <div class="role-container"></div>
+              </div>
+              <p class="text-medium text-thin text-spaced">
+                I'm a fullstack software developer who
+                <span class="highlight-text">envisions</span> and
+                <span class="highlight-text">believes</span> in usable apps that
+                impact everyone's life.
+              </p>
+              <br />
+              <a
+                target="_blank"
+                class="download-btn border"
+                download
+                href="./content/prakash_upadhyay_resume.pdf"
+                ><p class="text-medium">Download Resume</p></a
+              >
             </div>
-            <div style="display: flex;justify-content: center;">
+            <div style="display: flex; justify-content: center">
               <div class="svg-icon-medium dangling-arrow">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                  <path d="M460-276.85V-740q0-8.54 5.73-14.27T480-760q8.54 0 14.27 5.73T500-740v463.15l217.54-217.53q5.84-5.85 13.77-6.12 7.92-.27 14.54 6.35 6.38 6.61 6.5 14.15.11 7.54-6.5 14.15L502.62-222.62q-5.24 5.24-10.7 7.35-5.46 2.12-11.92 2.12t-11.92-2.12q-5.46-2.11-10.7-7.35L214.15-465.85q-5.61-5.61-6-13.65-.38-8.04 6-14.65 6.62-6.62 14.27-6.62 7.66 0 14.27 6.62L460-276.85Z"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 -960 960 960"
+                >
+                  <path
+                    d="M460-276.85V-740q0-8.54 5.73-14.27T480-760q8.54 0 14.27 5.73T500-740v463.15l217.54-217.53q5.84-5.85 13.77-6.12 7.92-.27 14.54 6.35 6.38 6.61 6.5 14.15.11 7.54-6.5 14.15L502.62-222.62q-5.24 5.24-10.7 7.35-5.46 2.12-11.92 2.12t-11.92-2.12q-5.46-2.11-10.7-7.35L214.15-465.85q-5.61-5.61-6-13.65-.38-8.04 6-14.65 6.62-6.62 14.27-6.62 7.66 0 14.27 6.62L460-276.85Z"
+                  />
                 </svg>
               </div>
             </div>
           </div>
-          <div class="hero-image"><img src="https://i.pinimg.com/originals/cf/11/e9/cf11e9140fc686173871d62486fd4e48.png" /></div>
+          <!-- <div class="hero-image"><img src="https://i.pinimg.com/originals/cf/11/e9/cf11e9140fc686173871d62486fd4e48.png" /></div> -->
         </section>
         <section id="projects">
           <div class="content">
             <a><p class="text-big text-secondary">projects</p></a>
             <div class="section-content">
               <div class="svg-icon-big">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" >
-                  <path d="M222-200 80-342l56-56 85 85 170-170 56 57-225 226Zm0-320L80-662l56-56 85 85 170-170 56 57-225 226Zm298 240v-80h360v80H520Zm0-320v-80h360v80H520Z"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 -960 960 960"
+                >
+                  <path
+                    d="M222-200 80-342l56-56 85 85 170-170 56 57-225 226Zm0-320L80-662l56-56 85 85 170-170 56 57-225 226Zm298 240v-80h360v80H520Zm0-320v-80h360v80H520Z"
+                  />
                 </svg>
               </div>
             </div>
@@ -101,8 +173,13 @@
             <a><p class="text-big text-secondary">competitions</p></a>
             <div class="section-content">
               <div class="svg-icon-big">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                  <path d="M240-40v-329L110-580l185-300h370l185 300-130 211v329l-240-80-240 80Zm80-111 160-53 160 53v-129H320v129Zm20-649L204-580l136 220h280l136-220-136-220H340Zm98 383L296-558l57-57 85 85 169-170 57 56-226 227ZM320-280h320-320Z"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 -960 960 960"
+                >
+                  <path
+                    d="M240-40v-329L110-580l185-300h370l185 300-130 211v329l-240-80-240 80Zm80-111 160-53 160 53v-129H320v129Zm20-649L204-580l136 220h280l136-220-136-220H340Zm98 383L296-558l57-57 85 85 169-170 57 56-226 227ZM320-280h320-320Z"
+                  />
                 </svg>
               </div>
             </div>
@@ -113,8 +190,13 @@
             <a><p class="text-big text-secondary">publications</p></a>
             <div class="section-content">
               <div class="svg-icon-big">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                  <path d="M264.62-120q-27.62 0-46.12-18.5Q200-157 200-184.62v-590.76q0-27.62 18.5-46.12Q237-840 264.62-840h430.76q27.62 0 46.12 18.5Q760-803 760-775.38v590.76q0 27.62-18.5 46.12Q723-120 695.38-120H264.62Zm0-40h430.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-590.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H640v216.54q0 9.69-8.08 14.42-8.07 4.73-16.54-.5l-39-23.08q-8.46-5.23-16.65-5.23-8.19 0-16.65 5.23l-39 23.08q-8.46 5.23-16.27.5-7.81-4.73-7.81-14.42V-800H264.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v590.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69ZM240-160v-640 640Zm240-422.69v-.77q0 9.69 7.81 14.42t16.27-.5l39-23.08q8.46-5.23 16.65-5.23 8.19 0 16.65 5.23l39 23.08q8.47 5.23 16.54.5 8.08-4.73 8.08-14.42v.77q0 8.92-8.08 13.65-8.07 4.73-16.54.27l-39-23.85q-8.46-5.23-16.65-5.23-8.19 0-16.65 5.23l-39 23.85q-8.46 4.46-16.27-.27-7.81-4.73-7.81-13.65Z"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 -960 960 960"
+                >
+                  <path
+                    d="M264.62-120q-27.62 0-46.12-18.5Q200-157 200-184.62v-590.76q0-27.62 18.5-46.12Q237-840 264.62-840h430.76q27.62 0 46.12 18.5Q760-803 760-775.38v590.76q0 27.62-18.5 46.12Q723-120 695.38-120H264.62Zm0-40h430.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-590.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H640v216.54q0 9.69-8.08 14.42-8.07 4.73-16.54-.5l-39-23.08q-8.46-5.23-16.65-5.23-8.19 0-16.65 5.23l-39 23.08q-8.46 5.23-16.27.5-7.81-4.73-7.81-14.42V-800H264.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v590.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69ZM240-160v-640 640Zm240-422.69v-.77q0 9.69 7.81 14.42t16.27-.5l39-23.08q8.46-5.23 16.65-5.23 8.19 0 16.65 5.23l39 23.08q8.47 5.23 16.54.5 8.08-4.73 8.08-14.42v.77q0 8.92-8.08 13.65-8.07 4.73-16.54.27l-39-23.85q-8.46-5.23-16.65-5.23-8.19 0-16.65 5.23l-39 23.85q-8.46 4.46-16.27-.27-7.81-4.73-7.81-13.65Z"
+                  />
                 </svg>
               </div>
             </div>
@@ -125,8 +207,14 @@
             <a><p class="text-big text-secondary">blogs</p></a>
             <div class="section-content">
               <div class="svg-icon-big">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#e8eaed">
-                  <path d="M160-120v-170l527-526q12-12 27-18t30-6q16 0 30.5 6t25.5 18l56 56q12 11 18 25.5t6 30.5q0 15-6 30t-18 27L330-120H160Zm80-80h56l393-392-28-29-29-28-392 393v56Zm560-503-57-57 57 57Zm-139 82-29-28 57 57-28-29ZM560-120q74 0 137-37t63-103q0-36-19-62t-51-45l-59 59q23 10 36 22t13 26q0 23-36.5 41.5T560-200q-17 0-28.5 11.5T520-160q0 17 11.5 28.5T560-120ZM183-426l60-60q-20-8-31.5-16.5T200-520q0-12 18-24t76-37q88-38 117-69t29-70q0-55-44-87.5T280-840q-45 0-80.5 16T145-785q-11 13-9 29t15 26q13 11 29 9t27-13q14-14 31-20t42-6q41 0 60.5 12t19.5 28q0 14-17.5 25.5T262-654q-80 35-111 63.5T120-520q0 32 17 54.5t46 39.5Z"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 -960 960 960"
+                  fill="#e8eaed"
+                >
+                  <path
+                    d="M160-120v-170l527-526q12-12 27-18t30-6q16 0 30.5 6t25.5 18l56 56q12 11 18 25.5t6 30.5q0 15-6 30t-18 27L330-120H160Zm80-80h56l393-392-28-29-29-28-392 393v56Zm560-503-57-57 57 57Zm-139 82-29-28 57 57-28-29ZM560-120q74 0 137-37t63-103q0-36-19-62t-51-45l-59 59q23 10 36 22t13 26q0 23-36.5 41.5T560-200q-17 0-28.5 11.5T520-160q0 17 11.5 28.5T560-120ZM183-426l60-60q-20-8-31.5-16.5T200-520q0-12 18-24t76-37q88-38 117-69t29-70q0-55-44-87.5T280-840q-45 0-80.5 16T145-785q-11 13-9 29t15 26q13 11 29 9t27-13q14-14 31-20t42-6q41 0 60.5 12t19.5 28q0 14-17.5 25.5T262-654q-80 35-111 63.5T120-520q0 32 17 54.5t46 39.5Z"
+                  />
                 </svg>
               </div>
             </div>
@@ -148,7 +236,10 @@
               </a>
             </div>
             <div>
-              <a target="_blank" href="mailto:prakash.upadhyay93@yahoo.com?subject=Hello!">
+              <a
+                target="_blank"
+                href="mailto:prakash.upadhyay93@yahoo.com?subject=Hello!"
+              >
                 <span title="Contact">Contact</span>
               </a>
             </div>
@@ -157,406 +248,4 @@
       </footer>
     </div>
   </body>
-  <style>
-    /* START: CSS Reset */
-
-    /*
-      1. Use a more-intuitive box-sizing model.
-    */
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
-    /*
-      2. Remove default margin
-    */
-    * {
-      margin: 0;
-    }
-    /*
-      Typographic tweaks!
-      3. Add accessible line-height
-      4. Improve text rendering
-    */
-    body {
-      -webkit-font-smoothing: antialiased;
-    }
-    /*
-      5. Improve media defaults
-    */
-    img, picture, video, canvas, svg {
-      display: block;
-      max-width: 100%;
-    }
-    /*
-      6. Remove built-in form typography styles
-    */
-    input, button, textarea, select {
-      font: inherit;
-    }
-    /*
-      7. Avoid text overflows
-    */
-    p, h1, h2, h3, h4, h5, h6 {
-      overflow-wrap: break-word;
-    }
-    /*
-      8. Create a root stacking context
-    */
-    #root, #__next {
-      isolation: isolate;
-    }
-
-    /* END: CSS Reset */
-
-    /* Custom Styles */
-    *, html {
-      scroll-behavior: smooth !important;
-    }
-
-    html {
-      height: 100%;
-      margin: 0;
-    }
-    
-    body {
-      display: flex;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      background-color: #fcfaff;
-      font-family: Inter,sans-serif;
-      font-size: 16px;
-    }
-
-    header {
-      display: flex;
-      height:70px;
-      width: 100%;
-    }
-    
-    header.scrolled {
-      background: #ffffff;
-    }
-
-    header .content {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-    }
-    
-    header a {
-      display: flex;
-      align-items: center;
-      gap: .3em;
-      margin-right: 1.5em;
-      text-align:center;
-    }
-
-    header a:last-child {
-      margin-right: 0;
-    }
-
-    header a span {
-      color: #555;
-      font-size: 1.1em;
-      font-weight: 400;
-      display: inline-block;
-    }
-
-    a span:hover {
-      font-weight: 600;
-    }
-
-    /* Using for bold letter without shifting: https://stackoverflow.com/a/20249560 */
-    a span::before { 
-      display: block;
-      content: attr(title);
-      font-weight: 600;
-      height: 0;
-      overflow: hidden;
-      visibility: hidden;
-    }
-
-    header .name-logo {
-      display: inline-flex;
-      width: 40px;
-      height: 40px;
-      border: 1px solid #333;
-      border-radius: 100px;
-      background: #333;
-      align-items: center;
-      justify-content: center;
-      color: white;
-    }
-
-    .svg-icon-small {
-      width: 20px;
-      height: 20px;
-    }
-    
-    .svg-icon-small path {
-      fill: #444444;
-    }
-
-    .svg-icon-medium {
-      width: 40px;
-      height: 40px;
-    }
-
-    .dangling-arrow{
-      fill: #444;
-      animation: MoveUpDown 1s cubic-bezier(0.5, -0.26, 0, 1) infinite;
-    }
-
-    .svg-icon-big {
-      width: 100px;
-      height: 100px;
-    }
-
-    .svg-icon-big path {
-      fill: #33333314;
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    .download-btn {
-      display: inline-flex;
-      font-size: 2em;
-      color: white;
-      background: #222;
-      padding: .2em .5em;
-      border: 1px solid #332121;
-      align-self: flex-start;
-    }
-
-    .download-btn:hover {
-      color: #332121;
-      background: transparent;
-    }
-
-    .text-big {
-      font-size: 2rem;
-      font-weight: 300;
-      line-height: 140%;
-    }
-
-    .text-medium {
-      font-size: 1.5rem;
-      font-weight: 300;
-      line-height: 150%;
-    }
-
-    .text-small {
-      font-size: 0.75rem;
-      font-weight: 300;
-    }
-
-    .text-secondary {
-      color: #8c8c8c;
-      font-weight: 300;
-      letter-spacing: .01em;
-    }
-
-    .text-bold {
-      font-weight: 500;
-    }
-    
-    footer {
-      display: flex;
-      height:50px;
-      width: 100%;
-    }
-
-    footer .content {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    footer .footer-social-icons {
-      display: flex;
-      align-items: center;
-    }
-
-    footer .footer-social-icons div {
-      padding: 0 .5em;
-      text-align: center;
-      border-right: 1px solid #444;
-    }
-
-    footer.dark .footer-social-icons div {
-      border-right: 1px solid white;
-    }
-
-    /* No border for last item */
-    footer .footer-social-icons div:last-child {
-      border: none;
-    }
-
-    footer a {
-      display: flex;
-      align-items: center;
-      gap: .3em;
-    }
-
-    footer a span {
-      color: #555;
-    }
-
-    footer.dark a span {
-      color: white;
-    }
-
-    html, body {
-      margin: 0;
-      height: 100%; /* can also use viewport units (height: 100vh) */
-    }
-
-    #container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: 100%;
-      width: 100%;
-    }
-
-    main {
-      flex: 1; /* takes the remaining height of the "container" div */
-      overflow: auto; /* to scroll just the "main" div */
-      width: 100%;
-    }
-
-    section {
-      height: 100%; /* takes the visible area of the "main" div */
-      overflow: auto; /* recommended */
-      padding: 1em 0 0;
-      display: flex;
-    }
-
-    section .hero-text {
-      display: flex;
-      font-weight: 500;
-      font-size:3em;
-      margin-bottom: .3em;
-    }
-
-    .hero-text span:last-child {
-      flex: 1;
-      border-bottom: 1px solid;
-    }
-    
-
-    section .section-content {
-      flex: 1;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .content {
-      display: flex;
-      flex-direction: column;
-      width: 768px;
-      margin: 0 auto;
-    }
-
-    .hero-image {
-      transform: rotateY(180deg);
-      position: absolute;
-      bottom: -10%;
-      left: -30%;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      filter: blur(140px);
-      z-index: -1;
-    }
-
-    .highlight-text {
-      font-weight: 600;
-      font-style: italic;
-    }
-
-    @keyframes MoveUpDown {
-      0%, 100% {
-        margin-bottom: 0;
-      }
-      50% {
-        margin-bottom: 30px;
-      }
-    }
-
-    @media only screen and (max-width: 420px) {
-      header, footer, section {
-        padding: 0 1em;
-      }
-
-      section {
-        padding-top: 1em;
-      }
-
-      .content .hero-content {
-        width: auto;
-        flex-direction: column;
-      }
-
-      .content .hero-content div:first-child {
-        width: 100%;
-      }
-
-      .content .hero-content .hero-image {
-        display: none;
-      }
-
-      section .hero-text {
-        font-weight: 500;
-        font-size:2em;
-        margin-bottom: .2em;
-      }
-
-      .hero-text span:last-child {
-        border: none;
-      }
-
-      footer div.footer-social-icons div {
-        padding: 0 1em;
-      }
-
-      header a, footer a {
-        /* margin-right: 1em; */
-        gap: .2em;
-      }
-
-      header a span {
-        display: none;
-      }
-
-      footer div.content {
-        justify-content: center;
-      }
-
-      svg {
-        width: 40;
-        height: 40;
-      }
-
-      .download-btn {
-        align-self: center;
-        font-size: 1.2em;
-      }
-
-      .text-medium {
-        font-size: 1.2em;
-      }
-
-      .text-secondary {
-        line-height: 140%;
-      }
-    }
-  </style>
 </html>
