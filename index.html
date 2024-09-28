@@ -61,6 +61,7 @@
         const navLinks = document.getElementById("navLinks");
 
         burger.addEventListener("click", () => {
+          // toggle the class
           navLinks.classList.toggle("active");
           burger.classList.toggle("toggle");
         });
@@ -69,8 +70,9 @@
         const menuLinks = document.querySelectorAll(".nav-links a");
         menuLinks.forEach((menuItem) =>
           menuItem.addEventListener("click", () => {
-            navLinks.classList.toggle("active");
-            burger.classList.toggle("toggle");
+            // !IMPORTANT :remove the class
+            navLinks.classList.remove("active");
+            burger.classList.remove("toggle");
           })
         );
       });
@@ -86,30 +88,27 @@
           </div>
           <ul class="nav-links" id="navLinks">
             <li class="d-hide">
-              <a href="#projects">Projects</a>
-            </li>
-            <li class="d-hide">
-              <a href="#publications">Publications</a>
-            </li>
-            <li><a href="#blogs">Blogs</a></li>
-
-            <li class="d-hide">
-              <a
-                target="_blank"
-                href="mailto:prakash.upadhyay93@yahoo.com?subject=Hello!"
-              >
-                <span title="Contact">Contact</span>
-              </a>
+              <a href="#projects"><span>Projects</span></a>
             </li>
 
-            <li class="d-hide"><hr width="100px" /></li>
+            <li class="d-hide">
+              <a href="#publications"><span>Publications</span></a>
+            </li>
+
+            <li>
+              <a href="#blogs"><span>Blogs</span></a>
+            </li>
+
+            <li class="d-hide">
+              <hr width="30px" style="margin-right: 0.5em" />
+            </li>
 
             <li>
               <a
                 target="_blank"
                 href="https://www.linkedin.com/in/upadhyayprakash/"
               >
-                <div class="svg-icon-small">
+                <div class="svg-icon-small m-hide">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 448 512"
@@ -123,13 +122,14 @@
                 <span class="d-hide">LinkedIn</span>
               </a>
             </li>
+
             <li>
               <a
                 target="_blank"
                 href="https://github.com/upadhyayprakash/"
                 class="nav-item"
               >
-                <div class="svg-icon-small">
+                <div class="svg-icon-small m-hide">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 496 512"
@@ -141,6 +141,15 @@
                   </svg>
                 </div>
                 <span class="d-hide">GitHub</span>
+              </a>
+            </li>
+
+            <li class="d-hide">
+              <a
+                target="_blank"
+                href="mailto:prakash.upadhyay93@yahoo.com?subject=Hello!"
+              >
+                <span title="Contact">Contact</span>
               </a>
             </li>
           </ul>
@@ -161,7 +170,7 @@
                 <div class="role-container"></div>
               </div>
               <p class="text-medium text-thin text-spaced">
-                fullstack software developer who
+                a fullstack software developer who
                 <span class="highlight-text border" style="position: relative"
                   >envisions</span
                 >
@@ -204,7 +213,9 @@
         </section>
         <section id="projects">
           <div class="content">
-            <a><p class="text-big text-secondary">projects</p></a>
+            <div class="section-heading">
+              <p class="text-big text-secondary">projects</p>
+            </div>
             <div class="section-content">
               <div class="svg-icon-big">
                 <svg
@@ -221,7 +232,9 @@
         </section>
         <section id="competitions">
           <div class="content">
-            <a><p class="text-big text-secondary">competitions</p></a>
+            <div class="section-heading">
+              <p class="text-big text-secondary">competitions</p>
+            </div>
             <div class="section-content">
               <div class="svg-icon-big">
                 <svg
@@ -238,7 +251,9 @@
         </section>
         <section id="publications">
           <div class="content">
-            <a><p class="text-big text-secondary">publications</p></a>
+            <div class="section-heading">
+              <p class="text-big text-secondary">publications</p>
+            </div>
             <div class="section-content">
               <div class="svg-icon-big">
                 <svg
@@ -255,7 +270,9 @@
         </section>
         <section id="blogs">
           <div class="content">
-            <a><p class="text-big text-secondary">blogs</p></a>
+            <div class="section-heading">
+              <p class="text-big text-secondary">blogs</p>
+            </div>
             <div class="section-content">
               <div class="svg-icon-big">
                 <svg
