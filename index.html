@@ -78,6 +78,16 @@
       });
     </script>
     <link rel="stylesheet" href="./styles.css" />
+    <link
+      rel="icon"
+      href="./public/favicon-light.png"
+      media="(prefers-color-scheme: light)"
+    />
+    <link
+      rel="icon"
+      href="./public/favicon-dark.png"
+      media="(prefers-color-scheme: dark)"
+    />
   </head>
   <body>
     <div id="container">
@@ -211,12 +221,45 @@
             />
           </div>
         </section>
+        <section id="blogs">
+          <div class="content">
+            <div class="section-heading">
+              <p class="text-big text-secondary">blogs</p>
+            </div>
+            <div class="section-content">
+              <!-- <div class="svg-icon-big">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 -960 960 960"
+                  fill="#e8eaed"
+                >
+                  <path
+                    d="M160-120v-170l527-526q12-12 27-18t30-6q16 0 30.5 6t25.5 18l56 56q12 11 18 25.5t6 30.5q0 15-6 30t-18 27L330-120H160Zm80-80h56l393-392-28-29-29-28-392 393v56Zm560-503-57-57 57 57Zm-139 82-29-28 57 57-28-29ZM560-120q74 0 137-37t63-103q0-36-19-62t-51-45l-59 59q23 10 36 22t13 26q0 23-36.5 41.5T560-200q-17 0-28.5 11.5T520-160q0 17 11.5 28.5T560-120ZM183-426l60-60q-20-8-31.5-16.5T200-520q0-12 18-24t76-37q88-38 117-69t29-70q0-55-44-87.5T280-840q-45 0-80.5 16T145-785q-11 13-9 29t15 26q13 11 29 9t27-13q14-14 31-20t42-6q41 0 60.5 12t19.5 28q0 14-17.5 25.5T262-654q-80 35-111 63.5T120-520q0 32 17 54.5t46 39.5Z"
+                  />
+                </svg>
+              </div> -->
+              <a
+                target="_blank"
+                href="./blogs/typesafe-reusable-button-component-in-reactjs"
+                ><div class="card">
+                  <img
+                    src="./blogs/blog-1-hero-image-d-small.png"
+                    width="100%"
+                  />
+                  <p>
+                    Build type-safe reusable React component using TypeScript
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
         <section id="projects">
           <div class="content">
             <div class="section-heading">
               <p class="text-big text-secondary">projects</p>
             </div>
-            <div class="section-content">
+            <div class="section-content centralized">
               <div class="svg-icon-big">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -235,7 +278,7 @@
             <div class="section-heading">
               <p class="text-big text-secondary">competitions</p>
             </div>
-            <div class="section-content">
+            <div class="section-content centralized">
               <div class="svg-icon-big">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -254,7 +297,7 @@
             <div class="section-heading">
               <p class="text-big text-secondary">publications</p>
             </div>
-            <div class="section-content">
+            <div class="section-content centralized">
               <div class="svg-icon-big">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -262,26 +305,6 @@
                 >
                   <path
                     d="M264.62-120q-27.62 0-46.12-18.5Q200-157 200-184.62v-590.76q0-27.62 18.5-46.12Q237-840 264.62-840h430.76q27.62 0 46.12 18.5Q760-803 760-775.38v590.76q0 27.62-18.5 46.12Q723-120 695.38-120H264.62Zm0-40h430.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-590.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H640v216.54q0 9.69-8.08 14.42-8.07 4.73-16.54-.5l-39-23.08q-8.46-5.23-16.65-5.23-8.19 0-16.65 5.23l-39 23.08q-8.46 5.23-16.27.5-7.81-4.73-7.81-14.42V-800H264.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v590.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69ZM240-160v-640 640Zm240-422.69v-.77q0 9.69 7.81 14.42t16.27-.5l39-23.08q8.46-5.23 16.65-5.23 8.19 0 16.65 5.23l39 23.08q8.47 5.23 16.54.5 8.08-4.73 8.08-14.42v.77q0 8.92-8.08 13.65-8.07 4.73-16.54.27l-39-23.85q-8.46-5.23-16.65-5.23-8.19 0-16.65 5.23l-39 23.85q-8.46 4.46-16.27-.27-7.81-4.73-7.81-13.65Z"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section id="blogs">
-          <div class="content">
-            <div class="section-heading">
-              <p class="text-big text-secondary">blogs</p>
-            </div>
-            <div class="section-content">
-              <div class="svg-icon-big">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 -960 960 960"
-                  fill="#e8eaed"
-                >
-                  <path
-                    d="M160-120v-170l527-526q12-12 27-18t30-6q16 0 30.5 6t25.5 18l56 56q12 11 18 25.5t6 30.5q0 15-6 30t-18 27L330-120H160Zm80-80h56l393-392-28-29-29-28-392 393v56Zm560-503-57-57 57 57Zm-139 82-29-28 57 57-28-29ZM560-120q74 0 137-37t63-103q0-36-19-62t-51-45l-59 59q23 10 36 22t13 26q0 23-36.5 41.5T560-200q-17 0-28.5 11.5T520-160q0 17 11.5 28.5T560-120ZM183-426l60-60q-20-8-31.5-16.5T200-520q0-12 18-24t76-37q88-38 117-69t29-70q0-55-44-87.5T280-840q-45 0-80.5 16T145-785q-11 13-9 29t15 26q13 11 29 9t27-13q14-14 31-20t42-6q41 0 60.5 12t19.5 28q0 14-17.5 25.5T262-654q-80 35-111 63.5T120-520q0 32 17 54.5t46 39.5Z"
                   />
                 </svg>
               </div>

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Build a type-safe and maintainable Button component in ReactJS with
+      TypeScript and styled-components
+    </title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css"
+    />
+    <style>
+      :root {
+        background-color: #fefefe;
+        color: #2c3e50;
+      }
+
+      body {
+        font-family: system-ui, Segoe UI, Helvetica, Apple Color Emoji, Arial,
+          sans-serif, Segoe UI Emoji, Segoe UI Symbol;
+        line-height: 1.6;
+        max-width: 768px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h1 {
+        border-bottom: 1px solid #c6c6c6;
+        padding-bottom: 10px;
+      }
+      .hero-image {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 16px;
+        margin-bottom: 20px;
+        background-color: #efefef;
+      }
+      .date {
+        margin-bottom: 20px;
+      }
+      pre[class*="language-"] {
+        position: relative;
+        padding: 1em 1em 1em 1em;
+      }
+      .copy-button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        padding: 5px 10px;
+        background-color: #2c3e50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .hashtags {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #ecf0f1;
+      }
+      .hashtag {
+        display: inline-block;
+        border: 1px solid #aaa;
+        padding: 5px 10px;
+        margin-bottom: 5px;
+        border-radius: 4px;
+        font-size: 0.9em;
+      }
+      .linkedin {
+        display: inline-block;
+        margin-top: 20px;
+      }
+
+      a {
+        color: #408cdd;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .code-inline {
+        font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+        background-color: rgba(255, 255, 255, 0.2);
+        padding: 0.15rem 0.3rem;
+        border-radius: 4px;
+        font-size: 0.875rem;
+      }
+
+      li {
+        margin-bottom: 1rem;
+      }
+
+      blockquote {
+        padding: 1rem;
+        border-radius: 1rem;
+        padding-left: 2rem;
+        margin-left: 0rem;
+        font-style: italic;
+        background-color: #efefefef;
+        color: grey;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          background-color: #212121;
+          color: #ececec;
+        }
+      }
+
+      /* Hero Image styling */
+      @media (max-width: 420px) and (prefers-color-scheme: light) {
+        .hero-image {
+          content: url("./blog-1-hero-image-small.png");
+        }
+      }
+
+      @media (max-width: 420px) and (prefers-color-scheme: dark) {
+        .hero-image {
+          content: url("./blog-1-hero-image-d-small.png");
+        }
+      }
+
+      @media (min-width: 768px) and (prefers-color-scheme: light) {
+        .hero-image {
+          content: url("./blog-1-hero-image.png");
+        }
+      }
+
+      @media (min-width: 768px) and (prefers-color-scheme: dark) {
+        .hero-image {
+          content: url("./blog-1-hero-image-d.png");
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        blockquote {
+          background-color: #343434ef;
+          color: #d8d8d8;
+        }
+      }
+    </style>
+    <link
+      rel="icon"
+      href="../public/favicon-light.png"
+      media="(prefers-color-scheme: light)"
+    />
+    <link
+      rel="icon"
+      href="../public/favicon-dark.png"
+      media="(prefers-color-scheme: dark)"
+    />
+  </head>
+  <body>
+    <header>
+      <img
+        src="./blog-1-hero-image-d.png"
+        alt="Hero image for blog"
+        class="hero-image"
+      />
+      <div class="date">October 15, 2024</div>
+      <h1>
+        Build a type-safe and maintainable ReactJS component with TypeScript
+      </h1>
+    </header>
+
+    <main>
+      <h2>Quick Scenario:</h2>
+      <p>
+        Imagine working in a fast-paced environment where deadlines are tight,
+        and collaboration between developers is crucial. You might have
+        inherited someone else’s button component—one that doesn’t have clear
+        type definitions or flexibility for different contexts. You struggle to
+        understand how it works and spend more time fixing UI inconsistency and
+        bugs than writing new features.
+      </p>
+
+      <h2>Why Read This Blog?</h2>
+      <div>
+        <p>
+          In this article, we’ll break down a common UI element, a
+          <code class="code-inline">Button</code>, in a step-by-step manner,
+          using TypeScript to demonstrate how type safety can save time and
+          headaches in the long run. By the end of this blog, you’ll know how
+          to:
+        </p>
+        <ul>
+          <li>Set up type-safe React component using TypeScript.</li>
+          <li>
+            Ensure that your component is flexible, yet constrained within
+            defined parameters.
+          </li>
+          <li>
+            Build a scalable and maintainable
+            <code class="code-inline">Button</code> component that can be reused
+            across projects.
+          </li>
+        </ul>
+        <p>
+          We’ll be using the <code class="code-inline">Button</code> component
+          to demonstrate these concepts. By the end, you’ll be equipped with
+          hands-on knowledge of how to structure your React components in a
+          type-safe way while maintaining style consistency using
+          styled-components.
+        </p>
+      </div>
+      <h2>Why TypeScript for ReactJS Components?</h2>
+      <ul>
+        <li>
+          <strong>Type Safety:</strong> TypeScript allows you to define strict
+          types for your component props. This means fewer bugs caused by
+          passing incorrect types to your components.
+        </li>
+        <li>
+          <strong>Better Developer Experience:</strong> Tools like VSCode
+          provide autocomplete and inline documentation, thanks to TypeScript.
+        </li>
+        <li>
+          <strong>Code Maintainability:</strong> TypeScript helps keep your
+          components predictable, improving team collaboration and long-term
+          project health.
+        </li>
+      </ul>
+      <p>
+        Let’s jump into building a
+        <code class="code-inline">Button</code> component with TypeScript and
+        styled-components.
+      </p>
+
+      <h2>Step 1: TypeScript Interface Basics</h2>
+      <p>
+        We start with defining the props our Button component will accept.
+        TypeScript allows us to describe the structure of these props using an
+        interface.
+      </p>
+      <pre><code class="language-tsx">interface ButtonProps {
+    children: ReactNode;
+    variant?: 'primary' | 'secondary';
+    size?: 'small' | 'medium' | 'large';
+    onClick?: () => void;
+}</code></pre>
+
+      <ul>
+        <li>
+          ReactNode: A TypeScript type that can represent anything React can
+          render (strings, numbers, JSX, etc.).
+        </li>
+        <li>
+          Optional props: The question mark (<code class="code-inline">?</code>)
+          makes <code class="code-inline">variant</code>,
+          <code class="code-inline">size</code>, and
+          <code class="code-inline">onClick</code> optional.
+        </li>
+        <li>
+          Union types:
+          <code class="code-inline">'primary' | 'secondary'</code> lets us limit
+          <code class="code-inline">variant</code> to specific values.
+        </li>
+      </ul>
+
+      <h2>Step 2: Extending Built-in Types</h2>
+      <p>
+        We can extend existing HTML attributes (like button-related attributes)
+        using TypeScript’s utility types.
+      </p>
+      <pre><code class="language-tsx">interface ButtonProps extends HTMLAttributes&lt;HTMLButtonElement&gt; {
+    variant?: 'primary' | 'secondary';
+}</code></pre>
+      <ul>
+        <li>
+          <code class="code-inline">extends</code> keyword: This helps us reuse
+          existing types and extend them with our custom ones.
+        </li>
+        <li>
+          <code class="code-inline"
+            >HTMLAttributes&lt;HTMLButtonElement&gt;</code
+          >: This ensures our Button component behaves like a native
+          <code class="code-inline">&lt;button&gt;</code> element.
+        </li>
+      </ul>
+
+      <h2>Step 3: Using Utility Types to Modify Props</h2>
+      <p>
+        What if we want the <code class="code-inline">size</code> prop to be
+        required in our styled button? We can use TypeScript’s utility types
+        like <code class="code-inline">Omit</code> to customize how the props
+        behave.
+      </p>
+      <pre><code class="language-tsx">interface StyledButtonProps extends Omit&lt;ButtonProps, 'size'&gt; {
+    size: 'small' | 'medium' | 'large';
+}</code></pre>
+      <ul>
+        <li>
+          Omit: It's a TypeScript
+          <a
+            target="_blank"
+            href="https://www.typescriptlang.org/docs/handbook/utility-types.html"
+            >utility type</a
+          >
+          that excludes certain keys from the original type.
+        </li>
+      </ul>
+
+      <h2>Step 4: Creating Styled Components</h2>
+      <p>
+        We use <code class="code-inline">styled-components</code> with
+        TypeScript for typing our <code class="code-inline">StyledButton</code>.
+      </p>
+      <pre><code class="language-tsx">const StyledButton = styled.button&lt;StyledButtonProps&gt;`
+    font-size: ${({ size }) => sizeMap[size].fontSize};
+    padding: ${({ size }) => sizeMap[size].padding};
+`;</code></pre>
+      <ul>
+        <li>
+          Generics:
+          <code class="code-inline">&lt;StyledButtonProps&gt;</code> defines the
+          props our styled component should accept.
+        </li>
+        <li>
+          Utility function: Dynamic CSS is generated based on the size, giving
+          us flexibility.
+        </li>
+      </ul>
+
+      <h2>Step 5: Dynamic Props with Utility Types</h2>
+      <p>
+        Let’s define the <code class="code-inline">sizeMap</code> object, which
+        dynamically sets properties based on the button’s
+        <code class="code-inline">size</code>.
+      </p>
+
+      <pre><code class="language-tsx">
+const sizeMap: Record&lt;string, { fontSize: string; padding: string }&gt; = {
+    small: { fontSize: '0.75rem', padding: '0.625rem 1rem' },
+    medium: { fontSize: '0.875rem', padding: '0.75rem 1.25rem' },
+    large: { fontSize: '1rem', padding: '0.75rem 1.5rem' },
+};</code></pre>
+      <ul>
+        <li>
+          Record: A built-in TypeScript utility type to create a map of keys and
+          their values.
+        </li>
+        <li>
+          Type inference: TypeScript infers types automatically when we define
+          objects.
+        </li>
+      </ul>
+
+      <h2>Step 6: Exporting Types and Components</h2>
+      <p>
+        Finally, we export both the
+        <code class="code-inline">ButtonProps</code> type and the
+        <code class="code-inline">Button</code> component to make them reusable.
+      </p>
+      <pre><code class="language-tsx">export type { ButtonProps };
+export default Button;</code></pre>
+      <ul>
+        <li>
+          Export type: This allows us to reuse the
+          <code class="code-inline">ButtonProps</code> interface wherever the
+          <code class="code-inline">Button</code> component is used.
+        </li>
+      </ul>
+
+      <h2>In Summary</h2>
+      <ul>
+        <li>
+          <code class="code-inline">ButtonProps</code> interface extends
+          <code class="code-inline">
+            HTMLAttributes&lt;HTMLButtonElement&gt;</code
+          >
+          to inherit standard HTML button attributes to use built-in
+          accessibility features.
+        </li>
+        <li>
+          <code class="code-inline">variant</code> and
+          <code class="code-inline">size</code> props allow for customization,
+          while <code class="code-inline"> children</code> supports flexible
+          content (text or JSX).
+        </li>
+        <li>
+          By making <code class="code-inline">variant</code> and
+          <code class="code-inline">size</code> optional with default values, we
+          provide a better developer experience.
+        </li>
+
+        <li>
+          We created a <code class="code-inline">sizeMap</code> to be used in
+          our <code class="code-inline">StyledButton</code> component to handle
+          font sizes and padding based on the button size (<code
+            class="code-inline"
+            >small</code
+          >, <code class="code-inline">medium</code>,
+          <code class="code-inline">large</code>).
+        </li>
+        <li>
+          <code class="code-inline">StyledButton</code> uses props to style the
+          button dynamically and ensure it adapts to various themes using
+          <code class="code-inline">theme</code>
+          values.
+        </li>
+      </ul>
+
+      <h2>Final Code</h2>
+      <pre><code class="language-tsx">import { HTMLAttributes, ReactNode } from 'react';
+import styled from 'styled-components';
+
+interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+    children: ReactNode;
+    variant?: 'primary' | 'secondary';
+    size?: 'small' | 'medium' | 'large';
+    className?: string;
+    onClick?: () => void;
+}
+
+const Button = ({
+    variant = 'primary',
+    size = 'medium',
+    children,
+    className,
+    ...rest
+}: ButtonProps): React.ReactNode => {
+    return (
+    <StyledButton variant={variant} size={size} className={className} {...rest}>
+        {children}
+    </StyledButton>
+    );
+};
+
+interface StyledButtonProps extends Omit<ButtonProps, 'size'> {
+    size: 'small' | 'medium' | 'large';
+}
+
+const StyledButton = styled.button<StyledButtonProps>`
+    font-size: ${({ size }) => sizeMap[size].fontSize};
+    padding: ${({ size }) => sizeMap[size].padding};
+`;
+
+const sizeMap: Record<string, { fontSize: string; padding: string }> = {
+    small: { fontSize: '0.75rem', padding: '0.625rem 1rem' },
+    medium: { fontSize: '0.875rem', padding: '0.75rem 1.25rem' },
+    large: { fontSize: '1rem', padding: '0.75rem 1.5rem' },
+};
+
+export type { ButtonProps };
+export default Button;</code></pre>
+
+      <h2>Wrapping It Up</h2>
+      <p>
+        Finally, you’ve built a flexible, type-safe
+        <code class="code-inline">Button</code> component that’s easy to
+        maintain and extend. Imagine applying these principles to your entire
+        codebase: the benefits of readability, collaboration, and scalability
+        multiply. TypeScript gives you the confidence to build robust
+        applications, and even as your team or codebase grows, you’ll be able to
+        adapt your UI components without headaches.
+      </p>
+
+      <h2>Accessibility Considerations</h2>
+      <p>
+        To ensure our button is accessible to all users, we need to make sure it
+        follows basic accessibility guidelines:
+      </p>
+      <ul>
+        <li>
+          <strong>Keyboard Accessibility:</strong> Users should be able to focus
+          and interact with the button using the keyboard.
+          <code class="code-inline">tabIndex</code> HTML attribute helps with
+          this.
+        </li>
+        <li>
+          <strong>Screen Reader Support:</strong> Buttons should have proper
+          labels (<code class="code-inline">aria-label</code>) and
+          <code class="code-inline">role</code> attributes for screen readers.
+        </li>
+      </ul>
+      <p>
+        Fortunately, by extending
+        <code class="code-inline">HTMLAttributes&lt;HTMLButtonElement&gt;</code
+        >, we already inherit built-in keyboard and screen reader accessibility!
+      </p>
+
+      <h2>Why Styled-Components?</h2>
+      <p>By using styled-components in this example, we benefit from:</p>
+      <ul>
+        <li>
+          <strong>Scoped CSS:</strong> Styles are tied to the component,
+          reducing the chance of style leakage.
+        </li>
+        <li>
+          <strong>Dynamic Styling:</strong> We can use props to dynamically
+          change styles (like size and variant in our button).
+        </li>
+        <li>
+          <strong>Theming:</strong> Support for consistent theming, ensuring
+          that your UI is easily customizable.
+        </li>
+      </ul>
+
+      <h2>Conclusion</h2>
+
+      <p>
+        By combining TypeScript with ReactJS and styled-components, we've
+        created a <code class="code-inline">Button</code> component that is:
+      </p>
+      <ul>
+        <li>
+          <strong>Type-Safe:</strong> It ensures you pass the right props to
+          your components, reducing bugs.
+        </li>
+        <li>
+          <strong>Scalable:</strong> We can easily add new variants, sizes, or
+          themes without breaking the existing component.
+        </li>
+        <li>
+          <strong>Maintainable:</strong> Styled-components keep the CSS logic
+          clean and scoped, making it easy to maintain the styles.
+        </li>
+      </ul>
+
+      <blockquote>
+        “TypeScript isn’t just about catching bugs—it’s about writing better,
+        cleaner, and more reliable code. Try building your own component today,
+        and see how much of a difference it can make.”
+      </blockquote>
+
+      <p>
+        TypeScript is your ally when it comes to building maintainable and
+        reliable UI components. This blog demonstrated how you can start
+        building your own type-safe and stylish components with ease. Go ahead,
+        try it out, and see the difference it makes in your next project!
+      </p>
+
+      <h2 style="display: flex; gap: 0.5rem">
+        <img width="40" height="40" src="../public/github-logo.svg" />
+        Call for Contribution
+      </h2>
+      <p>
+        I highly encourage all the developers (especially beginners) to practise
+        creating type-safe components in your project. You can also contribute
+        to a brand new React component library,
+        <a
+          target="_blank"
+          href="https://github.com/upadhyayprakash/playui-react"
+          >playui-react</a
+        >
+      </p>
+      <p>
+        The goal is to build a highly extensible and accessible React component
+        library! And it's just getting started! 🤩
+      </p>
+      <a
+        style="display: flex; justify-content: center"
+        href="https://github.com/upadhyayprakash/playui-react"
+        target="_blank"
+        ><img
+          style="border-radius: 1rem"
+          width="90%"
+          src="../public/playui-react-github-thumbnail.svg"
+      /></a>
+    </main>
+
+    <footer>
+      <div class="hashtags">
+        Tags:
+        <span class="hashtag">React</span>
+        <span class="hashtag">TypeScript</span>
+        <span class="hashtag">styled-components</span>
+        <span class="hashtag">WebDevelopment</span>
+        <span class="hashtag">FrontEnd</span>
+        <span class="hashtag">playui-react</span>
+      </div>
+      <a
+        href="https://www.linkedin.com/in/upadhyayprakash/"
+        class="linkedin"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Connect with me on LinkedIn
+      </a>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script>
+      // Add copy buttons to code blocks
+      document.querySelectorAll("pre").forEach((block, index) => {
+        const button = document.createElement("button");
+        button.textContent = "Copy";
+        button.className = "copy-button";
+        button.addEventListener("click", () => {
+          const code = block.querySelector("code").textContent;
+          navigator.clipboard.writeText(code).then(() => {
+            button.textContent = "Copied!";
+            setTimeout(() => {
+              button.textContent = "Copy";
+            }, 2000);
+          });
+        });
+        block.appendChild(button);
+      });
+    </script>
+  </body>
+</html>
