@@ -343,6 +343,11 @@ section .centralized {
   flex-direction: column;
   width: 768px;
   margin: 0 auto;
+  overflow: hidden;
+}
+
+.horizontal-scroll {
+  overflow-x: scroll;
 }
 
 .hero-image {
@@ -410,9 +415,14 @@ div.role-container {
 }
 
 /* Section Contents */
+.horizontal-list {
+  gap: 1rem;
+}
+
 .card {
   display: flex;
   max-width: 300px;
+  min-width: 270px;
   flex-direction: column;
   background: transparent;
   position: relative;
@@ -423,19 +433,50 @@ div.role-container {
 }
 
 .card:hover {
-  transform: scale(0.99);
-  background-color: rgba(0, 0, 0, 0.02);
 }
 
 .card img {
   border-radius: 0.5rem;
+  filter: opacity(0.9);
+}
+
+.card:hover img {
+  filter: opacity(1);
+}
+
+.card .hashtags {
+  display: flex;
+  gap: 0.325rem;
+}
+
+.card .hashtags span {
+  background-color: #555;
+  color: #fff;
+  padding: 5px 8px;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  font-size: 0.7em;
+  font-weight: 700;
+  letter-spacing: 0.06rem;
+}
+
+.card h3 {
+  color: #555;
+  margin-bottom: 0.75rem;
 }
 
 .card p {
   letter-spacing: 0.04rem;
-  font-size: 1.2rem;
-  color: #333;
+  font-size: 1rem;
+  color: #666;
   transition: none;
+  margin-bottom: 1rem;
+}
+
+.card .timestamp {
+  color: #999;
 }
 
 /* Footer Styling */
@@ -583,6 +624,10 @@ footer.dark a span {
 
   .download-btn p {
     font-size: 1rem;
+  }
+
+  .horizontal-list {
+    gap: 1rem;
   }
 
   footer div.footer-social-icons div {
