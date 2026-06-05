@@ -349,7 +349,7 @@ section .centralized {
 }
 
 .horizontal-scroll {
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .hero-image {
