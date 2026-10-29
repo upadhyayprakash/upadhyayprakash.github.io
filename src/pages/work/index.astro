@@ -1,8 +1,12 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { featured, projects } from '../../data/projects';
+
+const chip = 'border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 10px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted)';
+const ext = 'M7 17L17 7 M8 7h9v9';
 ---
 
-<Base title="Work, Prakash Upadhyay" description="Selected work by Prakash Upadhyay: noui.si, CertPulse, the HDR brightness preference and work at Gojek, Paytm Insider and QuillBot." current="work">
+<Base title="Work, Prakash Upadhyay" description="Selected work by Prakash Upadhyay: noui.si, CertPulse, the HDR brightness preference, open-source projects like PlayUI and work at Gojek, Paytm Insider and QuillBot." current="work">
 <section aria-labelledby="page-title" style="position: relative; overflow: hidden; border-bottom: 1px solid var(--line); background: radial-gradient(900px 520px at 22% 30%, var(--hero-glow) 0%, var(--hero-mid) 55%, var(--bg) 100%)">
 <div style="position: relative; max-width: 1200px; margin: 0 auto; padding: 72px clamp(16px, 4vw, 40px) 80px; display: flex; flex-direction: column; gap: 24px">
 <p style="margin: 0; display: flex; flex-wrap: wrap; gap: 10px; font-family: var(--font-label); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted)"><span>04</span><span aria-hidden="true">/</span><span>Work</span></p>
@@ -119,6 +123,40 @@ import Base from '../../layouts/Base.astro';
 </div>
 </li>
 </ol>
+</section>
+<section aria-labelledby="oss-title" style="display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; align-items: center; gap: 20px">
+<h2 id="oss-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px"><span style="color: var(--accent)">04</span>Open source</h2>
+<div aria-hidden="true" style="flex: 1; height: 1px; background: var(--line)"></div>
+<a href="https://github.com/upadhyayprakash?tab=repositories" style="font-size: 15px; font-weight: 500; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; min-height: 44px">All repos<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={ext}></path></svg></a>
+</div>
+<article style="border: 1px solid var(--line); background: var(--surface); padding: clamp(24px, 4vw, 40px); display: flex; flex-wrap: wrap; gap: 24px 48px; align-items: flex-start">
+<div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 12px">
+<p style="margin: 0; font-family: var(--font-label); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted)">Featured · {featured.year}</p>
+<h3 style="margin: 0; font-size: clamp(32px, 4vw, 44px); font-weight: 500; letter-spacing: -0.03em; line-height: 1.05; color: var(--accent)">{featured.name}</h3>
+<p style="margin: 0; max-width: 560px; font-size: 18px; color: var(--text)">{featured.summary}</p>
+<span style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px">{featured.tags.map((t) => <span style={chip}>{t}</span>)}</span>
+<p style="margin: 4px 0 0; font-family: var(--font-label); font-size: 14px; color: var(--ink)">{featured.note}</p>
+<span style="display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 4px">
+{featured.live && <a href={featured.live.url} style="font-size: 15px; font-weight: 500; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; min-height: 44px">{featured.live.label}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={ext}></path></svg></a>}
+<a href={featured.repo} style="font-size: 15px; font-weight: 500; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; min-height: 44px">GitHub<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={ext}></path></svg></a>
+</span>
+</div>
+<span aria-hidden="true" style="flex: 0 1 320px; min-width: 200px; aspect-ratio: 16 / 10; border: 1px dashed var(--outline); background: var(--bg); display: flex; align-items: center; justify-content: center; padding: 12px; box-sizing: border-box; text-align: center; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted)">[Screenshot: PlayUI Storybook]</span>
+</article>
+<ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 16px">
+{projects.map((p) => (
+<li style="border: 1px solid var(--line); display: flex">
+<a href={p.repo} style="flex: 1; color: inherit; text-decoration: none; padding: 24px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-family: var(--font-label); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted)">{p.year} · {p.note}</span>
+<span style="font-size: 19px; font-weight: 500; color: var(--ink); overflow-wrap: anywhere">{p.name}</span>
+<span style="font-size: 15px; color: var(--text-muted); flex: 1">{p.summary}</span>
+<span style="display: flex; flex-wrap: wrap; gap: 6px">{p.tags.map((t) => <span style={chip}>{t}</span>)}</span>
+<span style="display: flex; align-items: center; gap: 8px; margin-top: 4px; font-size: 15px; font-weight: 500; color: var(--ink)">GitHub<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={ext}></path></svg></span>
+</a>
+</li>
+))}
+</ul>
 </section>
 </main>
 </Base>

@@ -32,5 +32,5 @@ Prices and limits were checked on the date shown; they change, so check again be
 
 - Node 22.23.4 (pinned in `.nvmrc` and `engines`, chosen by Prakash for the fix released after the 21 Oct 2026 incident). Astro is pinned to 7.3.8 rather than 7.4.x because every 7.4 release was under two weeks old on 2026-10-29; dependencies are pinned to exact versions.
 - The repo becomes the user site only at switch-over; until then it builds and runs locally. The old repo and its 90 uncommitted files are not touched.
-- GitHub Pages has no server-side redirects: old routes (`/projects`, `/competitions`, `/publications`, `/venom`, `/visionai`) get static redirect pages; targets to confirm.
+- GitHub Pages has no server-side redirects: old routes (`/projects`, `/competitions`, `/publications`, `/visionai`, and the old article URL under `/blogs/`) get static redirect pages.
 - The limit most likely to bite first: none for a personal site; GitHub Pages bandwidth is far above the expected traffic.

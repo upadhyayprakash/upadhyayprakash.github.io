@@ -11,7 +11,6 @@ export default defineConfig({
   // Old routes from the previous site, kept working as static redirect pages.
   redirects: {
     '/projects': '/work',
-    '/venom': '/work',
     '/visionai': '/work',
     '/publications': '/writing',
     '/competitions': '/#recognition',
