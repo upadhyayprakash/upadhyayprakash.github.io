@@ -18,6 +18,13 @@ export const tokens = {
     frameAccent: '#9cc2f7',
     lensAccent: '#ff9548',
     linkHover: '#9cc2f7',
+    pluginStandalone: '#b5b5b5',
+    pluginCarousel: '#c9b3f5',
+    pluginVideo: '#f5a3c0',
+    pluginButler: '#9fe0bf',
+    pluginKeel: '#f2cf86',
+    pluginLaunchpad: '#9cc2f7',
+    popoverBg: 'rgba(31, 31, 31, 0.92)',
   },
   size: {
     container: 1200,

@@ -1,5 +1,42 @@
 ---
 import Base from '../layouts/Base.astro';
+
+// Skills I wrote, for the table and its hover cards. "plugin" sets the badge colour.
+type Plugin = 'standalone' | 'carousel-studio' | 'video-studio' | 'butler' | 'keel' | 'launchpad';
+const pluginNames: Record<Plugin, string> = {
+  standalone: 'Standalone',
+  'carousel-studio': 'carousel-studio',
+  'video-studio': 'video-studio',
+  butler: 'butler',
+  keel: 'Keel for Claude',
+  launchpad: 'Launchpad',
+};
+const skills: {
+  name: string;
+  scope: 'global' | 'project';
+  where: string;
+  plugin: Plugin;
+  does: string;
+  what: string;
+  use: string;
+  trigger?: string;
+}[] = [
+  { name: 'blog', scope: 'global', where: 'Every project', plugin: 'standalone', does: 'Blog drafts (MDX) from a title and my interview answers', what: 'Turns a title and my answers to a short interview into a full MDX blog draft, written straight into the blog folder.', use: 'I have a topic and opinions, but no draft yet.', trigger: '/blog' },
+  { name: 'linkedin-post-gen', scope: 'global', where: 'Every project', plugin: 'standalone', does: 'Post copy, first comment and repost text for a carousel or blog', what: 'Reads a finished blog post and writes the LinkedIn copy around it: the post body, a first pinned comment and a personal repost.', use: 'A blog or carousel is ready to share.', trigger: '/linkedin-post-gen' },
+  { name: 'linkedin-banner', scope: 'global', where: 'Every project', plugin: 'standalone', does: 'LinkedIn company cover options, checked against the logo zone', what: 'Builds four company cover options at 1512 by 256 that keep clear of the logo zone, exports them at 2x and checks them.', use: 'Launching a company page or refreshing its cover.', trigger: '/linkedin-banner' },
+  { name: 'logo-gen', scope: 'global', where: 'Every project', plugin: 'standalone', does: 'Favicons and every logo asset from one SVG mark', what: 'Takes one SVG logomark and generates the favicons (SVG, PNG, ICO), the light and dark docs logos, and updates the logo component.', use: 'The mark changes and every asset has to follow.', trigger: '/logo-gen' },
+  { name: 'carousel-creator', scope: 'global', where: 'Every project', plugin: 'carousel-studio', does: 'Carousel slides for LinkedIn and other platforms, PNG and PDF', what: 'Platform-aware carousel slides for LinkedIn, Instagram, X, Pinterest, Threads and widescreen, from style presets or saved templates.', use: 'Turning a blog post into slides.', trigger: '/carousel-creator' },
+  { name: 'carousel-learn', scope: 'global', where: 'Every project', plugin: 'carousel-studio', does: 'Learns a design from a carousel and saves it as a template', what: 'Extracts the design of a carousel image or HTML file and saves it as a template carousel-creator can reuse.', use: 'I see a carousel style worth keeping.', trigger: '/carousel-learn' },
+  { name: 'slide-editor', scope: 'global', where: 'Every project', plugin: 'carousel-studio', does: 'Edits existing slides through a structured change spec', what: 'An interactive editor for existing slides: every change is written as a JSON change spec, then applied by a script.', use: 'Fixing copy or layout without regenerating the deck.', trigger: '/slide-edit' },
+  { name: 'video-creator', scope: 'global', where: 'Every project', plugin: 'video-studio', does: 'Short product cuts and narrated explainers with Remotion, any product', what: 'Vertical videos with Remotion: silent product cuts with kinetic captions, or narrated shorts built voice first, with word-timed subtitles.', use: 'A product demo or an explainer short.', trigger: '/video-creator' },
+  { name: 'morning', scope: 'global', where: 'Every project', plugin: 'butler', does: 'A morning briefing from yesterday\u2019s report and today\u2019s plans', what: 'A briefing built from the last end-of-day report and today\u2019s plans.', use: 'The start of the working day.', trigger: '/butler:morning' },
+  { name: 'end-of-day', scope: 'global', where: 'Every project', plugin: 'butler', does: 'A daily review of what got done, scored and written up', what: 'Reviews what got done today, scores it and writes the report the next morning briefing reads.', use: 'The end of the working day.', trigger: '/butler:end-of-day' },
+  { name: 'engineering-byte-video', scope: 'project', where: 'CertPulse repo', plugin: 'standalone', does: 'Narrated one-minute shorts, each explaining one engineering lesson', what: 'Narrated one-minute shorts, each explaining one engineering lesson from building CertPulse.', use: 'A lesson learned is worth sharing as a short.' },
+  { name: 'marketing-video', scope: 'project', where: 'CertPulse repo', plugin: 'standalone', does: 'The product video, built from the app\u2019s real UI components', what: 'Builds the CertPulse product video from the app\u2019s real UI components, so the video never drifts from the product.', use: 'The product UI changes and the video has to follow.' },
+  { name: 'video-layout-review', scope: 'project', where: 'CertPulse repo', plugin: 'standalone', does: 'Checks alignment, spacing, type and contrast in video scenes before I see them', what: 'Reviews each video scene for alignment, spacing, type and contrast, and fixes what it finds before I look.', use: 'Before every render I review.' },
+  { name: 'capture', scope: 'project', where: 'Keel', plugin: 'keel', does: 'Saves tasks, follow-ups and deadlines to Keel from plain conversation', what: 'Picks tasks, follow-ups and deadlines out of plain conversation and saves them to Keel.', use: 'Something comes up mid-conversation that I must not forget.' },
+  { name: 'today', scope: 'project', where: 'Keel', plugin: 'keel', does: 'Answers what\u2019s due, late or waiting on, straight from Keel', what: 'Answers what\u2019s due, late or waiting on, straight from Keel.', use: 'Planning the day, or checking what is slipping.' },
+];
 ---
 
 <Base title="How I build, Prakash Upadhyay" description="How Prakash Upadhyay builds software with AI agents, and where the human stays in the loop." current="how-i-build" hand>
@@ -315,8 +352,8 @@ import Base from '../layouts/Base.astro';
 <p style="margin: 0; max-width: 760px; font-size: 19px; text-wrap: pretty">A Claude Code plugin that takes a product idea from a raw note to a documented, branded, scaffolded product, in seven gated stages. It's the way I built CertPulse, Keel and RevuPulse, written down so the next product starts at full speed.</p>
 <ol aria-label="Launchpad stages" style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px"><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">1</span>Intake</li><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">2</span>Identity</li><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">3</span>Design</li><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">4</span>Scaffold</li><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">5</span>Build loop</li><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">6</span>Docs</li><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">7</span>Launch</li></ol>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 16px 40px; font-size: 15px">
-<p style="margin: 0"><span style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px">Day to day</span><code>setup</code> <code>status</code> <code>handoff</code> <code>adopt</code> <code>brand-sync</code> <code>story</code></p>
-<p style="margin: 0"><span style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px">Helper agents</span><code>name-scout</code> <code>stack-scout</code> <code>design-reader</code></p>
+<p style="margin: 0"><span style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px">Day to day</span><code class="skill-code" data-plugin="launchpad">setup</code> <code class="skill-code" data-plugin="launchpad">status</code> <code class="skill-code" data-plugin="launchpad">handoff</code> <code class="skill-code" data-plugin="launchpad">adopt</code> <code class="skill-code" data-plugin="launchpad">brand-sync</code> <code class="skill-code" data-plugin="launchpad">story</code></p>
+<p style="margin: 0"><span style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px">Helper agents</span><code class="skill-code" data-plugin="launchpad">name-scout</code> <code class="skill-code" data-plugin="launchpad">stack-scout</code> <code class="skill-code" data-plugin="launchpad">design-reader</code></p>
 </div>
 <p style="margin: 0; font-size: 14px; color: var(--text-muted)">Each stage ends at a gate I sign off. Piloted on a real feature before release. [Release date and install link]</p>
 </article>
@@ -330,27 +367,23 @@ import Base from '../layouts/Base.astro';
 <p aria-live="polite" data-skill-summary style="margin: 0; font-family: var(--font-label); font-size: 13px; color: var(--text-muted)">15 skills, plus Launchpad’s 13</p>
 </div>
 <div style="overflow-x: auto; border: 1px solid var(--line)">
-<table style="width: 100%; min-width: 720px; border-collapse: collapse; font-size: 15px">
-<thead><tr style="text-align: left; color: var(--text-muted); font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase"><th style="padding: 14px 18px; font-weight: 500; border-bottom: 1px solid var(--line)">Skill</th><th style="padding: 14px 18px; font-weight: 500; border-bottom: 1px solid var(--line)">What it does</th><th style="padding: 14px 18px; font-weight: 500; border-bottom: 1px solid var(--line)">Scope</th><th style="padding: 14px 18px; font-weight: 500; border-bottom: 1px solid var(--line)">Plugin</th></tr></thead>
+<table style="width: 100%; min-width: 600px; border-collapse: collapse; font-size: 15px">
+<thead><tr style="text-align: left; color: var(--text-muted); font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase"><th style="padding: 14px 18px; font-weight: 500; border-bottom: 1px solid var(--line)">Skill</th><th style="padding: 14px 18px; font-weight: 500; border-bottom: 1px solid var(--line)">What it does</th><th style="padding: 14px 18px; font-weight: 500; border-bottom: 1px solid var(--line)">Plugin</th></tr></thead>
 <tbody>
-<tr data-scope="global"><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><code>blog</code></td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line)">Blog drafts (MDX) from a title and my interview answers</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--ink)">Global</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--text-muted)">-</td></tr>
-<tr data-scope="global"><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><code>linkedin-post-gen</code></td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line)">Post copy, first comment and repost text for a carousel or blog</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--ink)">Global</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--text-muted)">-</td></tr>
-<tr data-scope="global"><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><code>linkedin-banner</code></td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line)">LinkedIn company cover options, checked against the logo zone</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--ink)">Global</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--text-muted)">-</td></tr>
-<tr data-scope="global"><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><code>logo-gen</code></td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line)">Favicons and every logo asset from one SVG mark</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--ink)">Global</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--text-muted)">-</td></tr>
-<tr data-scope="global"><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><code>carousel-creator</code></td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line)">Carousel slides for LinkedIn and other platforms, PNG and PDF</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--ink)">Global</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--text-muted)">carousel-studio</td></tr>
-<tr data-scope="global"><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><code>carousel-learn</code></td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line)">Learns a design from a carousel and saves it as a template</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--ink)">Global</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--text-muted)">carousel-studio</td></tr>
-<tr data-scope="global"><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><code>slide-editor</code></td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line)">Edits existing slides through a structured change spec</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--ink)">Global</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--text-muted)">carousel-studio</td></tr>
-<tr data-scope="global"><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><code>video-creator</code></td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line)">Short product cuts and narrated explainers with Remotion, any product</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--ink)">Global</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--text-muted)">video-studio</td></tr>
-<tr data-scope="global"><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><code>morning</code></td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line)">A morning briefing from yesterday’s report and today’s plans</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--ink)">Global</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--text-muted)">butler</td></tr>
-<tr data-scope="global"><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><code>end-of-day</code></td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line)">A daily review of what got done, scored and written up</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--ink)">Global</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--text-muted)">butler</td></tr>
-<tr data-scope="project"><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><code>engineering-byte-video</code></td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line)">Narrated one-minute shorts, each explaining one engineering lesson</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--ink)">CertPulse</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--text-muted)">-</td></tr>
-<tr data-scope="project"><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><code>marketing-video</code></td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line)">The product video, built from the app’s real UI components</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--ink)">CertPulse</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--text-muted)">-</td></tr>
-<tr data-scope="project"><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><code>video-layout-review</code></td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line)">Checks alignment, spacing, type and contrast in video scenes before I see them</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--ink)">CertPulse</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--text-muted)">-</td></tr>
-<tr data-scope="project"><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><code>capture</code></td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line)">Saves tasks, follow-ups and deadlines to Keel from plain conversation</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--ink)">Keel</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--text-muted)">Keel for Claude</td></tr>
-<tr data-scope="project"><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><code>today</code></td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line)">Answers what’s due, late or waiting on, straight from Keel</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--ink)">Keel</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--text-muted)">Keel for Claude</td></tr>
+{skills.map((k) => (
+<tr data-scope={k.scope}><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><button type="button" class="skill-badge" data-plugin={k.plugin} data-skill={k.name} aria-describedby="skill-card">{k.name}</button></td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line)">{k.does}</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><span class="plugin-chip" data-plugin={k.plugin}>{pluginNames[k.plugin]}</span></td></tr>
+))}
 </tbody>
 </table>
 </div>
+<div class="skill-card" id="skill-card" role="tooltip" hidden data-skill-card>
+<p class="skill-card__head"><span class="skill-card__name" data-name></span><span class="plugin-chip" data-plugin="standalone" data-chip></span></p>
+<p class="skill-card__what" data-what></p>
+<p class="skill-card__row"><span class="skill-card__label">Use it when</span><span data-use></span></p>
+<p class="skill-card__row"><span class="skill-card__label">Lives in</span><span data-where></span></p>
+<p class="skill-card__row" data-trigger-row><span class="skill-card__label">Run it with</span><code data-trigger></code></p>
+</div>
+<script type="application/json" id="skill-data" is:inline set:html={JSON.stringify(Object.fromEntries(skills.map((k) => [k.name, { ...k, pluginName: pluginNames[k.plugin] }])))}></script>
 <div style="display: flex; flex-direction: column; gap: 10px">
 <p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Community skills I use, not mine</p>
 <p style="margin: 0; font-size: 15px; color: var(--text-muted)">Prisma's database skills · Nx monorepo skills · Remotion best practices · ClaudeKit design skills · ui-ux-pro-max · graphify (code knowledge graphs). Picking good ones is part of the job too.</p>
@@ -481,6 +514,50 @@ import Base from '../layouts/Base.astro';
   });
 </script>
 
+<script>
+  // Skill cards: hovering or focusing a skill badge shows a card with what the skill is, when to
+  // use it and how to run it. One card, filled from the page's skill data and placed by the badge.
+  const card = document.querySelector<HTMLElement>('[data-skill-card]');
+  const dataEl = document.getElementById('skill-data');
+  if (card && dataEl) {
+    const data = JSON.parse(dataEl.textContent ?? '{}');
+    const set = (sel: string, text: string) => {
+      const el = card.querySelector<HTMLElement>(sel);
+      if (el) el.textContent = text;
+    };
+    const show = (badge: HTMLElement) => {
+      const k = data[badge.dataset.skill ?? ''];
+      if (!k) return;
+      set('[data-name]', k.name);
+      set('[data-chip]', k.pluginName);
+      card.querySelector<HTMLElement>('[data-chip]')?.setAttribute('data-plugin', k.plugin);
+      set('[data-what]', k.what);
+      set('[data-use]', k.use);
+      set('[data-where]', k.where);
+      set('[data-trigger]', k.trigger ?? '');
+      const row = card.querySelector<HTMLElement>('[data-trigger-row]');
+      if (row) row.hidden = !k.trigger;
+      card.hidden = false;
+      const r = badge.getBoundingClientRect();
+      const below = window.innerHeight - r.bottom > card.offsetHeight + 16;
+      const left = Math.min(Math.max(r.left, 12), window.innerWidth - card.offsetWidth - 12);
+      card.style.left = `${left}px`;
+      card.style.top = `${below ? r.bottom + 10 : r.top - card.offsetHeight - 10}px`;
+      card.dataset.side = below ? 'below' : 'above';
+    };
+    const hide = () => (card.hidden = true);
+    document.querySelectorAll<HTMLElement>('.skill-badge').forEach((b) => {
+      b.addEventListener('pointerenter', () => show(b));
+      b.addEventListener('focus', () => show(b));
+      b.addEventListener('click', () => show(b));
+      b.addEventListener('pointerleave', hide);
+      b.addEventListener('blur', hide);
+    });
+    document.addEventListener('keydown', (e) => e.key === 'Escape' && hide());
+    window.addEventListener('scroll', hide, { passive: true });
+  }
+</script>
+
 <style is:global>
   code {
     font-family: var(--font-sans);
@@ -555,7 +632,10 @@ import Base from '../layouts/Base.astro';
     outline: none;
   }
 
-  .loop-stage text {
+  /* The colour is set here, not only inherited from the group, so no browser's link styles win */
+  .loop-stage text,
+  .loop-stage:visited text {
+    fill: var(--ink);
     transition: fill 160ms ease-out;
   }
 
@@ -588,8 +668,6 @@ import Base from '../layouts/Base.astro';
     max-width: 260px;
     margin: 0;
     padding: var(--space-2) var(--space-3);
-    background: var(--surface-raised);
-    border: 1px solid var(--line-strong);
     color: var(--ink);
     font-size: var(--size-small);
     line-height: 1.45;
@@ -629,6 +707,137 @@ import Base from '../layouts/Base.astro';
     width: 12px;
     height: 12px;
     background: var(--accent);
+  }
+
+
+  /* Skill badges and plugin chips take their plugin's colour */
+  .skill-badge,
+  .skill-code,
+  .plugin-chip {
+    --c: var(--plugin-standalone);
+  }
+
+  [data-plugin='carousel-studio'] { --c: var(--plugin-carousel); }
+  [data-plugin='video-studio'] { --c: var(--plugin-video); }
+  [data-plugin='butler'] { --c: var(--plugin-butler); }
+  [data-plugin='keel'] { --c: var(--plugin-keel); }
+  [data-plugin='launchpad'] { --c: var(--plugin-launchpad); }
+
+  .skill-badge,
+  code.skill-code {
+    font: 500 14px / 1.3 var(--font-sans);
+    color: var(--c);
+    background: color-mix(in srgb, var(--c) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--c) 40%, transparent);
+    border-radius: var(--radius-md);
+    padding: 4px 10px;
+  }
+
+  .skill-badge {
+    min-height: 32px;
+    cursor: help;
+    transition: background-color 140ms ease-out, border-color 140ms ease-out;
+  }
+
+  .skill-badge:hover,
+  .skill-badge:focus-visible {
+    background: color-mix(in srgb, var(--c) 24%, transparent);
+    border-color: var(--c);
+  }
+
+  .skill-badge:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+  }
+
+  .plugin-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--text);
+    font-size: 14px;
+  }
+
+  .plugin-chip::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-circle);
+    background: var(--c);
+  }
+
+  /* Popovers: the loop tooltip and the skill card share one look */
+  .loop-tip,
+  .skill-card {
+    background: var(--popover-bg);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-pop);
+    animation: pop-in 160ms ease-out;
+  }
+
+  @keyframes pop-in {
+    from { opacity: 0; transform: translateY(4px) scale(0.98); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .skill-card {
+    position: fixed;
+    z-index: 25;
+    width: min(340px, calc(100vw - 24px));
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text);
+    pointer-events: none;
+  }
+
+  .skill-card[hidden],
+  .skill-card [hidden] {
+    display: none;
+  }
+
+  .skill-card p {
+    margin: 0;
+  }
+
+  .skill-card__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .skill-card__name {
+    color: var(--ink);
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .skill-card__what {
+    color: var(--ink);
+  }
+
+  .skill-card__row {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .skill-card__label {
+    font-family: var(--font-label);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
   }
 
   /* A stage reached from the loop flashes its name */

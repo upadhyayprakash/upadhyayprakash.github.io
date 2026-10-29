@@ -31,6 +31,14 @@
   --frame-accent: #9cc2f7;
   --lens-accent: #ff9548;
   --link-hover: #9cc2f7;
+  /* One colour per plugin, for skill badges */
+  --plugin-standalone: #b5b5b5;
+  --plugin-carousel: #c9b3f5;
+  --plugin-video: #f5a3c0;
+  --plugin-butler: #9fe0bf;
+  --plugin-keel: #f2cf86;
+  --plugin-launchpad: #9cc2f7;
+  --popover-bg: rgba(31, 31, 31, 0.92);
 
   /* Type */
   --font-sans: 'Open Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -61,6 +69,7 @@
   /* Radius */
   --radius-0: 0;
   --radius-xs: 4px;
+  --radius-md: 10px;
   --radius-pill: 999px;
   --radius-circle: 50%;
 
@@ -68,6 +77,7 @@
   --shadow-hairline: 0 0 0 1px #262626;
   --shadow-focus: 0 0 0 2px #121212, 0 0 0 4px #fafafa;
   --shadow-float: 0 30px 80px rgba(0, 0, 0, 0.55);
+  --shadow-pop: 0 12px 32px rgba(0, 0, 0, 0.5);
 
   /* Size */
   --container: 1200px;
