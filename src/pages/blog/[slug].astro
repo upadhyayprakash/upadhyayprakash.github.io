@@ -234,6 +234,12 @@ const date = post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month:
     margin: 0 0 var(--space-2);
   }
 
+  /* Animations (with a still for reduced motion) stay smaller than the column */
+  .prose :global(figure picture img) {
+    max-width: 480px;
+    margin-inline: auto;
+  }
+
   .prose :global(figcaption) {
     font-size: var(--size-small);
     color: var(--text-muted);

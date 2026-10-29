@@ -38,8 +38,8 @@ export const entries: ContentEntry[] = [
   {
     type: 'article',
     year: '2026',
-    date: '[Date]',
-    title: '[Title to confirm] What if software could shape its own interface?',
+    date: '2 Oct 2026',
+    title: 'What if software could shape its own interface?',
     tags: 'noui · Interfaces · AI',
     url: 'https://www.linkedin.com/pulse/what-software-could-shape-its-own-interface-prakash-upadhyay-ueumf',
   },
