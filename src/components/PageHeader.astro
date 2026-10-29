@@ -1,0 +1,89 @@
+---
+// The title area of every inner page: page eyebrow ("04 / Work"), title, tagline and a short intro,
+// on the soft hero light.
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  crumbs: Crumb[];
+  title: string;
+  tagline?: string;
+  intro?: string;
+}
+
+const { crumbs, title, tagline, intro } = Astro.props;
+---
+
+<section class="page-header" aria-labelledby="page-title">
+  <div class="container page-header__inner">
+    <nav class="label eyebrow" aria-label="Breadcrumb">
+      {crumbs.map((c, i) => (
+        <>
+          {i > 0 && <span aria-hidden="true">/</span>}
+          {c.href ? <a href={c.href}>{c.label}</a> : <span>{c.label}</span>}
+        </>
+      ))}
+    </nav>
+    <h1 id="page-title">{title}</h1>
+    {tagline && <p class="tagline">{tagline}</p>}
+    {intro && <p class="intro">{intro}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .page-header {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    background: radial-gradient(900px 520px at 22% 30%, var(--hero-glow) 0%, var(--hero-mid) 55%, var(--bg) 100%);
+  }
+
+  .page-header__inner {
+    padding-top: var(--space-9);
+    padding-bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .eyebrow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: var(--text-muted);
+  }
+
+  .eyebrow a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .eyebrow a:hover {
+    color: var(--ink);
+  }
+
+  h1 {
+    margin: 0;
+    color: var(--accent);
+    font-size: var(--size-page-title);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+  }
+
+  .tagline {
+    margin: 0;
+    font-size: var(--size-tagline);
+    font-weight: 300;
+    color: var(--text-muted);
+  }
+
+  .intro {
+    margin: 0;
+    max-width: 640px;
+    font-size: 18px;
+  }
+</style>

@@ -1,0 +1,58 @@
+---
+title: "Building a Type-safe Reusable Button Component in React.js"
+date: "2024-10-15"
+slug: "typesafe-reusable-button-component-in-reactjs"
+tags: ["React", "TypeScript"]
+description: "Build type-safe reusable React components using TypeScript for a better developer experience and fewer runtime errors."
+heroImage: "/blog/blog-1-hero.png"
+---
+This post walks through building a production-ready, type-safe `Button` component in React using TypeScript.
+
+## Why Type-safe Components?
+
+When building component libraries, type safety ensures:
+
+- Consumers get **autocomplete** for all props
+- Invalid prop combinations are caught at **compile time**, not runtime
+- Refactoring is safe: TypeScript surfaces every call site that breaks
+
+## The Button Interface
+
+```tsx
+type ButtonVariant = 'primary' | 'secondary' | 'ghost'
+type ButtonSize = 'sm' | 'md' | 'lg'
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant
+  size?: ButtonSize
+  isLoading?: boolean
+}
+```
+
+Extending `React.ButtonHTMLAttributes<HTMLButtonElement>` means all native button props (`onClick`, `disabled`, `type`, etc.) are automatically included, with no need to re-declare them.
+
+## Implementation
+
+```tsx
+export function Button({
+  variant = 'primary',
+  size = 'md',
+  isLoading = false,
+  children,
+  disabled,
+  className,
+  ...rest
+}: ButtonProps) {
+  return (
+    <button
+      {...rest}
+      disabled={disabled || isLoading}
+      className={clsx(baseStyles, variantStyles[variant], sizeStyles[size], className)}
+    >
+      {isLoading ? <Spinner /> : children}
+    </button>
+  )
+}
+```
+
+> Full article content will be migrated from the original HTML post in Step 10.

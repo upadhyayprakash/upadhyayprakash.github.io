@@ -1,0 +1,41 @@
+---
+// A section's number, its title and a hairline that runs to the edge ("02 Recognition").
+interface Props {
+  id: string;
+  num: string;
+  title: string;
+}
+
+const { id, num, title } = Astro.props;
+---
+
+<div class="section-label">
+  <h2 id={id} class="label"><span class="num">{num}</span>{title}</h2>
+  <div class="rule" aria-hidden="true"></div>
+</div>
+
+<style>
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  h2 {
+    margin: 0;
+    display: flex;
+    gap: 14px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .num {
+    color: var(--accent);
+  }
+
+  .rule {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+</style>

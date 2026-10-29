@@ -1,0 +1,156 @@
+---
+import Icon from './Icon.astro';
+import { nav, site, type NavKey } from '../data/site';
+
+interface Props {
+  current?: NavKey;
+}
+
+const { current } = Astro.props;
+---
+
+<header class="site-header container">
+  <a class="brand" href="/" aria-label={`${site.name}, home`}>
+    <span class="brand__mark" aria-hidden="true">P</span>
+    <span class="brand__name">{site.name}</span>
+  </a>
+  <nav class="site-nav label" aria-label="Main">
+    {nav.map((item) => (
+      <a href={item.href} aria-current={item.key === current ? 'page' : undefined}>
+        {item.label}
+      </a>
+    ))}
+    <a class="hello" href={`mailto:${site.email}`} aria-label="Say hello">
+      <Icon name="mail" />
+      <span class="hello__tip" aria-hidden="true">Say hello</span>
+    </a>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4) 32px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .brand__mark {
+    width: 34px;
+    height: 34px;
+    border: 1.5px solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .brand__name {
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  .site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-1) 36px;
+    letter-spacing: 0.08em;
+  }
+
+  .site-nav a:not(.hello) {
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: var(--space-3) 0;
+  }
+
+  .site-nav a:not(.hello):hover,
+  .site-nav a[aria-current='page'] {
+    color: var(--ink);
+  }
+
+  .site-nav a[aria-current='page'] {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+  }
+
+  .hello {
+    position: relative;
+    width: var(--touch-target);
+    height: var(--touch-target);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-circle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink);
+    transition: background-color 160ms ease-out;
+  }
+
+  .hello:hover {
+    background: var(--surface-raised);
+  }
+
+  .hello:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+  }
+
+  .hello__tip {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    white-space: nowrap;
+    background: var(--line);
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: var(--size-label);
+    letter-spacing: 0;
+    text-transform: none;
+    padding: 6px 10px;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 140ms ease-out, transform 140ms ease-out;
+    pointer-events: none;
+    z-index: 30;
+  }
+
+  .hello:hover .hello__tip,
+  .hello:focus-visible .hello__tip {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hello :global(svg *) {
+    transform-box: fill-box;
+  }
+
+  .hello :global(.p-flap) {
+    transform-origin: 50% 0;
+  }
+
+  .hello:hover :global(.p-flap),
+  .hello:focus-visible :global(.p-flap) {
+    animation: flap 560ms ease-in-out;
+  }
+
+  @keyframes flap {
+    0% { transform: scaleY(1); }
+    45% { transform: scaleY(-0.6); }
+    100% { transform: scaleY(1); }
+  }
+</style>
