@@ -5,9 +5,9 @@ import { entries, types } from '../data/content';
 
 const single = Object.fromEntries(types.map((t) => [t.id, t.single]));
 const years = [...new Set(entries.map((e) => e.year))];
-const missing = types.filter((t) => !entries.some((e) => e.type === t.id));
 const count = (id: string) => entries.filter((e) => id === 'all' || e.type === id).length;
-const filters = [{ id: 'all', label: 'All' }, ...types];
+// Only types with at least one entry get a filter; empty types stay hidden until a link arrives
+const filters = [{ id: 'all', label: 'All' }, ...types.filter((t) => count(t.id) > 0)];
 ---
 
 <Base title="Content, Prakash Upadhyay" description="Posts, videos, articles and carousels by Prakash Upadhyay on LinkedIn.">
@@ -61,26 +61,6 @@ const filters = [{ id: 'all', label: 'All' }, ...types];
       </section>
     ))}
 
-    {missing.length > 0 && (
-      <section class="group" aria-label="Placeholders" data-group>
-        <div class="group__label">
-          <h2 class="label">Placeholders</h2>
-          <div class="group__rule" aria-hidden="true"></div>
-        </div>
-        <div class="rows">
-          {missing.map((t) => (
-            <article class="row row--placeholder" data-type={t.id} data-placeholder>
-              <div class="row__art placeholder" aria-hidden="true">[Thumbnail]</div>
-              <div class="row__body">
-                <p class="meta"><span class="row__type">{t.single}</span><span>[Date]</span></p>
-                <h3>[Placeholder {t.single.toLowerCase()}, awaiting URL]</h3>
-                <p class="row__tags">Placeholder. Send the post URL to log a real entry.</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-    )}
   </div>
 </Base>
 
@@ -100,7 +80,7 @@ const filters = [{ id: 'all', label: 'All' }, ...types];
           row.hidden = !on;
           if (on) {
             shown += 1;
-            if (!('placeholder' in row.dataset)) real += 1;
+            real += 1;
           }
         });
         group.hidden = shown === 0;
@@ -325,11 +305,6 @@ const filters = [{ id: 'all', label: 'All' }, ...types];
     line-height: 1.3;
   }
 
-  .row--placeholder h3 {
-    font-weight: 400;
-    font-style: italic;
-    color: var(--text-muted);
-  }
 
   .row__tags {
     margin: 0;

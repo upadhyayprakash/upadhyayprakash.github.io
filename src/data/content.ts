@@ -1,5 +1,5 @@
-// Everything Prakash shares on LinkedIn. Add a real entry when a link arrives; placeholders show
-// the types that are still missing and disappear once a real entry of that type exists.
+// Everything Prakash shares on LinkedIn. Add a real entry when a link arrives; a type gets its
+// filter on the Content page once it has at least one entry.
 export type ContentType = 'post' | 'video' | 'article' | 'carousel' | 'short';
 
 export interface ContentEntry {
