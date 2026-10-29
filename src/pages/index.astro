@@ -50,7 +50,6 @@ const wins = [
   lens
 >
   <section class="hero" aria-labelledby="hero-title" data-lens-zone>
-    <div aria-hidden="true" class="hero__giant" data-lens-giant>Human</div>
     <div class="hero__inner container">
       <div class="hero__text">
         <div class="hero__intro">
@@ -77,6 +76,9 @@ const wins = [
         <div class="portrait__frame" aria-hidden="true"></div>
         <img src="/images/portrait.png" alt="Portrait of Prakash Upadhyay in a flat cap, smiling, turned to the right" width="784" height="670" />
         <img class="portrait__color" src="/images/portrait-color.png" alt="" aria-hidden="true" width="784" height="670" data-lens-color />
+        <div aria-hidden="true" class="hero__giant" data-lens-giant>
+          <svg viewBox="0 0 1000 240"><text x="0" y="232" textLength="1000" lengthAdjust="spacingAndGlyphs">Human</text></svg>
+        </div>
         <p class="portrait__note" aria-hidden="true">research,<br />build,<br />review,<br />reuse.</p>
       </div>
 
@@ -223,18 +225,28 @@ const wins = [
     border-bottom: 1px solid var(--line);
   }
 
+  /* Spans the photo's width and sits just under it; the SVG scales the word to fit */
   .hero__giant {
     position: absolute;
-    right: -12px;
-    bottom: -0.22em;
-    font-size: clamp(100px, 13vw, 190px);
-    font-weight: 600;
-    line-height: 1;
-    letter-spacing: -0.04em;
+    top: calc(100% + var(--space-2));
+    left: 0;
+    width: 100%;
     color: var(--outline);
-    white-space: nowrap;
     pointer-events: none;
     clip-path: circle(0 at 50% 50%);
+  }
+
+  .hero__giant svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .hero__giant text {
+    fill: currentColor;
+    font-size: 296px;
+    font-weight: 600;
   }
 
   /* Revealed only inside the lens: dark grey on the lens's light circle */
@@ -245,7 +257,7 @@ const wins = [
   .hero__inner {
     position: relative;
     padding-top: 80px;
-    padding-bottom: 124px;
+    padding-bottom: 160px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
