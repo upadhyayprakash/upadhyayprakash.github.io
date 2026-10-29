@@ -12,6 +12,8 @@ const blog = defineCollection({
     tags: z.array(z.string()),
     description: z.string(),
     heroImage: z.string().optional(),
+    // Where the article first appeared (for example LinkedIn); the page links back to it.
+    original: z.url().optional(),
   }),
 });
 

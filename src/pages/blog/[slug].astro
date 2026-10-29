@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -24,12 +25,20 @@ const date = post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month:
         <span aria-hidden="true">·</span>
         <span>{post.data.tags.join(' · ')}</span>
       </p>
+      {post.data.original && (
+        <a class="original" href={post.data.original}>Originally published on LinkedIn<Icon name="arrow-up-right" size={16} /></a>
+      )}
       {post.data.heroImage && <img class="article__hero" src={post.data.heroImage} alt="" width="1200" height="630" />}
     </header>
     <div class="prose">
       <Content />
     </div>
-    <p class="back"><a href="/writing">All writing</a></p>
+    <p class="back">
+      {post.data.original && (
+        <a class="original" href={post.data.original}>Read and comment on LinkedIn<Icon name="arrow-up-right" size={16} /></a>
+      )}
+      <a href="/writing">All writing</a>
+    </p>
   </article>
 </Base>
 
@@ -196,7 +205,44 @@ const date = post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month:
     font-weight: 500;
   }
 
+  .original {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--touch-target);
+    font-size: var(--size-small);
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
   .back {
     margin-top: var(--space-8);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-6);
+  }
+
+  .prose :global(figure) {
+    margin: var(--space-6) 0;
+  }
+
+  .prose :global(figure img) {
+    width: 100%;
+    margin: 0 0 var(--space-2);
+  }
+
+  .prose :global(figcaption) {
+    font-size: var(--size-small);
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .prose :global(hr) {
+    margin: var(--space-8) 0;
+    border: 0;
+    border-top: 1px solid var(--line);
   }
 </style>
