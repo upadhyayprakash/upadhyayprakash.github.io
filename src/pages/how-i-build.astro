@@ -5,7 +5,6 @@ import Base from '../layouts/Base.astro';
 <Base title="How I build, Prakash Upadhyay" description="How Prakash Upadhyay builds software with AI agents, and where the human stays in the loop." current="how-i-build" hand>
 <section aria-labelledby="page-title" style="position: relative; overflow: hidden; border-bottom: 1px solid var(--line); background: radial-gradient(900px 520px at 22% 30%, var(--hero-glow) 0%, var(--hero-mid) 55%, var(--bg) 100%)">
 <div style="position: relative; max-width: 1200px; margin: 0 auto; padding: 72px clamp(16px, 4vw, 40px) 80px; display: flex; flex-direction: column; gap: 24px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted)">03 <span aria-hidden="true">/</span> Working with agents · last 6 months</p>
 <h1 id="page-title" style="margin: 0; color: var(--accent); font-size: clamp(48px, 7vw, 96px); font-weight: 500; letter-spacing: -0.035em; line-height: 0.98">How I build</h1>
 <p style="margin: 0; font-size: clamp(22px, 2.6vw, 30px); font-weight: 300; color: var(--text-muted)">Agents do the work. I make the calls.</p>
 <p style="margin: 0; max-width: 720px; font-size: 19px; text-wrap: pretty">I build my products, tools and content with AI agents: mostly Claude, in Claude Code on my machine and through the Claude API inside apps, with other tools when a task needs them. This is the loop I follow, and the points where I stay in charge.</p>
@@ -14,11 +13,11 @@ import Base from '../layouts/Base.astro';
 
 <main>
 <section aria-labelledby="loop-title" style="max-width: 1200px; margin: 0 auto; padding: 96px clamp(16px, 4vw, 40px) 0; display: flex; flex-wrap: wrap; align-items: center; gap: 48px 72px">
-<figure style="flex: 1 1 520px; min-width: 0; margin: 0">
-<svg viewBox="-70 0 740 600" width="100%" role="img" aria-label="A hand-drawn loop of eight stages: Research, Spec, Design, Build, Review, Ship, Share and Reuse, then back to Research. Agents do the work at every stage. Square markers show the four human gates, at Research, Spec, Review and Ship. In the middle: Human in the loop." style="display: block; max-width: 640px; margin: 0 auto; overflow: visible">
+<figure class="loop" style="flex: 1 1 520px; min-width: 0; margin: 0" data-loop>
+<svg viewBox="-70 0 740 600" width="100%" role="group" aria-label="A hand-drawn loop of eight stages: Research, Spec, Design, Build, Review, Ship, Share and Reuse, then back to Research. Agents do the work at every stage. Square markers show the four human gates, at Research, Spec, Review and Ship. In the middle: Human in the loop. Each stage name links to its details below." style="display: block; max-width: 640px; margin: 0 auto; overflow: visible">
 <path d="M 300 80 C 422 78, 522 180, 520 300 C 518 424, 420 522, 300 520 C 176 521, 79 420, 80 300 C 82 178, 180 81, 304 82" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="1500" class="loop-draw"></path>
 <path d="M 297 85 C 420 83, 516 183, 515 302 C 513 420, 417 516, 298 515 C 179 515, 85 418, 86 298 C 87 181, 183 86, 299 87" fill="none" stroke="var(--ink)" stroke-opacity="0.35" stroke-width="1" stroke-linecap="round" stroke-dasharray="1500" class="loop-draw"></path>
-<path d="M 236 92 l 14 -10 l -12 -6" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M 222.4 104.4 L 233.3 92.6 L 217.5 89.2" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></path>
 <rect x="291" y="71" width="18" height="18" fill="var(--accent)"></rect>
 <rect x="446.6" y="135.4" width="18" height="18" fill="var(--accent)" transform="rotate(4 455.6 144.4)"></rect>
 <circle cx="520" cy="300" r="9" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.6"></circle>
@@ -28,14 +27,14 @@ import Base from '../layouts/Base.astro';
 <circle cx="80" cy="300" r="9" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.6"></circle>
 <circle cx="144.4" cy="144.4" r="9" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.6"></circle>
 <g fill="var(--ink)" style="font-family: var(--font-hand); font-size: 30px; font-weight: 600">
-<text x="300" y="50" text-anchor="middle">Research</text>
-<text x="482" y="122" text-anchor="start">Spec</text>
-<text x="550" y="309" text-anchor="start">Design</text>
-<text x="482" y="498" text-anchor="start">Build</text>
-<text x="300" y="568" text-anchor="middle">Review</text>
-<text x="118" y="498" text-anchor="end">Ship</text>
-<text x="50" y="309" text-anchor="end">Share</text>
-<text x="118" y="122" text-anchor="end">Reuse</text>
+<a class="loop-stage" href="#stage-research" data-tip="Human gate. I decide: Whether the idea is worth building at all." aria-label="Research, human gate: Whether the idea is worth building at all. Go to the Research stage."><path class="loop-stage__splash" d=""></path><text x="300" y="50" text-anchor="middle">Research</text></a>
+<a class="loop-stage" href="#stage-spec" data-tip="Human gate. I decide: Approve the spec before any code is written." aria-label="Spec, human gate: Approve the spec before any code is written. Go to the Spec stage."><path class="loop-stage__splash" d=""></path><text x="482" y="122" text-anchor="start">Spec</text></a>
+<a class="loop-stage" href="#stage-design" data-tip="Agents. I decide: Pick the direction and cut what doesn’t belong." aria-label="Design, agents: Pick the direction and cut what doesn’t belong. Go to the Design stage."><path class="loop-stage__splash" d=""></path><text x="550" y="309" text-anchor="start">Design</text></a>
+<a class="loop-stage" href="#stage-build" data-tip="Agents. I decide: Architecture, boundaries and what the agent may touch." aria-label="Build, agents: Architecture, boundaries and what the agent may touch. Go to the Build stage."><path class="loop-stage__splash" d=""></path><text x="482" y="498" text-anchor="start">Build</text></a>
+<a class="loop-stage" href="#stage-review" data-tip="Human gate. I decide: Read every diff, then try the real thing myself." aria-label="Review, human gate: Read every diff, then try the real thing myself. Go to the Review stage."><path class="loop-stage__splash" d=""></path><text x="300" y="568" text-anchor="middle">Review</text></a>
+<a class="loop-stage" href="#stage-ship" data-tip="Human gate. I decide: Press the button. Nothing deploys or posts without a yes." aria-label="Ship, human gate: Press the button. Nothing deploys or posts without a yes. Go to the Ship stage."><path class="loop-stage__splash" d=""></path><text x="118" y="498" text-anchor="end">Ship</text></a>
+<a class="loop-stage" href="#stage-share" data-tip="Agents. I decide: The voice, the facts and what is ready to go public." aria-label="Share, agents: The voice, the facts and what is ready to go public. Go to the Share stage."><path class="loop-stage__splash" d=""></path><text x="50" y="309" text-anchor="end">Share</text></a>
+<a class="loop-stage" href="#stage-reuse" data-tip="Agents. I decide: When a task has repeated enough to become a skill or plugin." aria-label="Reuse, agents: When a task has repeated enough to become a skill or plugin. Go to the Reuse stage."><path class="loop-stage__splash" d=""></path><text x="118" y="122" text-anchor="end">Reuse</text></a>
 </g>
 <g style="font-family: var(--font-hand)" text-anchor="middle">
 <text x="300" y="292" fill="var(--accent)" style="font-size: 58px; font-weight: 600">Human</text>
@@ -43,25 +42,26 @@ import Base from '../layouts/Base.astro';
 </g>
 <path d="M 246 352 C 270 362, 330 362, 356 350" fill="none" stroke="var(--text-muted)" stroke-width="1.4" stroke-linecap="round"></path>
 </svg>
+<p class="loop-tip" role="tooltip" id="loop-tip" hidden data-loop-tip></p>
+<ul class="loop-legend" aria-label="Legend">
+<li><span class="loop-legend__agent" aria-hidden="true"></span>Agents</li>
+<li><span class="loop-legend__human" aria-hidden="true"></span>Human</li>
+</ul>
 </figure>
 <div style="flex: 1 1 340px; display: flex; flex-direction: column; gap: 20px">
 <h2 id="loop-title" style="margin: 0; color: var(--accent); font-size: clamp(34px, 4vw, 48px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1">One loop, eight stages, four gates.</h2>
 <p style="margin: 0; text-wrap: pretty">Agents do the work at every stage: they research, draft, design, code, check and package. The loop only moves past a gate when I've looked at the result and said yes.</p>
-<ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; font-size: 15px">
-<li style="display: flex; align-items: center; gap: 12px"><span aria-hidden="true" style="width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--ink); flex: 0 0 14px"></span>Agents do the work</li>
-<li style="display: flex; align-items: center; gap: 12px"><span aria-hidden="true" style="width: 14px; height: 14px; background: var(--accent); flex: 0 0 14px"></span>Human gate: I decide before it moves on</li>
-</ul>
 <p style="margin: 0; font-size: 14px; color: var(--text-muted)">Reuse closes the loop: anything I do twice becomes a skill or a plugin, and the next project starts faster.</p>
 </div>
 </section>
 
 <section aria-labelledby="stages-title" style="max-width: 1200px; margin: 0 auto; padding: 120px clamp(16px, 4vw, 40px) 0; display: flex; flex-direction: column; gap: 24px">
 <div style="display: flex; align-items: center; gap: 20px; padding-bottom: 16px">
-<h2 id="stages-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px"><span style="color: var(--accent)">01</span>Stage by stage</h2>
+<h2 id="stages-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">Stage by stage</h2>
 <div aria-hidden="true" style="flex: 1; height: 1px; background: var(--line)"></div>
 </div>
 <ol style="list-style: none; margin: 0; padding: 0">
-<li style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
+<li id="stage-research" style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
 <div style="flex: 0 0 200px; display: flex; flex-direction: column; gap: 10px">
 <span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--accent)">01</span>
 <h3 style="margin: 0; color: var(--accent); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Research</h3>
@@ -86,7 +86,7 @@ import Base from '../layouts/Base.astro';
 </div>
 </div>
 </li>
-<li style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
+<li id="stage-spec" style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
 <div style="flex: 0 0 200px; display: flex; flex-direction: column; gap: 10px">
 <span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--accent)">02</span>
 <h3 style="margin: 0; color: var(--accent); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Spec</h3>
@@ -111,7 +111,7 @@ import Base from '../layouts/Base.astro';
 </div>
 </div>
 </li>
-<li style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
+<li id="stage-design" style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
 <div style="flex: 0 0 200px; display: flex; flex-direction: column; gap: 10px">
 <span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--accent)">03</span>
 <h3 style="margin: 0; color: var(--accent); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Design</h3>
@@ -136,7 +136,7 @@ import Base from '../layouts/Base.astro';
 </div>
 </div>
 </li>
-<li style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
+<li id="stage-build" style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
 <div style="flex: 0 0 200px; display: flex; flex-direction: column; gap: 10px">
 <span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--accent)">04</span>
 <h3 style="margin: 0; color: var(--accent); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Build</h3>
@@ -161,7 +161,7 @@ import Base from '../layouts/Base.astro';
 </div>
 </div>
 </li>
-<li style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
+<li id="stage-review" style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
 <div style="flex: 0 0 200px; display: flex; flex-direction: column; gap: 10px">
 <span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--accent)">05</span>
 <h3 style="margin: 0; color: var(--accent); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Review</h3>
@@ -186,7 +186,7 @@ import Base from '../layouts/Base.astro';
 </div>
 </div>
 </li>
-<li style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
+<li id="stage-ship" style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
 <div style="flex: 0 0 200px; display: flex; flex-direction: column; gap: 10px">
 <span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--accent)">06</span>
 <h3 style="margin: 0; color: var(--accent); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Ship</h3>
@@ -211,7 +211,7 @@ import Base from '../layouts/Base.astro';
 </div>
 </div>
 </li>
-<li style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
+<li id="stage-share" style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
 <div style="flex: 0 0 200px; display: flex; flex-direction: column; gap: 10px">
 <span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--accent)">07</span>
 <h3 style="margin: 0; color: var(--accent); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Share</h3>
@@ -236,7 +236,7 @@ import Base from '../layouts/Base.astro';
 </div>
 </div>
 </li>
-<li style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
+<li id="stage-reuse" style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
 <div style="flex: 0 0 200px; display: flex; flex-direction: column; gap: 10px">
 <span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--accent)">08</span>
 <h3 style="margin: 0; color: var(--accent); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Reuse</h3>
@@ -266,7 +266,7 @@ import Base from '../layouts/Base.astro';
 
 <section aria-labelledby="toolbox-title" style="max-width: 1200px; margin: 0 auto; padding: 96px clamp(16px, 4vw, 40px) 0; display: flex; flex-direction: column; gap: 40px">
 <div style="display: flex; align-items: center; gap: 20px">
-<h2 id="toolbox-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px"><span style="color: var(--accent)">02</span>The toolbox</h2>
+<h2 id="toolbox-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">The toolbox</h2>
 <div aria-hidden="true" style="flex: 1; height: 1px; background: var(--line)"></div>
 </div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 16px">
@@ -295,7 +295,7 @@ import Base from '../layouts/Base.astro';
 
 <section aria-labelledby="skills-title" style="max-width: 1200px; margin: 0 auto; padding: 96px clamp(16px, 4vw, 40px) 0; display: flex; flex-direction: column; gap: 40px">
 <div style="display: flex; align-items: center; gap: 20px">
-<h2 id="skills-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px"><span style="color: var(--accent)">03</span>Skills and plugins I wrote</h2>
+<h2 id="skills-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">Skills and plugins I wrote</h2>
 <div aria-hidden="true" style="flex: 1; height: 1px; background: var(--line)"></div>
 </div>
 <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 48px">
@@ -359,7 +359,7 @@ import Base from '../layouts/Base.astro';
 
 <section aria-labelledby="blueprint-title" style="max-width: 1200px; margin: 0 auto; padding: 96px clamp(16px, 4vw, 40px) 0; display: flex; flex-direction: column; gap: 40px">
 <div style="display: flex; align-items: center; gap: 20px">
-<h2 id="blueprint-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px"><span style="color: var(--accent)">04</span>Blueprint</h2>
+<h2 id="blueprint-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">Blueprint</h2>
 <div aria-hidden="true" style="flex: 1; height: 1px; background: var(--line)"></div>
 </div>
 <div style="display: flex; flex-wrap: wrap; gap: 24px 72px; align-items: flex-end">
@@ -387,7 +387,7 @@ import Base from '../layouts/Base.astro';
 
 <section aria-labelledby="rules-title" style="max-width: 1200px; margin: 0 auto; padding: 96px clamp(16px, 4vw, 40px) 0; display: flex; flex-direction: column; gap: 32px">
 <div style="display: flex; align-items: center; gap: 20px">
-<h2 id="rules-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px"><span style="color: var(--accent)">05</span>House rules</h2>
+<h2 id="rules-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">House rules</h2>
 <div aria-hidden="true" style="flex: 1; height: 1px; background: var(--line)"></div>
 </div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 32px 40px">
@@ -420,6 +420,65 @@ import Base from '../layouts/Base.astro';
       if (summary) summary.textContent = text[scope];
     }),
   );
+</script>
+
+<script>
+  // Loop stage labels: a splash shape sits behind each name (shown on hover and focus), and a
+  // tooltip says what I decide at that stage. Each name links to its entry below.
+  const loop = document.querySelector<HTMLElement>('[data-loop]');
+  const tip = document.querySelector<HTMLElement>('[data-loop-tip]');
+  const stageLinks = [...document.querySelectorAll<SVGAElement>('.loop-stage')];
+
+  // A closed, wobbly blob around a box, with a few spikes so it reads as a splash.
+  // Seeded per label, so it looks the same on every visit.
+  const splash = (x: number, y: number, w: number, h: number, seed: number) => {
+    let n = seed;
+    const rand = () => ((n = (n * 9301 + 49297) % 233280) / 233280);
+    const cx = x + w / 2, cy = y + h / 2, rx = w / 2 + 18, ry = h / 2 + 12;
+    const pts = Array.from({ length: 18 }, (_, i) => {
+      const a = (i / 18) * Math.PI * 2;
+      const r = i % 6 === 2 ? 1.22 + rand() * 0.1 : 0.9 + rand() * 0.16;
+      return [cx + Math.cos(a) * rx * r, cy + Math.sin(a) * ry * r];
+    });
+    const at = (i: number) => pts[(i + pts.length) % pts.length];
+    let d = `M ${at(0)[0].toFixed(1)} ${at(0)[1].toFixed(1)}`;
+    for (let i = 0; i < pts.length; i++) {
+      const [p0, p1, p2, p3] = [at(i - 1), at(i), at(i + 1), at(i + 2)];
+      const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+      const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+      d += ` C ${c1[0].toFixed(1)} ${c1[1].toFixed(1)}, ${c2[0].toFixed(1)} ${c2[1].toFixed(1)}, ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
+    }
+    return d + ' Z';
+  };
+
+  const drawSplashes = () =>
+    stageLinks.forEach((a, i) => {
+      const text = a.querySelector('text');
+      const path = a.querySelector('.loop-stage__splash');
+      if (!text || !path) return;
+      const b = text.getBBox();
+      path.setAttribute('d', splash(b.x, b.y, b.width, b.height, 7 + i * 13));
+    });
+  document.fonts.ready.then(drawSplashes);
+
+  const showTip = (a: SVGAElement) => {
+    if (!loop || !tip) return;
+    tip.textContent = a.dataset.tip ?? '';
+    tip.hidden = false;
+    const box = loop.getBoundingClientRect();
+    const r = (a.querySelector('text') ?? a).getBoundingClientRect();
+    const left = Math.min(Math.max(r.left + r.width / 2 - box.left - tip.offsetWidth / 2, 0), box.width - tip.offsetWidth);
+    tip.style.left = `${left}px`;
+    tip.style.top = `${r.top - box.top - tip.offsetHeight - 14}px`;
+  };
+  const hideTip = () => tip && (tip.hidden = true);
+  stageLinks.forEach((a) => {
+    a.addEventListener('pointerenter', () => showTip(a));
+    a.addEventListener('focus', () => showTip(a));
+    a.addEventListener('pointerleave', hideTip);
+    a.addEventListener('blur', hideTip);
+    a.addEventListener('click', hideTip);
+  });
 </script>
 
 <style is:global>
@@ -484,5 +543,96 @@ import Base from '../layouts/Base.astro';
 
   tr[hidden] {
     display: none;
+  }
+
+  /* Loop stage names: a splash behind on hover and focus, a tooltip above */
+  .loop {
+    position: relative;
+  }
+
+  .loop-stage {
+    cursor: pointer;
+    outline: none;
+  }
+
+  .loop-stage text {
+    transition: fill 160ms ease-out;
+  }
+
+  .loop-stage__splash {
+    fill: var(--link-hover);
+    fill-opacity: 0.14;
+    stroke: var(--link-hover);
+    stroke-width: 1.4;
+    opacity: 0;
+    transform: scale(0.6);
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: opacity 160ms ease-out, transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .loop-stage:hover .loop-stage__splash,
+  .loop-stage:focus-visible .loop-stage__splash {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .loop-stage:hover text,
+  .loop-stage:focus-visible text {
+    fill: var(--link-hover);
+  }
+
+  .loop-tip {
+    position: absolute;
+    z-index: 5;
+    max-width: 260px;
+    margin: 0;
+    padding: var(--space-2) var(--space-3);
+    background: var(--surface-raised);
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    font-size: var(--size-small);
+    line-height: 1.45;
+    pointer-events: none;
+  }
+
+  .loop-tip[hidden] {
+    display: none;
+  }
+
+  /* Legend under the loop: circle for agents, filled square for the human */
+  .loop-legend {
+    list-style: none;
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: var(--space-6);
+    font-size: var(--size-small);
+    color: var(--text-muted);
+  }
+
+  .loop-legend li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .loop-legend__agent {
+    width: 12px;
+    height: 12px;
+    border: 1.5px solid var(--ink);
+    border-radius: var(--radius-circle);
+  }
+
+  .loop-legend__human {
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+  }
+
+  /* A stage reached from the loop flashes its name */
+  [id^='stage-']:target h3 {
+    color: var(--link-hover) !important;
   }
 </style>

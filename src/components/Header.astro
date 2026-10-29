@@ -14,21 +14,54 @@ const { current } = Astro.props;
     <span class="brand__mark" aria-hidden="true">P</span>
     <span class="brand__name">{site.name}</span>
   </a>
-  <nav class="site-nav label" aria-label="Main">
+  <nav class="site-nav label" id="site-nav" aria-label="Main" data-nav>
     {nav.map((item) => (
       <a href={item.href} aria-current={item.key === current ? 'page' : undefined}>
         {item.label}
       </a>
     ))}
+  </nav>
+  <div class="site-actions">
     <a class="hello" href={`mailto:${site.email}`} aria-label="Say hello">
       <Icon name="mail" />
       <span class="hello__tip" aria-hidden="true">Say hello</span>
     </a>
-  </nav>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav" data-burger>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
 </header>
+
+<script>
+  // Phone menu: the burger opens the nav as a panel under the header. Escape, a link or a wider
+  // screen closes it. Without script the nav stays a plain row of links.
+  const burger = document.querySelector<HTMLButtonElement>('[data-burger]');
+  const menu = document.querySelector<HTMLElement>('[data-nav]');
+  if (burger && menu) {
+    document.documentElement.classList.add('has-menu');
+    const set = (open: boolean) => {
+      burger.setAttribute('aria-expanded', String(open));
+      burger.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
+      menu.classList.toggle('is-open', open);
+    };
+    burger.addEventListener('click', () => set(burger.getAttribute('aria-expanded') !== 'true'));
+    menu.addEventListener('click', (e) => {
+      if (e.target instanceof Element && e.target.closest('a')) set(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menu.classList.contains('is-open')) {
+        set(false);
+        burger.focus();
+      }
+    });
+    window.matchMedia('(min-width: 761px)').addEventListener('change', (e) => e.matches && set(false));
+  }
+</script>
 
 <style>
   .site-header {
+    position: relative;
     padding-top: 20px;
     padding-bottom: 20px;
     display: flex;
@@ -64,6 +97,7 @@ const { current } = Astro.props;
   }
 
   .site-nav {
+    margin-left: auto;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -71,13 +105,13 @@ const { current } = Astro.props;
     letter-spacing: 0.08em;
   }
 
-  .site-nav a:not(.hello) {
+  .site-nav a {
     color: var(--text-muted);
     text-decoration: none;
     padding: var(--space-3) 0;
   }
 
-  .site-nav a:not(.hello):hover,
+  .site-nav a:hover,
   .site-nav a[aria-current='page'] {
     color: var(--ink);
   }
@@ -85,6 +119,113 @@ const { current } = Astro.props;
   .site-nav a[aria-current='page'] {
     text-decoration: underline;
     text-underline-offset: 6px;
+  }
+
+  .site-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .burger {
+    display: none;
+    position: relative;
+    width: var(--touch-target);
+    height: var(--touch-target);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  /* Two lines that turn into an X */
+  .burger span {
+    position: absolute;
+    left: 11px;
+    right: 11px;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 220ms ease-out, top 220ms ease-out;
+  }
+
+  .burger span:first-child {
+    top: 17px;
+  }
+
+  .burger span:last-child {
+    top: 25px;
+    left: 17px;
+  }
+
+  .burger[aria-expanded='true'] span {
+    top: 21px;
+    left: 11px;
+  }
+
+  .burger[aria-expanded='true'] span:first-child {
+    transform: rotate(45deg);
+  }
+
+  .burger[aria-expanded='true'] span:last-child {
+    transform: rotate(-45deg);
+  }
+
+  .burger:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+  }
+
+  @media (max-width: 760px) {
+    :global(.has-menu) .burger {
+      display: block;
+    }
+
+    /* The nav becomes a panel under the pinned header */
+    :global(.has-menu) .site-nav {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      margin: 0;
+      padding: var(--space-3) var(--gutter) var(--space-6);
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+      font-family: var(--font-sans);
+      font-size: 26px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      text-transform: none;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 180ms ease-out, transform 180ms ease-out, visibility 0s 180ms;
+    }
+
+    :global(.has-menu) .site-nav.is-open {
+      visibility: visible;
+      opacity: 1;
+      transform: none;
+      transition: opacity 180ms ease-out, transform 180ms ease-out;
+    }
+
+    :global(.has-menu) .site-nav a {
+      padding: var(--space-3) 0;
+      border-top: 1px solid var(--line);
+      color: var(--ink);
+    }
+
+    :global(.has-menu) .site-nav a:first-child {
+      border-top: 0;
+    }
+
+    :global(.has-menu) .site-nav a[aria-current='page'] {
+      text-decoration: none;
+      color: var(--frame-accent);
+    }
   }
 
   .hello {

@@ -30,6 +30,7 @@
   --glow: rgba(250, 250, 250, 0.06);
   --frame-accent: #9cc2f7;
   --lens-accent: #ff9548;
+  --link-hover: #9cc2f7;
 
   /* Type */
   --font-sans: 'Open Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;

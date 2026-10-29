@@ -28,10 +28,26 @@ img {
 
 a {
   color: var(--ink);
+  transition: color 140ms ease-out, opacity 140ms ease-out;
 }
 
+/* Every link changes colour on hover and dims while pressed, so it reads as clickable.
+   !important because many links carry an inline colour. */
 a:hover {
-  color: var(--accent);
+  color: var(--link-hover) !important;
+}
+
+a:active {
+  opacity: 0.7;
+}
+
+/* Whole-card links keep their text colours; the card's call to action lights up instead */
+a.card-link:hover {
+  color: inherit !important;
+}
+
+a.card-link:hover .card-link__cta {
+  color: var(--link-hover) !important;
 }
 
 :focus-visible {
@@ -87,6 +103,12 @@ a:hover {
 
 html {
   scroll-padding-top: 110px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* Small uppercase labels: eyebrows, section labels, nav, meta lines */

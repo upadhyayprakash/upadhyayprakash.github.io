@@ -53,17 +53,16 @@ const wins = [
     <div class="hero__inner container">
       <div class="hero__text">
         <div class="hero__intro">
-          <p class="label hero__eyebrow"><span>01</span> <span aria-hidden="true">/</span> <span>Home</span></p>
           <p class="hero__links">
-            <a href={site.github}><Icon name="github" />GitHub</a>
-            <a href={site.linkedin}><Icon name="linkedin" />LinkedIn</a>
+            <a href={site.github}><Icon name="github-solid" />GitHub</a>
+            <a href={site.linkedin}><Icon name="linkedin-solid" />LinkedIn</a>
             <a class="hero__patent" href="#recognition"><Icon name="patent" />{site.patent.shortLabel}</a>
           </p>
         </div>
         <div class="hero__headline">
           <h1 id="hero-title">Prakash<br />Upadhyay<span class="dot" aria-hidden="true"></span></h1>
           <p class="hero__line">
-            The <span class="human" data-lens-word>human<svg aria-hidden="true" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M2 7 C 22 3, 48 9, 70 5 S 92 3, 98 6" /></svg></span> in the loop of AI&#8209;driven software development.
+            The <span class="human" data-lens-word>human<svg aria-hidden="true" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 6 C 12.5 2, 12.5 2, 25 6 S 37.5 10, 50 6 S 62.5 2, 75 6 S 87.5 10, 100 6 S 112.5 2, 125 6 S 137.5 10, 150 6 S 162.5 2, 175 6 S 187.5 10, 200 6" /></svg></span> in the loop of AI&#8209;driven software development.
           </p>
         </div>
         <div class="hero__actions">
@@ -84,9 +83,7 @@ const wins = [
       </div>
 
       <nav class="counter label" aria-label="Page sections">
-        <span>01</span>
         <span class="counter__rule" aria-hidden="true"></span>
-        <span>03</span>
         <a href="#now" aria-label="Next section"><Icon name="chevron-down" size={20} /></a>
       </nav>
     </div>
@@ -94,7 +91,7 @@ const wins = [
   <div class="lens" aria-hidden="true" data-lens></div>
 
   <section id="now" class="container block" aria-labelledby="now-title">
-    <SectionLabel id="now-title" num="01" title="I'm currently working on" />
+    <SectionLabel id="now-title" title="I'm currently working on" />
     <div class="now-grid">
       {now.map((card) => (
         <article class="card">
@@ -108,7 +105,7 @@ const wins = [
   </section>
 
   <section id="recognition" class="container block" aria-labelledby="recognition-title">
-    <SectionLabel id="recognition-title" num="02" title="Recognition" />
+    <SectionLabel id="recognition-title" title="Recognition" />
     <article class="patent" aria-labelledby="patent-title">
       <div class="badge" role="img" aria-label="Granted by the United States Patent and Trademark Office">
         <span class="badge__ring" aria-hidden="true"></span>
@@ -135,7 +132,7 @@ const wins = [
   </section>
 
   <section id="riding" class="container block" aria-labelledby="riding-title">
-    <SectionLabel id="riding-title" num="03" title="Riding" />
+    <SectionLabel id="riding-title" title="Riding" />
     <div class="ride">
       <figure class="ride__photo">
         <img src="/images/ride-stand-in.jpg" alt="A lone cyclist on a long road through green alpine meadows, mountains ahead. Stand-in photo." width="1920" height="1280" loading="lazy" />
@@ -250,6 +247,9 @@ const wins = [
 
   .hero__giant-note {
     margin: 0;
+    align-self: flex-end;
+    font-size: clamp(14px, 1.6vw, 20px);
+    letter-spacing: 0.14em;
   }
 
   .hero__giant text {
@@ -314,9 +314,16 @@ const wins = [
     color: var(--ink);
   }
 
+  /* The patent stands out in the same orange the lens gives "human" */
   .hero__links .hero__patent {
-    color: var(--accent);
+    color: var(--lens-accent);
     font-weight: 600;
+  }
+
+  .hero__links .hero__patent:hover {
+    color: var(--lens-accent) !important;
+    text-decoration: underline;
+    text-underline-offset: 5px;
   }
 
   .hero__headline {
@@ -366,13 +373,22 @@ const wins = [
     color: var(--lens-accent);
   }
 
+  /* The underline is a wave twice as wide as the word, clipped to it; under the lens it flows sideways */
   .human svg {
     position: absolute;
     left: -2%;
     bottom: -0.32em;
     width: 104%;
     height: 0.42em;
-    overflow: visible;
+    overflow: hidden;
+  }
+
+  .human.is-lit path {
+    animation: human-wave 900ms linear infinite;
+  }
+
+  @keyframes human-wave {
+    to { transform: translateX(-50px); }
   }
 
   .human path {

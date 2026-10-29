@@ -17,6 +17,7 @@ export const tokens = {
     onAccent: '#121212',
     frameAccent: '#9cc2f7',
     lensAccent: '#ff9548',
+    linkHover: '#9cc2f7',
   },
   size: {
     container: 1200,
