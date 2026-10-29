@@ -1,0 +1,13 @@
+node_modules/
+dist/
+build/
+coverage/
+.turbo/
+.nx/
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+.astro/
+.idea/

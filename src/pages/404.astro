@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+---
+
+<Base title="Page not found, Prakash Upadhyay" description="This page does not exist.">
+  <PageHeader crumbs={[{ label: '404' }]} title="Page not found." tagline="Wrong turn. Easy fix." intro="The page you asked for does not exist, or it moved when this site was rebuilt.">
+    <a class="home" href="/">Go to the home page</a>
+  </PageHeader>
+</Base>
+
+<style>
+  .home {
+    align-self: flex-start;
+    min-height: var(--touch-target);
+    display: inline-flex;
+    align-items: center;
+    font-weight: 600;
+  }
+</style>

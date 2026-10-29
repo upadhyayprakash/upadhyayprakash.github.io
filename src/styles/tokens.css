@@ -1,0 +1,76 @@
+/*
+ * Design tokens for Portfolio 2026.
+ * Source: designs/TOKENS.md in the idea folder (signed off 2026-10-29).
+ * The site has one dark look; there is no light theme in v1.
+ * Change a value here, never in a component.
+ */
+:root {
+  color-scheme: dark;
+
+  /* Colour */
+  --bg: #121212;
+  --surface: #171717;
+  --surface-raised: #1f1f1f;
+  --line: #262626;
+  --line-strong: #404040;
+  --outline: #525252;
+  --control-border: #737373;
+  --ink: #fafafa;
+  --text: #d4d4d4;
+  --text-muted: #a3a3a3;
+  --text-faint: #8a8a8a;
+  --accent: #ffffff;
+  --on-accent: #121212;
+  --focus-ring: #fafafa;
+  --hero-glow: #333333;
+  --hero-mid: #1f1f1f;
+  --giant-word: #1c1c1c;
+  --letterbox: #0a0a0a;
+  --card-glow: #2a2a2a;
+  --glow: rgba(250, 250, 250, 0.06);
+  --frame-accent: #9cc2f7;
+  --lens-accent: #ff9548;
+
+  /* Type */
+  --font-sans: 'Open Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-label: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-hand: 'Caveat', 'Bradley Hand', cursive;
+  --size-hero-name: clamp(48px, 6.4vw, 84px);
+  --size-hero-line: clamp(20px, 2vw, 24px);
+  --size-page-title: clamp(48px, 7vw, 96px);
+  --size-tagline: clamp(22px, 2.6vw, 30px);
+  --size-body: 17px;
+  --size-small: 15px;
+  --size-label: 13px;
+  --size-meta: 12px;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 28px;
+  --space-7: 40px;
+  --space-8: 48px;
+  --space-9: 72px;
+  --space-10: 96px;
+  --space-11: 120px;
+
+  /* Radius */
+  --radius-0: 0;
+  --radius-xs: 4px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  /* Shadow */
+  --shadow-hairline: 0 0 0 1px #262626;
+  --shadow-focus: 0 0 0 2px #121212, 0 0 0 4px #fafafa;
+  --shadow-float: 0 30px 80px rgba(0, 0, 0, 0.55);
+
+  /* Size */
+  --container: 1200px;
+  --measure: 760px;
+  --touch-target: 44px;
+  --gutter: clamp(16px, 4vw, 40px);
+}
