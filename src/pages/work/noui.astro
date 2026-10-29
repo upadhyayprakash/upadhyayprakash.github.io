@@ -15,7 +15,7 @@ import Base from '../../layouts/Base.astro';
 <main style="max-width: 1200px; margin: 0 auto; padding: 72px clamp(16px, 4vw, 40px) 0; display: flex; flex-direction: column; gap: 120px">
 <div style="display: flex; flex-wrap: wrap; gap: 32px 64px; align-items: flex-start">
 <div style="flex: 1 1 560px; display: flex; flex-direction: column; gap: 20px">
-<div aria-hidden="true" style="aspect-ratio: 16 / 9; border: 1px dashed var(--outline); background: var(--surface); display: flex; align-items: center; justify-content: center; padding: 24px; text-align: center; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">[Screen recording: the Kyoto plan rebuilding after "travelling with my parents"]</div>
+<img src="/images/noui/hero.png" alt="The noui.si home page: What if software stopped making you learn its interface? Interfaces that adapt to your intent and context." width="1200" height="630" style="display: block; width: 100%; height: auto; border: 1px solid var(--line)" />
 </div>
 <aside aria-label="Project facts" style="flex: 0 1 300px; display: flex; flex-direction: column; gap: 20px">
 <div style="display: flex; flex-direction: column; gap: 4px"><p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Role</p><p style="margin: 0; font-size: 15px; color: var(--ink)">Idea, design and build, solo</p></div>
@@ -62,7 +62,7 @@ import Base from '../../layouts/Base.astro';
 <div aria-hidden="true" style="flex: 1; height: 1px; background: var(--line)"></div>
 </div>
 <div style="display: flex; flex-wrap: wrap; gap: 40px 64px; align-items: flex-start">
-<div style="flex: 1 1 520px"><div aria-hidden="true" style="aspect-ratio: 16 / 9; border: 1px dashed var(--outline); background: var(--surface); display: flex; align-items: center; justify-content: center; padding: 24px; text-align: center; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">[Poster frame from the 84-second listen recording]</div></div>
+<div style="flex: 1 1 520px"><video controls preload="none" playsinline poster="/images/noui/listen-poster.jpg" width="1440" height="988" aria-label="Recording of the noui voice-to-voice prototype: a cancelled flight is re-planned by talking to Orby" style="display: block; width: 100%; height: auto; border: 1px solid var(--line); background: var(--letterbox)"><source src="/images/noui/listen-demo.mp4" type="video/mp4" />Your browser can't play this video. <a href="https://noui.si/listen/">Watch it on noui.si</a>.</video></div>
 <div style="flex: 1 1 340px; display: flex; flex-direction: column; gap: 16px">
 <p style="margin: 0; font-size: 22px; font-weight: 500; color: var(--accent); line-height: 1.3">Say what you need. The interface assembles itself.</p>
 <p style="margin: 0; font-size: 16px">A recorded run of a cancelled flight: the traveller talks, Orby answers, and halfway through the traveller cuts in. Orby stops at once and re-plans.</p>
