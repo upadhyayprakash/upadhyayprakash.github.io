@@ -15,7 +15,7 @@ export const tokens = {
     textFaint: '#8a8a8a',
     accent: '#ffffff',
     onAccent: '#121212',
-    frameAccent: '#9cc2f7',
+    frameAccent: '#ffbf8f',
     lensAccent: '#ff9548',
     linkHover: '#9cc2f7',
     pluginStandalone: '#b5b5b5',
