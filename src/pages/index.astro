@@ -76,11 +76,9 @@ const wins = [
         <div class="portrait__frame" aria-hidden="true"></div>
         <img src="/images/portrait.png" alt="Portrait of Prakash Upadhyay in a flat cap, smiling, turned to the right" width="784" height="670" />
         <img class="portrait__color" src="/images/portrait-color.png" alt="" aria-hidden="true" width="784" height="670" data-lens-color />
-        <div class="hero__under" aria-hidden="true">
-          <div class="hero__giant" data-lens-giant>
-            <svg viewBox="0 0 1000 240"><text x="0" y="232" textLength="1000" lengthAdjust="spacingAndGlyphs">Human</text></svg>
-          </div>
-          <p class="label hero__under-note">in the AI loop</p>
+        <div class="hero__giant" aria-hidden="true" data-lens-giant>
+          <svg viewBox="0 0 1000 240"><text x="0" y="232" textLength="1000" lengthAdjust="spacingAndGlyphs">Human</text></svg>
+          <p class="label hero__giant-note">in the AI loop</p>
         </div>
         <p class="portrait__note" aria-hidden="true">research,<br />build,<br />review,<br />reuse.</p>
       </div>
@@ -228,8 +226,8 @@ const wins = [
     border-bottom: 1px solid var(--line);
   }
 
-  /* The giant word and its note sit just under the photo, at its width */
-  .hero__under {
+  /* The giant word and its note sit just under the photo, at its width, and show only inside the lens */
+  .hero__giant {
     position: absolute;
     top: calc(100% + var(--space-2));
     left: 0;
@@ -237,26 +235,21 @@ const wins = [
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
-  }
-
-  .hero__under-note {
-    margin: 0;
-    color: var(--text-muted);
-  }
-
-  /* The SVG scales the word to the photo's width */
-  .hero__giant {
-    position: relative;
     color: var(--outline);
     pointer-events: none;
     clip-path: circle(0 at 50% 50%);
   }
 
+  /* The SVG scales the word to the photo's width */
   .hero__giant svg {
     display: block;
     width: 100%;
     height: auto;
     overflow: visible;
+  }
+
+  .hero__giant-note {
+    margin: 0;
   }
 
   .hero__giant text {
