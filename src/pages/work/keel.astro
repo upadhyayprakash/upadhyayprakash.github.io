@@ -51,7 +51,7 @@ const built = [
     </div>
 
     <section aria-labelledby="problem-title">
-      <div class="rule"><h2 id="problem-title">The problem</h2><div aria-hidden="true"></div></div>
+      <div class="rule"><h2 id="problem-title" class="section-title">The problem</h2><div aria-hidden="true"></div></div>
       <p class="lead">Keel started as a personal annoyance: working on many things at once kept failing in the same four ways.</p>
       <ul class="grid">
         {failures.map(([t, d]) => <li><h3>{t}</h3><p>{d}</p></li>)}
@@ -59,7 +59,7 @@ const built = [
     </section>
 
     <section id="design" aria-labelledby="design-title">
-      <div class="rule"><h2 id="design-title">The design pivot</h2><div aria-hidden="true"></div></div>
+      <div class="rule"><h2 id="design-title" class="section-title">The design pivot</h2><div aria-hidden="true"></div></div>
       <div class="split">
         <Image class="shot" src={keelCli} alt="The Keel shell in a terminal: the logo, today with focus and follow-ups, and the prompt showing the current project." widths={[480, 800]} sizes="(max-width: 900px) 100vw, 520px" />
         <div class="split__text">
@@ -70,14 +70,14 @@ const built = [
     </section>
 
     <section aria-labelledby="built-title">
-      <div class="rule"><h2 id="built-title">How it is built</h2><div aria-hidden="true"></div></div>
+      <div class="rule"><h2 id="built-title" class="section-title">How it is built</h2><div aria-hidden="true"></div></div>
       <ul class="grid">
         {built.map(([t, d]) => <li><h3>{t}</h3><p>{d}</p></li>)}
       </ul>
     </section>
 
     <section aria-labelledby="goals-title">
-      <div class="rule"><h2 id="goals-title">Goals in Keel</h2><div aria-hidden="true"></div></div>
+      <div class="rule"><h2 id="goals-title" class="section-title">Goals in Keel</h2><div aria-hidden="true"></div></div>
       <p class="lead">A goal mode for small personal goals with a finish line, days to a few weeks away, with a phone app served by <code>keel serve</code>.</p>
       <p>People rarely fail at such goals for lack of a list. They fail because the goal is vague, one missed day turns into quitting, or the last 10% drifts. So a finish line and an if-then plan are required before a goal can be saved.</p>
       <p class="status"><span>In progress</span>Merged to <code>main</code> and documented. Not in a release yet: it's planned for 0.5.0.</p>
@@ -257,16 +257,6 @@ const built = [
     flex: 1;
     height: 1px;
     background: var(--line);
-  }
-
-  h2 {
-    margin: 0;
-    font-family: var(--font-label);
-    font-size: 13px;
-    font-weight: var(--weight-label);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink);
   }
 
   .grid {

@@ -112,6 +112,13 @@ a.card-link:hover .card-link__cta {
   border-bottom-color: var(--line);
 }
 
+/* A backdrop filter here would stop the phone menu's backdrop from reaching the page, so it can't blur it */
+.site-top:has(.site-nav.is-open) {
+  background: var(--bg);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
 html {
   scroll-padding-top: 110px;
 }
@@ -123,6 +130,19 @@ html {
 }
 
 /* Small uppercase labels: eyebrows, section labels, nav, meta lines */
+.section-title {
+  margin: 0;
+  display: flex;
+  gap: 14px;
+  font-family: var(--font-sans);
+  font-size: var(--size-section);
+  font-weight: var(--weight-label);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  text-transform: lowercase;
+  color: var(--frame-accent);
+}
+
 .label {
   font-family: var(--font-label);
   font-size: var(--size-label);

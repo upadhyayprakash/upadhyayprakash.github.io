@@ -50,6 +50,7 @@
   --size-tagline: clamp(22px, 2.6vw, 30px);
   --size-body: 17px;
   --size-small: 15px;
+  --size-section: clamp(20px, 2.2vw, 26px);
   --size-label: 13px;
   --weight-label: 600;
   --size-meta: 12px;

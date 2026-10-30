@@ -20,6 +20,13 @@ const { current } = Astro.props;
         {item.label}
       </a>
     ))}
+    <div class="nav-social">
+      <a href={site.linkedin}><Icon name="linkedin-solid" />LinkedIn</a>
+      <a href={site.github}><Icon name="github-solid" />GitHub</a>
+      <a href={`mailto:${site.email}`}><Icon name="mail" />Email</a>
+    </div>
+    <a class="nav-extra" href="/#recognition"><Icon name="patent" />{site.patent.shortLabel}</a>
+    <a class="nav-extra" href={site.resumePdf} download="prakash_upadhyay_resume.pdf"><Icon name="download" />Download resume</a>
   </nav>
   <div class="site-actions">
     <a class="hello" href={`mailto:${site.email}`} aria-label="Say hello">
@@ -34,8 +41,8 @@ const { current } = Astro.props;
 </header>
 
 <script>
-  // Phone menu: the burger opens the nav as a panel under the header. Escape, a link or a wider
-  // screen closes it. Without script the nav stays a plain row of links.
+  // Phone menu: the burger opens the nav as a panel under the header. Escape, a link, a tap outside it
+  // or a wider screen closes it. Without script the nav stays a plain row of links.
   const burger = document.querySelector<HTMLButtonElement>('[data-burger]');
   const menu = document.querySelector<HTMLElement>('[data-nav]');
   if (burger && menu) {
@@ -47,7 +54,7 @@ const { current } = Astro.props;
     };
     burger.addEventListener('click', () => set(burger.getAttribute('aria-expanded') !== 'true'));
     menu.addEventListener('click', (e) => {
-      if (e.target instanceof Element && e.target.closest('a')) set(false);
+      if (e.target === menu || (e.target instanceof Element && e.target.closest('a'))) set(false);
     });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && menu.classList.contains('is-open')) {
@@ -82,12 +89,13 @@ const { current } = Astro.props;
   .brand__mark {
     width: 34px;
     height: 34px;
-    border: 1.5px solid var(--ink);
+    border: 2.5px solid var(--frame-accent);
+    color: var(--frame-accent);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 700;
     border-radius: var(--radius-card);
   }
 
@@ -120,6 +128,12 @@ const { current } = Astro.props;
   .site-nav a[aria-current='page'] {
     text-decoration: underline;
     text-underline-offset: 6px;
+  }
+
+  /* Only in the phone menu; on wider screens these live in the hero */
+  .nav-social,
+  .nav-extra {
+    display: none;
   }
 
   .site-actions {
@@ -206,6 +220,19 @@ const { current } = Astro.props;
       transition: opacity 180ms ease-out, transform 180ms ease-out, visibility 0s 180ms;
     }
 
+    /* Everything below the open panel fades back; tapping it closes the menu */
+    :global(.has-menu) .site-nav::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      height: 100vh;
+      background: color-mix(in srgb, var(--bg) 40%, transparent);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+
     :global(.has-menu) .site-nav.is-open {
       visibility: visible;
       opacity: 1;
@@ -221,6 +248,30 @@ const { current } = Astro.props;
 
     :global(.has-menu) .site-nav a:first-child {
       border-top: 0;
+    }
+
+    /* The email link moves into the menu */
+    :global(.has-menu) .hello {
+      display: none;
+    }
+
+    :global(.has-menu) .nav-social {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-3);
+      border-top: 1px solid var(--line);
+    }
+
+    :global(.has-menu) .site-nav .nav-social a {
+      border-top: 0;
+    }
+
+    :global(.has-menu) .site-nav .nav-social a,
+    :global(.has-menu) .site-nav .nav-extra {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: 18px;
     }
 
     :global(.has-menu) .site-nav a[aria-current='page'] {

@@ -1,0 +1,94 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import { entries, types } from '../../data/content';
+import { bodies } from '../../data/post-bodies';
+
+export function getStaticPaths() {
+  return entries.filter((e) => e.slug).map((e) => ({ params: { slug: e.slug }, props: { entry: e } }));
+}
+
+const { entry } = Astro.props;
+const single = types.find((t) => t.id === entry.type)?.single;
+const body = bodies[entry.slug!];
+---
+
+<Base title={`${entry.title}, Prakash Upadhyay`} description={body.split('\n')[0]} progress>
+  <main>
+    <p class="crumbs"><a href="/content">Content</a><span aria-hidden="true">/</span><span>{single}</span><span aria-hidden="true">·</span><span>{entry.date}</span></p>
+    <h1>{entry.title}</h1>
+    {entry.video ? (
+      <video class="media" controls preload="none" playsinline poster={entry.thumb} src={entry.video}></video>
+    ) : entry.thumb && (
+      <img class="media" src={entry.thumb} alt={entry.thumbAlt ?? ''} />
+    )}
+    <p class="body">{body}</p>
+    <a class="link" href={entry.url}>View the original on LinkedIn<Icon name="arrow-up-right" size={16} /></a>
+  </main>
+</Base>
+
+<style>
+  main {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 72px clamp(16px, 4vw, 40px) 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .crumbs {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-family: var(--font-label);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: var(--weight-label);
+  }
+
+  .crumbs a {
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  h1 {
+    margin: 0;
+    color: var(--display);
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+
+  .media {
+    display: block;
+    width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    background: var(--letterbox);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card-lg);
+  }
+
+  .body {
+    margin: 0;
+    font-size: 17px;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+    color: var(--text);
+  }
+
+  .link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    min-height: var(--touch-target);
+    font-size: 15px;
+    font-weight: 500;
+  }
+</style>

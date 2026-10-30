@@ -16,20 +16,6 @@ import parts from '../assets/riding/parts.jpg';
 
 const now = [
   {
-    meta: 'Product · Live',
-    title: 'CertPulse',
-    text: 'Certificate infrastructure for events. Import participant results, map them to branded templates, generate certificates in bulk, and give every recipient one they can verify by QR.',
-    href: 'https://certpulse.revupulse.com',
-    link: 'certpulse.revupulse.com',
-  },
-  {
-    meta: 'Product · Beta',
-    title: 'RevuPulse',
-    text: 'The trust layer for modern discovery.',
-    href: 'https://revupulse.com',
-    link: 'revupulse.com',
-  },
-  {
     meta: 'Experiment',
     title: 'noui',
     text: "An open experiment in interfaces that form around what you're trying to do instead of making you learn them. Prototyping the interaction first, before putting a model behind it.",
@@ -37,11 +23,11 @@ const now = [
     link: 'noui.si',
   },
   {
-    meta: 'Web standard · Filed 18 Oct 2026',
-    title: 'HDR brightness preference',
-    text: 'A proposed CSS user preference, like prefers-reduced-motion, so people can turn off sudden HDR brightness spikes.',
-    href: 'https://github.com/w3c/csswg-drafts/issues/14616',
-    link: 'w3c/csswg-drafts#14616',
+    meta: 'Plugin · In final testing',
+    title: 'Launchpad',
+    text: 'A Claude Code plugin that takes a product idea from a raw note to a documented, branded, scaffolded product, in seven gated stages.',
+    href: '/how-i-build#launchpad-title',
+    link: 'How I build',
   },
 ];
 
@@ -82,7 +68,7 @@ const wins = [
         <div class="hero__headline">
           <h1 id="hero-title">Prakash<br />Upadhyay<span class="dot" aria-hidden="true"></span></h1>
           <p class="hero__line">
-            The <span class="human" data-lens-word>human<svg aria-hidden="true" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 6 C 12.5 2, 12.5 2, 25 6 S 37.5 10, 50 6 S 62.5 2, 75 6 S 87.5 10, 100 6 S 112.5 2, 125 6 S 137.5 10, 150 6 S 162.5 2, 175 6 S 187.5 10, 200 6" /></svg></span> in the loop of AI&#8209;driven software development.
+            The <span class="human" data-lens-word>human<svg aria-hidden="true" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q 6.25 -1, 12.5 5 T 25 5 T 37.5 5 T 50 5 T 62.5 5 T 75 5 T 87.5 5 T 100 5 T 112.5 5 T 125 5 T 137.5 5 T 150 5 T 162.5 5 T 175 5 T 187.5 5 T 200 5" /></svg></span> in the<br class="hero__break" /> loop of AI&#8209;driven<br class="hero__break" /> software development.
           </p>
         </div>
         <div class="hero__actions">
@@ -431,6 +417,11 @@ const wins = [
     text-wrap: balance;
   }
 
+  /* Line breaks for the phone hero only */
+  .hero__break {
+    display: none;
+  }
+
   .human {
     position: relative;
     z-index: 6;
@@ -449,9 +440,9 @@ const wins = [
   .human svg {
     position: absolute;
     left: -2%;
-    bottom: -0.32em;
+    bottom: -0.2em;
     width: 104%;
-    height: 0.42em;
+    height: 0.24em;
     overflow: hidden;
   }
 
@@ -460,7 +451,7 @@ const wins = [
   }
 
   @keyframes human-wave {
-    to { transform: translateX(-50px); }
+    to { transform: translateX(-25px); }
   }
 
   .human path {
@@ -932,22 +923,67 @@ const wins = [
 
   /* Phone */
   @media (max-width: 760px) {
+    /* Line, photo, then one action. The name is in the header; the links and resume are in the menu */
     .hero__inner {
-      padding-top: var(--space-8);
-      padding-bottom: 160px;
+      padding-top: var(--space-7);
+      padding-bottom: var(--space-8);
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      gap: var(--space-6);
     }
 
     .hero__text {
-      flex-basis: 100%;
+      display: contents;
+    }
+
+    .hero__intro,
+    .resume {
+      display: none;
+    }
+
+    h1 {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+
+    .hero__line {
+      max-width: none;
+      font-size: clamp(26px, 7.6vw, 36px);
+      font-weight: 300;
+      line-height: 1.5;
+      text-wrap: wrap;
+    }
+
+    .hero__break {
+      display: inline;
     }
 
     .portrait {
-      flex-basis: 100%;
+      order: 1;
+      flex: none;
+      /* Runs off the gutter so the photo sits on the screen's left edge */
+      width: calc(100% + var(--gutter));
+      margin-left: calc(-1 * var(--gutter));
       min-width: 0;
+    }
+
+    .hero__actions {
+      order: 2;
+      margin-top: var(--space-4);
+    }
+
+    .portrait__frame {
+      display: none;
     }
 
     .portrait__note {
       right: 0;
+      top: -8%;
+      font-size: 22px;
     }
 
     .counter {

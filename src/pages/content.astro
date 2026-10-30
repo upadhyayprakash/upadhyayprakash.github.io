@@ -35,7 +35,7 @@ const filters = [{ id: 'all', label: 'All' }, ...types.filter((t) => count(t.id)
     {years.map((year) => (
       <section class="group" aria-label={year} data-group>
         <div class="group__label">
-          <h2 class="label">{year}</h2>
+          <h2 class="section-title">{year}</h2>
           <div class="group__rule" aria-hidden="true"></div>
         </div>
         <div class="rows">
@@ -51,7 +51,7 @@ const filters = [{ id: 'all', label: 'All' }, ...types.filter((t) => count(t.id)
               )}
               <div class="row__body">
                 <p class="meta"><span class="row__type">{single[e.type]}</span><span>{e.date}</span></p>
-                <h3>{e.title}</h3>
+                <h3>{e.slug ? <a href={`/content/${e.slug}`}>{e.title}</a> : e.title}</h3>
                 <p class="row__tags">{e.tags}</p>
                 <a class="row__link" href={e.url}>View on LinkedIn<Icon name="arrow-up-right" size={16} /></a>
               </div>
@@ -216,12 +216,6 @@ const filters = [{ id: 'all', label: 'All' }, ...types.filter((t) => count(t.id)
     display: flex;
     align-items: center;
     gap: 20px;
-  }
-
-  .group__label h2 {
-    margin: 0;
-    font-weight: var(--weight-label);
-    color: var(--ink);
   }
 
   .group__rule {

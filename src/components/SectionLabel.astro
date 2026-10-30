@@ -9,7 +9,7 @@ const { id, title } = Astro.props;
 ---
 
 <div class="section-label">
-  <h2 id={id} class="label">{title}</h2>
+  <h2 id={id} class="section-title">{title}</h2>
   <div class="rule" aria-hidden="true"></div>
 </div>
 
@@ -18,14 +18,6 @@ const { id, title } = Astro.props;
     display: flex;
     align-items: center;
     gap: 20px;
-  }
-
-  h2 {
-    margin: 0;
-    display: flex;
-    gap: 14px;
-    font-weight: var(--weight-label);
-    color: var(--ink);
   }
 
   .rule {
