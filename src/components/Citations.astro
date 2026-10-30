@@ -1,0 +1,83 @@
+---
+import { citations, firstNumber } from '../data/citations';
+
+interface Props {
+  stage: string;
+}
+
+const { stage } = Astro.props;
+const items = citations[stage];
+const start = firstNumber(stage);
+---
+
+<div class="cited">
+  <p class="cited__label">Cited work</p>
+  <ol start={start}>
+    {items.map((c, i) => (
+      <li>
+        <span class="cited__n" aria-hidden="true">{start + i}</span>
+        <div>
+          <a href={c.href}><span class="cited__project">{c.project}:</span> {c.title}</a>
+          {c.note && <p>{c.note}</p>}
+        </div>
+      </li>
+    ))}
+  </ol>
+</div>
+
+<style>
+  .cited {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .cited__label {
+    margin: 0;
+    font-family: var(--font-label);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: var(--weight-label);
+  }
+
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  li {
+    display: flex;
+    gap: var(--space-3);
+  }
+
+  .cited__n {
+    flex: 0 0 22px;
+    font-family: var(--font-label);
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  a {
+    font-size: 15px;
+    font-weight: 500;
+    text-underline-offset: 3px;
+  }
+
+  .cited__project {
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  p:not(.cited__label) {
+    margin: 2px 0 0;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+</style>

@@ -20,17 +20,17 @@
   --text-muted: #a3a3a3;
   --text-faint: #8a8a8a;
   --accent: #ffffff;
+  --display: #888888;
   --on-accent: #121212;
   --focus-ring: #fafafa;
-  --hero-glow: #333333;
-  --hero-mid: #1f1f1f;
   --giant-word: #1c1c1c;
   --letterbox: #0a0a0a;
   --card-glow: #2a2a2a;
   --glow: rgba(250, 250, 250, 0.06);
-  --frame-accent: #ffbf8f;
-  --lens-accent: #ff9548;
-  --link-hover: #9cc2f7;
+  --frame-accent: #b33e66;
+  --lens-accent: #b33e66;
+  --link-hover: #e08ca9;
+  --linkedin: #0a66c2;
   /* One colour per plugin, for skill badges */
   --plugin-standalone: #b5b5b5;
   --plugin-carousel: #c9b3f5;
@@ -51,6 +51,7 @@
   --size-body: 17px;
   --size-small: 15px;
   --size-label: 13px;
+  --weight-label: 600;
   --size-meta: 12px;
 
   /* Spacing */
@@ -69,6 +70,8 @@
   /* Radius */
   --radius-0: 0;
   --radius-xs: 4px;
+  --radius-card: 8px;
+  --radius-card-lg: 16px;
   --radius-md: 10px;
   --radius-pill: 999px;
   --radius-circle: 50%;

@@ -1,0 +1,57 @@
+---
+// A line pinned to the top of a long page: the part read in the accent colour, the rest in grey.
+---
+
+<div class="progress" aria-hidden="true" data-progress hidden>
+  <div class="progress__bar" data-progress-bar></div>
+</div>
+
+<script>
+  const track = document.querySelector<HTMLElement>('[data-progress]');
+  const bar = document.querySelector<HTMLElement>('[data-progress-bar]');
+  // Under a screen or so of scrolling there is nothing worth tracking
+  const MIN_SCROLL = 400;
+  if (track && bar) {
+    const update = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      track.hidden = scrollable < MIN_SCROLL;
+      bar.style.transform = `scaleX(${Math.min(window.scrollY / Math.max(scrollable, 1), 1)})`;
+    };
+    let queued = false;
+    const queue = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => {
+        queued = false;
+        update();
+      });
+    };
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    window.addEventListener('load', update);
+    update();
+  }
+</script>
+
+<style>
+  .progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 25;
+    background: var(--outline);
+  }
+
+  .progress[hidden] {
+    display: none;
+  }
+
+  .progress__bar {
+    height: 100%;
+    background: var(--link-hover);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+</style>

@@ -37,6 +37,17 @@ a:hover {
   color: var(--link-hover) !important;
 }
 
+/* The whole link follows the hover: inner text, icons and any border, however they are coloured */
+a:hover:not(.card-link) *,
+a.card-link:hover .card-link__cta * {
+  color: inherit !important;
+}
+
+a:hover:not(.card-link),
+a:hover:not(.card-link) * {
+  border-color: var(--link-hover) !important;
+}
+
 a:active {
   opacity: 0.7;
 }
@@ -117,6 +128,7 @@ html {
   font-size: var(--size-label);
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  font-weight: var(--weight-label);
 }
 
 .meta {
@@ -126,6 +138,7 @@ html {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-muted);
+  font-weight: var(--weight-label);
 }
 
 /* A missing fact or asset, shown on purpose */
@@ -142,6 +155,7 @@ html {
   justify-content: center;
   text-align: center;
   padding: var(--space-3);
+  border-radius: var(--radius-card);
 }
 
 @media (prefers-reduced-motion: reduce) {

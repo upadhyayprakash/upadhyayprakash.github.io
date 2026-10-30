@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Citations from '../components/Citations.astro';
 
 // Skills I wrote, for the table and its hover cards. "plugin" sets the badge colour.
 type Plugin = 'standalone' | 'carousel-studio' | 'video-studio' | 'butler' | 'keel' | 'launchpad';
@@ -39,10 +40,10 @@ const skills: {
 ];
 ---
 
-<Base title="How I build, Prakash Upadhyay" description="How Prakash Upadhyay builds software with AI agents, and where the human stays in the loop." current="how-i-build" hand>
-<section aria-labelledby="page-title" style="position: relative; overflow: hidden; border-bottom: 1px solid var(--line); background: radial-gradient(900px 520px at 22% 30%, var(--hero-glow) 0%, var(--hero-mid) 55%, var(--bg) 100%)">
+<Base title="How I build, Prakash Upadhyay" description="How Prakash Upadhyay builds software with AI agents, and where the human stays in the loop." current="how-i-build" progress hand>
+<section aria-labelledby="page-title" style="position: relative; overflow: hidden; border-bottom: 1px solid var(--line)">
 <div style="position: relative; max-width: 1200px; margin: 0 auto; padding: 72px clamp(16px, 4vw, 40px) 80px; display: flex; flex-direction: column; gap: 24px">
-<h1 id="page-title" style="margin: 0; color: var(--accent); font-size: clamp(48px, 7vw, 96px); font-weight: 500; letter-spacing: -0.035em; line-height: 0.98">How I build</h1>
+<h1 id="page-title" style="margin: 0; color: var(--display); font-size: clamp(48px, 7vw, 96px); font-weight: 500; letter-spacing: -0.035em; line-height: 0.98">How I build</h1>
 <p style="margin: 0; font-size: clamp(22px, 2.6vw, 30px); font-weight: 300; color: var(--text-muted)">Agents do the work. I make the calls.</p>
 <p style="margin: 0; max-width: 720px; font-size: 19px; text-wrap: pretty">I build my products, tools and content with AI agents: mostly Claude, in Claude Code on my machine and through the Claude API inside apps, with other tools when a task needs them. This is the loop I follow, and the points where I stay in charge.</p>
 </div>
@@ -86,7 +87,7 @@ const skills: {
 </ul>
 </figure>
 <div style="flex: 1 1 340px; display: flex; flex-direction: column; gap: 20px">
-<h2 id="loop-title" style="margin: 0; color: var(--accent); font-size: clamp(34px, 4vw, 48px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1">One loop, eight stages, four gates.</h2>
+<h2 id="loop-title" style="margin: 0; color: var(--display); font-size: clamp(34px, 4vw, 48px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1">One loop, eight stages, four gates.</h2>
 <p style="margin: 0; text-wrap: pretty">Agents do the work at every stage: they research, draft, design, code, check and package. The loop only moves past a gate when I've looked at the result and said yes.</p>
 <p style="margin: 0; font-size: 14px; color: var(--text-muted)">Reuse closes the loop: anything I do twice becomes a skill or a plugin, and the next project starts faster.</p>
 </div>
@@ -94,208 +95,185 @@ const skills: {
 
 <section aria-labelledby="stages-title" style="max-width: 1200px; margin: 0 auto; padding: 120px clamp(16px, 4vw, 40px) 0; display: flex; flex-direction: column; gap: 24px">
 <div style="display: flex; align-items: center; gap: 20px; padding-bottom: 16px">
-<h2 id="stages-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">Stage by stage</h2>
+<h2 id="stages-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: var(--weight-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">Stage by stage</h2>
 <div aria-hidden="true" style="flex: 1; height: 1px; background: var(--line)"></div>
 </div>
 <ol style="list-style: none; margin: 0; padding: 0">
 <li id="stage-research" style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
 <div style="flex: 0 0 200px; display: flex; flex-direction: column; gap: 10px">
-<span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--accent)">01</span>
-<h3 style="margin: 0; color: var(--accent); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Research</h3>
-<span style="align-self: flex-start; display: flex; align-items: center; gap: 8px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink)"><span aria-hidden="true" style="width: 10px; height: 10px; background: var(--accent)"></span>Human gate</span>
+<span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--display)">01</span>
+<h3 style="margin: 0; color: var(--display); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Research</h3>
+<span style="align-self: flex-start; display: flex; align-items: center; gap: 8px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); font-weight: var(--weight-label)"><span aria-hidden="true" style="width: 10px; height: 10px; background: var(--accent)"></span>Human gate</span>
 </div>
 <div style="flex: 1 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 20px 40px">
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Agents do</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Agents do</p>
 <p style="margin: 0">Gather sources, competitors and prior work, and summarise what they found.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">I decide</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">I decide</p>
 <p style="margin: 0; color: var(--ink)">Whether the idea is worth building at all.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Tools</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Tools</p>
 <p style="margin: 0; font-family: var(--font-label); font-size: 14px">Claude · web research · artifacts</p>
 </div>
-<div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Example</p>
-<p style="margin: 0; font-size: 15px">"Taking On BookMyShow: Research &amp; Validation Plan" [private, share to link]</p>
-</div>
+<Citations stage="research" />
 </div>
 </li>
 <li id="stage-spec" style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
 <div style="flex: 0 0 200px; display: flex; flex-direction: column; gap: 10px">
-<span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--accent)">02</span>
-<h3 style="margin: 0; color: var(--accent); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Spec</h3>
-<span style="align-self: flex-start; display: flex; align-items: center; gap: 8px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink)"><span aria-hidden="true" style="width: 10px; height: 10px; background: var(--accent)"></span>Human gate</span>
+<span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--display)">02</span>
+<h3 style="margin: 0; color: var(--display); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Spec</h3>
+<span style="align-self: flex-start; display: flex; align-items: center; gap: 8px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); font-weight: var(--weight-label)"><span aria-hidden="true" style="width: 10px; height: 10px; background: var(--accent)"></span>Human gate</span>
 </div>
 <div style="flex: 1 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 20px 40px">
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Agents do</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Agents do</p>
 <p style="margin: 0">Turn my notes into a spec: scope, edge cases, acceptance criteria.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">I decide</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">I decide</p>
 <p style="margin: 0; color: var(--ink)">Approve the spec before any code is written.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Tools</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Tools</p>
 <p style="margin: 0; font-family: var(--font-label); font-size: 14px">Claude · Markdown specs</p>
 </div>
-<div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Example</p>
-<p style="margin: 0; font-size: 15px">"CertPulse Product Decisions Log" [private, share to link]</p>
-</div>
+<Citations stage="spec" />
 </div>
 </li>
 <li id="stage-design" style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
 <div style="flex: 0 0 200px; display: flex; flex-direction: column; gap: 10px">
-<span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--accent)">03</span>
-<h3 style="margin: 0; color: var(--accent); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Design</h3>
+<span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--display)">03</span>
+<h3 style="margin: 0; color: var(--display); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Design</h3>
 
 </div>
 <div style="flex: 1 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 20px 40px">
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Agents do</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Agents do</p>
 <p style="margin: 0">Explore page and app layouts, then build design systems and canvases.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">I decide</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">I decide</p>
 <p style="margin: 0; color: var(--ink)">Pick the direction and cut what doesn’t belong.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Tools</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Tools</p>
 <p style="margin: 0; font-family: var(--font-label); font-size: 14px">Claude design canvases · design systems</p>
 </div>
-<div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Example</p>
-<p style="margin: 0; font-size: 15px">This site: mock-up, design system and icons, made with Claude.</p>
-</div>
+<Citations stage="design" />
 </div>
 </li>
 <li id="stage-build" style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
 <div style="flex: 0 0 200px; display: flex; flex-direction: column; gap: 10px">
-<span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--accent)">04</span>
-<h3 style="margin: 0; color: var(--accent); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Build</h3>
+<span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--display)">04</span>
+<h3 style="margin: 0; color: var(--display); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Build</h3>
 
 </div>
 <div style="flex: 1 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 20px 40px">
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Agents do</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Agents do</p>
 <p style="margin: 0">Write code and tests in my repos, inside the constraints I set.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">I decide</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">I decide</p>
 <p style="margin: 0; color: var(--ink)">Architecture, boundaries and what the agent may touch.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Tools</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Tools</p>
 <p style="margin: 0; font-family: var(--font-label); font-size: 14px">Claude Code · Claude API</p>
 </div>
-<div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Example</p>
-<p style="margin: 0; font-size: 15px">CertPulse, and "From idea to v1: how Keel was built" [private, share to link]</p>
-</div>
+<Citations stage="build" />
 </div>
 </li>
 <li id="stage-review" style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
 <div style="flex: 0 0 200px; display: flex; flex-direction: column; gap: 10px">
-<span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--accent)">05</span>
-<h3 style="margin: 0; color: var(--accent); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Review</h3>
-<span style="align-self: flex-start; display: flex; align-items: center; gap: 8px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink)"><span aria-hidden="true" style="width: 10px; height: 10px; background: var(--accent)"></span>Human gate</span>
+<span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--display)">05</span>
+<h3 style="margin: 0; color: var(--display); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Review</h3>
+<span style="align-self: flex-start; display: flex; align-items: center; gap: 8px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); font-weight: var(--weight-label)"><span aria-hidden="true" style="width: 10px; height: 10px; background: var(--accent)"></span>Human gate</span>
 </div>
 <div style="flex: 1 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 20px 40px">
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Agents do</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Agents do</p>
 <p style="margin: 0">Run checks and tests, and flag problems in their own changes.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">I decide</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">I decide</p>
 <p style="margin: 0; color: var(--ink)">Read every diff, then try the real thing myself.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Tools</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Tools</p>
 <p style="margin: 0; font-family: var(--font-label); font-size: 14px">Claude Code · test suites · accessibility checks</p>
 </div>
-<div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Example</p>
-<p style="margin: 0; font-size: 15px">[Pick an example, such as a bug an agent caught or missed]</p>
-</div>
+<Citations stage="review" />
 </div>
 </li>
 <li id="stage-ship" style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
 <div style="flex: 0 0 200px; display: flex; flex-direction: column; gap: 10px">
-<span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--accent)">06</span>
-<h3 style="margin: 0; color: var(--accent); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Ship</h3>
-<span style="align-self: flex-start; display: flex; align-items: center; gap: 8px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink)"><span aria-hidden="true" style="width: 10px; height: 10px; background: var(--accent)"></span>Human gate</span>
+<span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--display)">06</span>
+<h3 style="margin: 0; color: var(--display); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Ship</h3>
+<span style="align-self: flex-start; display: flex; align-items: center; gap: 8px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); font-weight: var(--weight-label)"><span aria-hidden="true" style="width: 10px; height: 10px; background: var(--accent)"></span>Human gate</span>
 </div>
 <div style="flex: 1 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 20px 40px">
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Agents do</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Agents do</p>
 <p style="margin: 0">Prepare releases, release notes and deploy steps.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">I decide</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">I decide</p>
 <p style="margin: 0; color: var(--ink)">Press the button. Nothing deploys or posts without a yes.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Tools</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Tools</p>
 <p style="margin: 0; font-family: var(--font-label); font-size: 14px">GitHub Actions · GitHub Pages · Claude Code</p>
 </div>
-<div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Example</p>
-<p style="margin: 0; font-size: 15px">[Pick a release to show]</p>
-</div>
+<Citations stage="ship" />
 </div>
 </li>
 <li id="stage-share" style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
 <div style="flex: 0 0 200px; display: flex; flex-direction: column; gap: 10px">
-<span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--accent)">07</span>
-<h3 style="margin: 0; color: var(--accent); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Share</h3>
+<span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--display)">07</span>
+<h3 style="margin: 0; color: var(--display); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Share</h3>
 
 </div>
 <div style="flex: 1 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 20px 40px">
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Agents do</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Agents do</p>
 <p style="margin: 0">Turn the work into blogs, carousels, LinkedIn posts, covers and short videos.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">I decide</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">I decide</p>
 <p style="margin: 0; color: var(--ink)">The voice, the facts and what is ready to go public.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Tools</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Tools</p>
 <p style="margin: 0; font-family: var(--font-label); font-size: 14px">blog · carousel-creator · linkedin-post-gen · video-creator</p>
 </div>
-<div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Example</p>
-<p style="margin: 0; font-size: 15px">The HDR brightness post on LinkedIn, 18 Oct 2026.</p>
-</div>
+<Citations stage="share" />
 </div>
 </li>
 <li id="stage-reuse" style="border-top: 1px solid var(--line); padding: 36px 0; display: flex; flex-wrap: wrap; gap: 16px 40px">
 <div style="flex: 0 0 200px; display: flex; flex-direction: column; gap: 10px">
-<span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--accent)">08</span>
-<h3 style="margin: 0; color: var(--accent); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Reuse</h3>
+<span style="font-size: 44px; font-weight: 300; line-height: 1; color: var(--display)">08</span>
+<h3 style="margin: 0; color: var(--display); font-size: 26px; font-weight: 500; letter-spacing: -0.01em">Reuse</h3>
 
 </div>
 <div style="flex: 1 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 20px 40px">
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Agents do</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Agents do</p>
 <p style="margin: 0">Follow skills I’ve written instead of starting from scratch.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">I decide</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">I decide</p>
 <p style="margin: 0; color: var(--ink)">When a task has repeated enough to become a skill or plugin.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Tools</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Tools</p>
 <p style="margin: 0; font-family: var(--font-label); font-size: 14px">Claude Code skills and plugins</p>
 </div>
-<div style="display: flex; flex-direction: column; gap: 6px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Example</p>
+<Citations stage="reuse" />
 <p style="margin: 0; font-size: 15px">Launchpad (13 skills, in final testing), plus carousel-studio, butler and video-studio, used across projects.</p>
-</div>
 </div>
 </li>
 </ol>
@@ -303,28 +281,28 @@ const skills: {
 
 <section aria-labelledby="toolbox-title" style="max-width: 1200px; margin: 0 auto; padding: 96px clamp(16px, 4vw, 40px) 0; display: flex; flex-direction: column; gap: 40px">
 <div style="display: flex; align-items: center; gap: 20px">
-<h2 id="toolbox-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">The toolbox</h2>
+<h2 id="toolbox-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: var(--weight-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">The toolbox</h2>
 <div aria-hidden="true" style="flex: 1; height: 1px; background: var(--line)"></div>
 </div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 16px">
-<article style="border: 1px solid var(--line); background: var(--surface); padding: 28px; display: flex; flex-direction: column; gap: 10px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Daily, on my machine</p>
-<h3 style="margin: 0; color: var(--accent); font-size: 22px; font-weight: 500">Claude Code</h3>
+<article style="border: 1px solid var(--line); background: var(--surface); padding: 28px; display: flex; flex-direction: column; gap: 10px; border-radius: var(--radius-card)">
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Daily, on my machine</p>
+<h3 style="margin: 0; color: var(--display); font-size: 22px; font-weight: 500">Claude Code</h3>
 <p style="margin: 0; font-size: 15px; color: var(--text-muted)">Building features, refactors, tooling, deploys and the skills below, in my own repos.</p>
 </article>
-<article style="border: 1px solid var(--line); background: var(--surface); padding: 28px; display: flex; flex-direction: column; gap: 10px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Inside the apps</p>
-<h3 style="margin: 0; color: var(--accent); font-size: 22px; font-weight: 500">Claude API</h3>
+<article style="border: 1px solid var(--line); background: var(--surface); padding: 28px; display: flex; flex-direction: column; gap: 10px; border-radius: var(--radius-card)">
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Inside the apps</p>
+<h3 style="margin: 0; color: var(--display); font-size: 22px; font-weight: 500">Claude API</h3>
 <p style="margin: 0; font-size: 15px; color: var(--text-muted)">AI features shipped inside my products. <span style="font-style: italic">[Name the feature, for example in CertPulse]</span></p>
 </article>
-<article style="border: 1px solid var(--line); background: var(--surface); padding: 28px; display: flex; flex-direction: column; gap: 10px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Docs, designs, decks</p>
-<h3 style="margin: 0; color: var(--accent); font-size: 22px; font-weight: 500">Claude artifacts</h3>
+<article style="border: 1px solid var(--line); background: var(--surface); padding: 28px; display: flex; flex-direction: column; gap: 10px; border-radius: var(--radius-card)">
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Docs, designs, decks</p>
+<h3 style="margin: 0; color: var(--display); font-size: 22px; font-weight: 500">Claude artifacts</h3>
 <p style="margin: 0; font-size: 15px; color: var(--text-muted)">Research plans, product decision logs, design canvases and design systems, like the one behind this site.</p>
 </article>
-<article style="border: 1px solid var(--line); background: var(--surface); padding: 28px; display: flex; flex-direction: column; gap: 10px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Second opinions</p>
-<h3 style="margin: 0; color: var(--accent); font-size: 22px; font-weight: 500">Other models</h3>
+<article style="border: 1px solid var(--line); background: var(--surface); padding: 28px; display: flex; flex-direction: column; gap: 10px; border-radius: var(--radius-card)">
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Second opinions</p>
+<h3 style="margin: 0; color: var(--display); font-size: 22px; font-weight: 500">Other models</h3>
 <p style="margin: 0; font-size: 15px; color: var(--text-muted)">Web page and mobile app layout ideas, spec refinement, and asset generation. <span style="font-style: italic">[Other vendors to name]</span></p>
 </article>
 </div>
@@ -332,28 +310,28 @@ const skills: {
 
 <section aria-labelledby="skills-title" style="max-width: 1200px; margin: 0 auto; padding: 96px clamp(16px, 4vw, 40px) 0; display: flex; flex-direction: column; gap: 40px">
 <div style="display: flex; align-items: center; gap: 20px">
-<h2 id="skills-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">Skills and plugins I wrote</h2>
+<h2 id="skills-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: var(--weight-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">Skills and plugins I wrote</h2>
 <div aria-hidden="true" style="flex: 1; height: 1px; background: var(--line)"></div>
 </div>
 <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 48px">
 <p style="margin: 0; max-width: 640px; text-wrap: pretty">When a task comes back a second time, I write it down as a Claude Code skill. Skills I use everywhere live globally; skills that only make sense for one product live in that product's repo. Related skills become a plugin.</p>
 <dl style="margin: 0; display: flex; flex-wrap: wrap; gap: 24px 48px">
-<div style="display: flex; flex-direction: column-reverse"><dt style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">skills written</dt><dd style="margin: 0; color: var(--accent); font-size: 48px; font-weight: 300; line-height: 1">28</dd></div>
-<div style="display: flex; flex-direction: column-reverse"><dt style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">plugins</dt><dd style="margin: 0; color: var(--accent); font-size: 48px; font-weight: 300; line-height: 1">5</dd></div>
+<div style="display: flex; flex-direction: column-reverse"><dt style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">skills written</dt><dd style="margin: 0; color: var(--display); font-size: 48px; font-weight: 300; line-height: 1">28</dd></div>
+<div style="display: flex; flex-direction: column-reverse"><dt style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">plugins</dt><dd style="margin: 0; color: var(--display); font-size: 48px; font-weight: 300; line-height: 1">5</dd></div>
 </dl>
 </div>
 
-<article aria-labelledby="launchpad-title" style="border: 1px solid var(--line-strong); background: radial-gradient(700px 360px at 85% 0%, var(--card-glow) 0%, var(--surface) 70%); padding: clamp(24px, 4vw, 44px); display: flex; flex-direction: column; gap: 24px">
+<article aria-labelledby="launchpad-title" style="border: 1px solid var(--line-strong); background: radial-gradient(700px 360px at 85% 0%, var(--card-glow) 0%, var(--surface) 70%); padding: clamp(24px, 4vw, 44px); display: flex; flex-direction: column; gap: 24px; border-radius: var(--radius-card-lg)">
 <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Plugin · 13 skills · 3 helper agents</p>
-<span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--accent); border-radius: 999px; padding: 4px 12px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent)"><span aria-hidden="true" style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent)"></span>In final testing</span>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Plugin · 13 skills · 3 helper agents</p>
+<span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--accent); border-radius: 999px; padding: 4px 12px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: var(--weight-label)"><span aria-hidden="true" style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent)"></span>In final testing</span>
 </div>
-<h3 id="launchpad-title" style="margin: 0; color: var(--accent); font-size: clamp(36px, 4.4vw, 56px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.05">Launchpad</h3>
+<h3 id="launchpad-title" style="margin: 0; color: var(--display); font-size: clamp(36px, 4.4vw, 56px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.05">Launchpad</h3>
 <p style="margin: 0; max-width: 760px; font-size: 19px; text-wrap: pretty">A Claude Code plugin that takes a product idea from a raw note to a documented, branded, scaffolded product, in seven gated stages. It's the way I built CertPulse, Keel and RevuPulse, written down so the next product starts at full speed.</p>
-<ol aria-label="Launchpad stages" style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px"><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">1</span>Intake</li><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">2</span>Identity</li><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">3</span>Design</li><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">4</span>Scaffold</li><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">5</span>Build loop</li><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">6</span>Docs</li><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">7</span>Launch</li></ol>
+<ol aria-label="Launchpad stages" style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px"><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink); border-radius: var(--radius-card)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">1</span>Intake</li><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink); border-radius: var(--radius-card)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">2</span>Identity</li><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink); border-radius: var(--radius-card)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">3</span>Design</li><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink); border-radius: var(--radius-card)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">4</span>Scaffold</li><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink); border-radius: var(--radius-card)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">5</span>Build loop</li><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink); border-radius: var(--radius-card)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">6</span>Docs</li><li style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); padding: 10px 14px; font-size: 15px; color: var(--ink); border-radius: var(--radius-card)"><span style="font-family: var(--font-label); font-size: 12px; color: var(--text-muted)">7</span>Launch</li></ol>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 16px 40px; font-size: 15px">
-<p style="margin: 0"><span style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px">Day to day</span><code class="skill-code" data-plugin="launchpad">setup</code> <code class="skill-code" data-plugin="launchpad">status</code> <code class="skill-code" data-plugin="launchpad">handoff</code> <code class="skill-code" data-plugin="launchpad">adopt</code> <code class="skill-code" data-plugin="launchpad">brand-sync</code> <code class="skill-code" data-plugin="launchpad">story</code></p>
-<p style="margin: 0"><span style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px">Helper agents</span><code class="skill-code" data-plugin="launchpad">name-scout</code> <code class="skill-code" data-plugin="launchpad">stack-scout</code> <code class="skill-code" data-plugin="launchpad">design-reader</code></p>
+<p style="margin: 0"><span style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px; font-weight: var(--weight-label)">Day to day</span><code class="skill-code" data-plugin="launchpad">setup</code> <code class="skill-code" data-plugin="launchpad">status</code> <code class="skill-code" data-plugin="launchpad">handoff</code> <code class="skill-code" data-plugin="launchpad">adopt</code> <code class="skill-code" data-plugin="launchpad">brand-sync</code> <code class="skill-code" data-plugin="launchpad">story</code></p>
+<p style="margin: 0"><span style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px; font-weight: var(--weight-label)">Helper agents</span><code class="skill-code" data-plugin="launchpad">name-scout</code> <code class="skill-code" data-plugin="launchpad">stack-scout</code> <code class="skill-code" data-plugin="launchpad">design-reader</code></p>
 </div>
 <p style="margin: 0; font-size: 14px; color: var(--text-muted)">Each stage ends at a gate I sign off. Piloted on a real feature before release. [Release date and install link]</p>
 </article>
@@ -366,9 +344,9 @@ const skills: {
 </div>
 <p aria-live="polite" data-skill-summary style="margin: 0; font-family: var(--font-label); font-size: 13px; color: var(--text-muted)">15 skills, plus Launchpad’s 13</p>
 </div>
-<div style="overflow-x: auto; border: 1px solid var(--line)">
+<div style="overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius-card-lg)">
 <table style="width: 100%; min-width: 600px; border-collapse: collapse; font-size: 15px">
-<thead><tr style="text-align: left; color: var(--text-muted); font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase"><th style="padding: 14px 18px; font-weight: 500; border-bottom: 1px solid var(--line)">Skill</th><th style="padding: 14px 18px; font-weight: 500; border-bottom: 1px solid var(--line)">What it does</th><th style="padding: 14px 18px; font-weight: 500; border-bottom: 1px solid var(--line)">Plugin</th></tr></thead>
+<thead><tr style="text-align: left; color: var(--text-muted); font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: var(--weight-label)"><th style="padding: 14px 18px; font-weight: var(--weight-label); border-bottom: 1px solid var(--line)">Skill</th><th style="padding: 14px 18px; font-weight: var(--weight-label); border-bottom: 1px solid var(--line)">What it does</th><th style="padding: 14px 18px; font-weight: var(--weight-label); border-bottom: 1px solid var(--line)">Plugin</th></tr></thead>
 <tbody>
 {skills.map((k) => (
 <tr data-scope={k.scope}><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><button type="button" class="skill-badge" data-plugin={k.plugin} data-skill={k.name} aria-describedby="skill-card">{k.name}</button></td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line)">{k.does}</td><td style="padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap"><span class="plugin-chip" data-plugin={k.plugin}>{pluginNames[k.plugin]}</span></td></tr>
@@ -385,42 +363,42 @@ const skills: {
 </div>
 <script type="application/json" id="skill-data" is:inline set:html={JSON.stringify(Object.fromEntries(skills.map((k) => [k.name, { ...k, pluginName: pluginNames[k.plugin] }])))}></script>
 <div style="display: flex; flex-direction: column; gap: 10px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Community skills I use, not mine</p>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Community skills I use, not mine</p>
 <p style="margin: 0; font-size: 15px; color: var(--text-muted)">Prisma's database skills · Nx monorepo skills · Remotion best practices · ClaudeKit design skills · ui-ux-pro-max · graphify (code knowledge graphs). Picking good ones is part of the job too.</p>
 </div>
 </section>
 
 <section aria-labelledby="blueprint-title" style="max-width: 1200px; margin: 0 auto; padding: 96px clamp(16px, 4vw, 40px) 0; display: flex; flex-direction: column; gap: 40px">
 <div style="display: flex; align-items: center; gap: 20px">
-<h2 id="blueprint-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">Blueprint</h2>
+<h2 id="blueprint-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: var(--weight-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">Blueprint</h2>
 <div aria-hidden="true" style="flex: 1; height: 1px; background: var(--line)"></div>
 </div>
 <div style="display: flex; flex-wrap: wrap; gap: 24px 72px; align-items: flex-end">
-<p style="margin: 0; flex: 1 1 420px; color: var(--accent); font-size: clamp(36px, 4.6vw, 60px); font-weight: 500; line-height: 1.05; letter-spacing: -0.03em">What I'd automate next.</p>
+<p style="margin: 0; flex: 1 1 420px; color: var(--display); font-size: clamp(36px, 4.6vw, 60px); font-weight: 500; line-height: 1.05; letter-spacing: -0.03em">What I'd automate next.</p>
 <p style="margin: 0; flex: 1 1 380px; max-width: 520px; font-size: 17px">For my own dev workflow: 15 architecture decisions for a platform that turns a GitHub issue, a Slack message or a PRD into a reviewed pull request. How much I have to approve depends on how risky the change is. Designed, not built yet.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">The pipeline</p>
-<ol aria-label="Pipeline stages" style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px"><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Request</span><span style="font-size: 13px; color: var(--text-muted)">Issue · Slack · PRD</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Requirement</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">ADR</span><span style="font-size: 13px; color: var(--text-muted)">options, blast radius</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Risk check</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="display: flex; align-items: center; gap: 10px; padding: 12px 4px"><span aria-hidden="true" style="width: 14px; height: 14px; background: var(--accent); flex: 0 0 14px"></span><span style="font-size: 14px; color: var(--accent); font-weight: 500">I approve</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Plan</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Context manifest</span><span style="font-size: 13px; color: var(--text-muted)">the only files code may read</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Test plan</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Code</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Pull request</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Quick review</span><span style="font-size: 13px; color: var(--text-muted)">changed files, in CI</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Preview QA</span><span style="font-size: 13px; color: var(--text-muted)">routes, a11y, console</span></li></ol>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">The pipeline</p>
+<ol aria-label="Pipeline stages" style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px"><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px; border-radius: var(--radius-card)"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Request</span><span style="font-size: 13px; color: var(--text-muted)">Issue · Slack · PRD</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px; border-radius: var(--radius-card)"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Requirement</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px; border-radius: var(--radius-card)"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">ADR</span><span style="font-size: 13px; color: var(--text-muted)">options, blast radius</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px; border-radius: var(--radius-card)"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Risk check</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="display: flex; align-items: center; gap: 10px; padding: 12px 4px"><span aria-hidden="true" style="width: 14px; height: 14px; background: var(--accent); flex: 0 0 14px"></span><span style="font-size: 14px; color: var(--accent); font-weight: 500">I approve</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px; border-radius: var(--radius-card)"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Plan</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px; border-radius: var(--radius-card)"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Context manifest</span><span style="font-size: 13px; color: var(--text-muted)">the only files code may read</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px; border-radius: var(--radius-card)"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Test plan</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px; border-radius: var(--radius-card)"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Code</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px; border-radius: var(--radius-card)"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Pull request</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px; border-radius: var(--radius-card)"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Quick review</span><span style="font-size: 13px; color: var(--text-muted)">changed files, in CI</span></li><li aria-hidden="true" style="display: flex; align-items: center; color: var(--control-border)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></li><li style="border: 1px solid var(--line-strong); background: var(--surface); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 120px; border-radius: var(--radius-card)"><span style="font-size: 15px; font-weight: 500; color: var(--ink)">Preview QA</span><span style="font-size: 13px; color: var(--text-muted)">routes, a11y, console</span></li></ol>
 <p style="margin: 0; font-size: 15px; color: var(--text-muted)">A deep review of the whole impact surface runs only when I ask for it, or when the risk check flags the change.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Who approves what</p>
-<div style="overflow-x: auto"><table style="width: 100%; border-collapse: collapse; font-size: 15px"><thead><tr><th scope="col" style="text-align: left; padding: 0 16px 12px 0; font-family: var(--font-label); font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Risk</th><th scope="col" style="text-align: left; padding: 0 16px 12px; font-family: var(--font-label); font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">For example</th><th scope="col" style="text-align: left; padding: 0 0 12px 16px; font-family: var(--font-label); font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">What happens</th></tr></thead><tbody><tr style="border-top: 1px solid var(--line)"><th scope="row" style="text-align: left; padding: 16px 16px 16px 0; font-weight: 500; color: var(--accent); white-space: nowrap">Safe</th><td style="padding: 16px; color: var(--text-muted)">Copy, CSS fixes, config, docs, analytics events</td><td style="padding: 16px 0 16px 16px; color: var(--text)">Agents open the pull request on their own.</td></tr><tr style="border-top: 1px solid var(--line)"><th scope="row" style="text-align: left; padding: 16px 16px 16px 0; font-weight: 500; color: var(--accent); white-space: nowrap">Medium</th><td style="padding: 16px; color: var(--text-muted)">Shared components, routing, app logic</td><td style="padding: 16px 0 16px 16px; color: var(--text)">I approve the ADR before any code is written.</td></tr><tr style="border-top: 1px solid var(--line)"><th scope="row" style="text-align: left; padding: 16px 16px 16px 0; font-weight: 500; color: var(--accent); white-space: nowrap">Dangerous</th><td style="padding: 16px; color: var(--text-muted)">Auth, payments, infrastructure, CI/CD, secrets</td><td style="padding: 16px 0 16px 16px; color: var(--text)">My approval plus an extra review. Never merged automatically.</td></tr></tbody></table></div>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Who approves what</p>
+<div style="overflow-x: auto"><table style="width: 100%; border-collapse: collapse; font-size: 15px"><thead><tr><th scope="col" style="text-align: left; padding: 0 16px 12px 0; font-family: var(--font-label); font-size: 12px; font-weight: var(--weight-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Risk</th><th scope="col" style="text-align: left; padding: 0 16px 12px; font-family: var(--font-label); font-size: 12px; font-weight: var(--weight-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">For example</th><th scope="col" style="text-align: left; padding: 0 0 12px 16px; font-family: var(--font-label); font-size: 12px; font-weight: var(--weight-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">What happens</th></tr></thead><tbody><tr style="border-top: 1px solid var(--line)"><th scope="row" style="text-align: left; padding: 16px 16px 16px 0; font-weight: var(--weight-label); color: var(--accent); white-space: nowrap">Safe</th><td style="padding: 16px; color: var(--text-muted)">Copy, CSS fixes, config, docs, analytics events</td><td style="padding: 16px 0 16px 16px; color: var(--text)">Agents open the pull request on their own.</td></tr><tr style="border-top: 1px solid var(--line)"><th scope="row" style="text-align: left; padding: 16px 16px 16px 0; font-weight: var(--weight-label); color: var(--accent); white-space: nowrap">Medium</th><td style="padding: 16px; color: var(--text-muted)">Shared components, routing, app logic</td><td style="padding: 16px 0 16px 16px; color: var(--text)">I approve the ADR before any code is written.</td></tr><tr style="border-top: 1px solid var(--line)"><th scope="row" style="text-align: left; padding: 16px 16px 16px 0; font-weight: var(--weight-label); color: var(--accent); white-space: nowrap">Dangerous</th><td style="padding: 16px; color: var(--text-muted)">Auth, payments, infrastructure, CI/CD, secrets</td><td style="padding: 16px 0 16px 16px; color: var(--text)">My approval plus an extra review. Never merged automatically.</td></tr></tbody></table></div>
 </div>
 <div style="display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Six decisions I'd defend</p>
-<ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px"><li style="border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 8px"><span style="font-family: var(--font-label); font-size: 13px; color: var(--accent)">01</span><h3 style="margin: 0; font-size: 18px; font-weight: 500; color: var(--ink)">Agents never talk to each other</h3><p style="margin: 0; font-size: 15px; color: var(--text-muted)">They only pass immutable artifacts, and each one links back to the issue it came from.</p></li><li style="border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 8px"><span style="font-family: var(--font-label); font-size: 13px; color: var(--accent)">02</span><h3 style="margin: 0; font-size: 18px; font-weight: 500; color: var(--ink)">Smallest context first</h3><p style="margin: 0; font-size: 15px; color: var(--text-muted)">Five retrieval layers. The coding agent may only read the files listed in its context manifest.</p></li><li style="border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 8px"><span style="font-family: var(--font-label); font-size: 13px; color: var(--accent)">03</span><h3 style="margin: 0; font-size: 18px; font-weight: 500; color: var(--ink)">Graphs come from code</h3><p style="margin: 0; font-size: 15px; color: var(--text-muted)">Dependency and impact graphs come from static analysis, never from the model.</p></li><li style="border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 8px"><span style="font-family: var(--font-label); font-size: 13px; color: var(--accent)">04</span><h3 style="margin: 0; font-size: 18px; font-weight: 500; color: var(--ink)">Budgets stop the work</h3><p style="margin: 0; font-size: 15px; color: var(--text-muted)">Start on the cheapest capable model; going over budget pauses the run for my approval.</p></li><li style="border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 8px"><span style="font-family: var(--font-label); font-size: 13px; color: var(--accent)">05</span><h3 style="margin: 0; font-size: 18px; font-weight: 500; color: var(--ink)">Default deny</h3><p style="margin: 0; font-size: 15px; color: var(--text-muted)">Each agent gets only the permissions its role needs, and I can pause or override any stage.</p></li><li style="border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 8px"><span style="font-family: var(--font-label); font-size: 13px; color: var(--accent)">06</span><h3 style="margin: 0; font-size: 18px; font-weight: 500; color: var(--ink)">Knowledge lives with the code</h3><p style="margin: 0; font-size: 15px; color: var(--text-muted)">The nearest CLAUDE.md wins. Humans write the guidance; agents read it before code.</p></li></ul>
+<p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Six decisions I'd defend</p>
+<ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px"><li style="border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 8px; border-radius: var(--radius-card)"><span style="font-family: var(--font-label); font-size: 13px; color: var(--accent)">01</span><h3 style="margin: 0; font-size: 18px; font-weight: 500; color: var(--ink)">Agents never talk to each other</h3><p style="margin: 0; font-size: 15px; color: var(--text-muted)">They only pass immutable artifacts, and each one links back to the issue it came from.</p></li><li style="border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 8px; border-radius: var(--radius-card)"><span style="font-family: var(--font-label); font-size: 13px; color: var(--accent)">02</span><h3 style="margin: 0; font-size: 18px; font-weight: 500; color: var(--ink)">Smallest context first</h3><p style="margin: 0; font-size: 15px; color: var(--text-muted)">Five retrieval layers. The coding agent may only read the files listed in its context manifest.</p></li><li style="border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 8px; border-radius: var(--radius-card)"><span style="font-family: var(--font-label); font-size: 13px; color: var(--accent)">03</span><h3 style="margin: 0; font-size: 18px; font-weight: 500; color: var(--ink)">Graphs come from code</h3><p style="margin: 0; font-size: 15px; color: var(--text-muted)">Dependency and impact graphs come from static analysis, never from the model.</p></li><li style="border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 8px; border-radius: var(--radius-card)"><span style="font-family: var(--font-label); font-size: 13px; color: var(--accent)">04</span><h3 style="margin: 0; font-size: 18px; font-weight: 500; color: var(--ink)">Budgets stop the work</h3><p style="margin: 0; font-size: 15px; color: var(--text-muted)">Start on the cheapest capable model; going over budget pauses the run for my approval.</p></li><li style="border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 8px; border-radius: var(--radius-card)"><span style="font-family: var(--font-label); font-size: 13px; color: var(--accent)">05</span><h3 style="margin: 0; font-size: 18px; font-weight: 500; color: var(--ink)">Default deny</h3><p style="margin: 0; font-size: 15px; color: var(--text-muted)">Each agent gets only the permissions its role needs, and I can pause or override any stage.</p></li><li style="border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 8px; border-radius: var(--radius-card)"><span style="font-family: var(--font-label); font-size: 13px; color: var(--accent)">06</span><h3 style="margin: 0; font-size: 18px; font-weight: 500; color: var(--ink)">Knowledge lives with the code</h3><p style="margin: 0; font-size: 15px; color: var(--text-muted)">The nearest CLAUDE.md wins. Humans write the guidance; agents read it before code.</p></li></ul>
 </div>
 <div style="display: flex; flex-wrap: wrap; gap: 32px 72px">
-<div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 12px"><p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Left out on purpose, for the first version</p><ul style="list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--line)"><li style="display: flex; flex-direction: column; gap: 6px; padding: 14px 0; border-top: 1px solid var(--line)"><span style="align-self: flex-start; border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 10px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap">Vector databases</span><span style="font-size: 15px; color: var(--text)">Repository knowledge lives in readable guidance files next to the code, so there is no index to keep in sync.</span></li><li style="display: flex; flex-direction: column; gap: 6px; padding: 14px 0; border-top: 1px solid var(--line)"><span style="align-self: flex-start; border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 10px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap">Embeddings</span><span style="font-size: 15px; color: var(--text)">They go stale and can’t explain why a file was picked. The coding agent reads only the files its context manifest lists.</span></li><li style="display: flex; flex-direction: column; gap: 6px; padding: 14px 0; border-top: 1px solid var(--line)"><span style="align-self: flex-start; border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 10px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap">Graph databases</span><span style="font-size: 15px; color: var(--text)">Dependency and impact graphs come from TypeScript AST analysis, updated as the code changes. No separate graph store.</span></li><li style="display: flex; flex-direction: column; gap: 6px; padding: 14px 0; border-top: 1px solid var(--line)"><span style="align-self: flex-start; border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 10px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap">Conversational memory</span><span style="font-size: 15px; color: var(--text)">Agents share no chat history. Every bit of state lives in immutable, versioned artifacts, so any run can be replayed.</span></li><li style="display: flex; flex-direction: column; gap: 6px; padding: 14px 0; border-top: 1px solid var(--line)"><span style="align-self: flex-start; border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 10px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap">Kubernetes</span><span style="font-size: 15px; color: var(--text)">Cloudflare Workers and Queues run the platform. Kubernetes would add operations work with no value for the first version.</span></li><li style="display: flex; flex-direction: column; gap: 6px; padding: 14px 0; border-top: 1px solid var(--line)"><span style="align-self: flex-start; border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 10px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap">Event sourcing</span><span style="font-size: 15px; color: var(--text)">Versioned artifacts and workflow snapshots already give a full audit trail, without the complexity of event sourcing and CQRS.</span></li></ul></div>
-<div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 8px"><p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)">Status</p><p style="margin: 0; font-size: 15px; color: var(--text)">Proposed in June 2026, for my React, Vite, TypeScript and Cloudflare monorepos: Workers and Queues, PostgreSQL with R2, a GitHub App, and Claude models by tier (Haiku, Sonnet, Opus only with approval).</p><p style="margin: 0; font-size: 15px; color: var(--text-muted)">Next: architecture diagrams, agent contracts and an MVP roadmap.</p></div>
+<div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 12px"><p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Left out on purpose, for the first version</p><ul style="list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--line)"><li style="display: flex; flex-direction: column; gap: 6px; padding: 14px 0; border-top: 1px solid var(--line)"><span style="align-self: flex-start; border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 10px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; font-weight: var(--weight-label)">Vector databases</span><span style="font-size: 15px; color: var(--text)">Repository knowledge lives in readable guidance files next to the code, so there is no index to keep in sync.</span></li><li style="display: flex; flex-direction: column; gap: 6px; padding: 14px 0; border-top: 1px solid var(--line)"><span style="align-self: flex-start; border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 10px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; font-weight: var(--weight-label)">Embeddings</span><span style="font-size: 15px; color: var(--text)">They go stale and can’t explain why a file was picked. The coding agent reads only the files its context manifest lists.</span></li><li style="display: flex; flex-direction: column; gap: 6px; padding: 14px 0; border-top: 1px solid var(--line)"><span style="align-self: flex-start; border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 10px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; font-weight: var(--weight-label)">Graph databases</span><span style="font-size: 15px; color: var(--text)">Dependency and impact graphs come from TypeScript AST analysis, updated as the code changes. No separate graph store.</span></li><li style="display: flex; flex-direction: column; gap: 6px; padding: 14px 0; border-top: 1px solid var(--line)"><span style="align-self: flex-start; border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 10px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; font-weight: var(--weight-label)">Conversational memory</span><span style="font-size: 15px; color: var(--text)">Agents share no chat history. Every bit of state lives in immutable, versioned artifacts, so any run can be replayed.</span></li><li style="display: flex; flex-direction: column; gap: 6px; padding: 14px 0; border-top: 1px solid var(--line)"><span style="align-self: flex-start; border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 10px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; font-weight: var(--weight-label)">Kubernetes</span><span style="font-size: 15px; color: var(--text)">Cloudflare Workers and Queues run the platform. Kubernetes would add operations work with no value for the first version.</span></li><li style="display: flex; flex-direction: column; gap: 6px; padding: 14px 0; border-top: 1px solid var(--line)"><span style="align-self: flex-start; border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 10px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; font-weight: var(--weight-label)">Event sourcing</span><span style="font-size: 15px; color: var(--text)">Versioned artifacts and workflow snapshots already give a full audit trail, without the complexity of event sourcing and CQRS.</span></li></ul></div>
+<div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 8px"><p style="margin: 0; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)">Status</p><p style="margin: 0; font-size: 15px; color: var(--text)">Proposed in June 2026, for my React, Vite, TypeScript and Cloudflare monorepos: Workers and Queues, PostgreSQL with R2, a GitHub App, and Claude models by tier (Haiku, Sonnet, Opus only with approval).</p><p style="margin: 0; font-size: 15px; color: var(--text-muted)">Next: architecture diagrams, agent contracts and an MVP roadmap.</p></div>
 </div>
 </section>
 
 <section aria-labelledby="rules-title" style="max-width: 1200px; margin: 0 auto; padding: 96px clamp(16px, 4vw, 40px) 0; display: flex; flex-direction: column; gap: 32px">
 <div style="display: flex; align-items: center; gap: 20px">
-<h2 id="rules-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">House rules</h2>
+<h2 id="rules-title" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: var(--weight-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">House rules</h2>
 <div aria-hidden="true" style="flex: 1; height: 1px; background: var(--line)"></div>
 </div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 32px 40px">
@@ -715,6 +693,8 @@ const skills: {
   .skill-code,
   .plugin-chip {
     --c: var(--plugin-standalone);
+
+    font-weight: var(--weight-label);
   }
 
   [data-plugin='carousel-studio'] { --c: var(--plugin-carousel); }
@@ -725,7 +705,7 @@ const skills: {
 
   .skill-badge,
   code.skill-code {
-    font: 500 14px / 1.3 var(--font-sans);
+    font: 600 14px / 1.3 var(--font-sans);
     color: var(--c);
     background: color-mix(in srgb, var(--c) 12%, transparent);
     border: 1px solid color-mix(in srgb, var(--c) 40%, transparent);
@@ -838,6 +818,7 @@ const skills: {
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--text-muted);
+    font-weight: var(--weight-label);
   }
 
   /* A stage reached from the loop flashes its name */

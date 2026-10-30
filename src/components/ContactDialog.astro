@@ -1,0 +1,250 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+---
+
+<dialog class="contact" aria-labelledby="contact-title" data-contact>
+  <button type="button" class="contact__close" aria-label="Close" data-contact-close><Icon name="close" /></button>
+  <h2 id="contact-title">Let's build something great</h2>
+  <form novalidate data-contact-form data-endpoint={site.contactUrl}>
+    <div class="field">
+      <label for="contact-name">Name</label>
+      <input id="contact-name" name="name" type="text" autocomplete="name" maxlength="120" required autofocus />
+    </div>
+    <div class="field">
+      <label for="contact-email">Email</label>
+      <input id="contact-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required />
+    </div>
+    <div class="field">
+      <label for="contact-message">Message</label>
+      <textarea id="contact-message" name="message" rows="5" maxlength="4000" required></textarea>
+    </div>
+    <input class="contact__hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <p class="contact__note" role="alert" data-contact-note>Your details are only used to reply to you.</p>
+    <button type="submit" class="contact__send">Send message</button>
+  </form>
+  <p class="contact__done" role="status" hidden data-contact-done>Thanks. I'll reply by email.</p>
+</dialog>
+
+<script>
+  // Opens from any link marked data-contact-open, which stays a mailto link without JavaScript.
+  // The Apps Script reply cannot be read from another origin, so a post that reaches the network
+  // counts as sent. See apps-script/README.md.
+  import { site } from '../data/site';
+
+  const dialog = document.querySelector<HTMLDialogElement>('[data-contact]');
+  const form = dialog?.querySelector<HTMLFormElement>('[data-contact-form]');
+  const note = dialog?.querySelector<HTMLElement>('[data-contact-note]');
+  const done = dialog?.querySelector<HTMLElement>('[data-contact-done]');
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  if (dialog && form && note && done) {
+    const restNote = note.textContent ?? '';
+    const say = (text: string, isError = true) => {
+      note.textContent = text;
+      note.classList.toggle('is-error', isError);
+    };
+
+    document.querySelectorAll('[data-contact-open]').forEach((link) =>
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        dialog.showModal();
+      }),
+    );
+    dialog.querySelector('[data-contact-close]')?.addEventListener('click', () => dialog.close());
+    // A click on the backdrop lands on the dialog element itself
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const name = String(data.get('name') ?? '').trim();
+      const email = String(data.get('email') ?? '').trim();
+      const message = String(data.get('message') ?? '').trim();
+      if (name.length < 2) return say('Please add your name.');
+      if (!EMAIL_RE.test(email)) return say('That does not look like an email address.');
+      if (message.length < 2) return say('Please add a message.');
+
+      const failed = `That did not send. Please email ${site.email} instead.`;
+      if (!form.dataset.endpoint) return say(failed);
+      const send = form.querySelector<HTMLButtonElement>('[type=submit]');
+      if (send) send.disabled = true;
+      try {
+        await fetch(form.dataset.endpoint, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: new URLSearchParams({
+            name,
+            email,
+            message,
+            hp: String(data.get('company') ?? ''),
+            t: String(Math.round(performance.now())),
+          }),
+        });
+        say(restNote, false);
+        form.reset();
+        form.hidden = true;
+        done.hidden = false;
+      } catch {
+        say(failed);
+      } finally {
+        if (send) send.disabled = false;
+      }
+    });
+
+    // Reopening after a send shows the form again
+    dialog.addEventListener('close', () => {
+      form.hidden = false;
+      done.hidden = true;
+      say(restNote, false);
+    });
+  }
+</script>
+
+<style>
+  .contact {
+    width: min(520px, calc(100vw - 32px));
+    max-height: calc(100dvh - 32px);
+    margin: auto;
+    padding: var(--space-6);
+    box-sizing: border-box;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-card-lg);
+  }
+
+  .contact::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  :global(html:has(dialog[open])) {
+    overflow: hidden;
+  }
+
+  .contact__close {
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-2);
+    width: var(--touch-target);
+    height: var(--touch-target);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    background: none;
+    border: 0;
+    border-radius: var(--radius-circle);
+    cursor: pointer;
+  }
+
+  .contact__close:hover {
+    color: var(--link-hover);
+  }
+
+  h2 {
+    margin: 0 var(--space-7) var(--space-5) 0;
+    color: var(--display);
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  form[hidden] {
+    display: none;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  label {
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: var(--weight-label);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  input,
+  textarea {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: var(--touch-target);
+    padding: 10px 12px;
+    font: inherit;
+    font-size: 16px;
+    color: var(--ink);
+    background: var(--bg);
+    border: 1px solid var(--control-border);
+    border-radius: var(--radius-card);
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--link-hover);
+    outline-offset: 0;
+  }
+
+  .contact__hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  .contact__note {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .contact__note.is-error {
+    color: var(--link-hover);
+  }
+
+  .contact__send {
+    align-self: flex-start;
+    min-height: 48px;
+    padding: 0 var(--space-5);
+    font: inherit;
+    font-weight: 600;
+    color: var(--on-accent);
+    background: var(--accent);
+    border: 0;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+  }
+
+  .contact__send:hover {
+    background: var(--link-hover);
+  }
+
+  .contact__send:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .contact__done {
+    margin: 0;
+    font-size: 18px;
+    color: var(--ink);
+  }
+</style>

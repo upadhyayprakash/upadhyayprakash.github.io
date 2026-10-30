@@ -10,30 +10,23 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+// Some articles open with their description; showing it again under the title would repeat it.
+const intro = post.body?.trimStart().startsWith(post.data.description.slice(0, 40)) ? undefined : post.data.description;
 const date = post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 ---
 
-<Base title={`${post.data.title}, Prakash Upadhyay`} description={post.data.description} current="writing">
+<Base title={`${post.data.title}, Prakash Upadhyay`} description={post.data.description} current="writing" progress>
   <article class="article container">
     <header class="article__head">
-      <nav class="label crumbs" aria-label="Breadcrumb">
-        <a href="/writing">Writing</a>
-      </nav>
       <h1>{post.data.title}</h1>
-      <p class="meta">
-        <time datetime={post.data.date.toISOString().slice(0, 10)}>{date}</time>
-        <span aria-hidden="true">·</span>
-        <span>{post.data.tags.join(' · ')}</span>
-      </p>
-      {post.data.original && (
-        <a class="original" href={post.data.original}>Originally published on LinkedIn<Icon name="arrow-up-right" size={16} /></a>
-      )}
+      {intro && <p class="intro">{intro}</p>}
       {post.data.heroImage && <img class="article__hero" src={post.data.heroImage} alt="" width="1200" height="630" />}
     </header>
     <div class="prose">
       <Content />
     </div>
     <p class="back">
+      <time datetime={post.data.date.toISOString().slice(0, 10)}>{date}</time>
       {post.data.original && (
         <a class="original" href={post.data.original}>Read and comment on LinkedIn<Icon name="arrow-up-right" size={16} /></a>
       )}
@@ -52,23 +45,14 @@ const date = post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month:
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
+    padding-bottom: var(--space-8);
     margin-bottom: var(--space-8);
-  }
-
-  .crumbs {
-    display: flex;
-    gap: 10px;
-    color: var(--text-muted);
-  }
-
-  .crumbs a {
-    color: inherit;
-    text-decoration: none;
+    border-bottom: 1px solid var(--line-strong);
   }
 
   h1 {
     margin: 0;
-    color: var(--accent);
+    color: var(--display);
     font-size: clamp(32px, 4.4vw, 52px);
     font-weight: 500;
     letter-spacing: -0.03em;
@@ -76,10 +60,11 @@ const date = post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month:
     text-wrap: balance;
   }
 
-  .article .meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
+  .intro {
+    margin: 0;
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--text);
   }
 
   .article__hero {
@@ -88,6 +73,7 @@ const date = post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month:
     height: auto;
     margin-top: var(--space-4);
     border: 1px solid var(--line);
+    border-radius: var(--radius-card-lg);
   }
 
   .prose {
@@ -97,7 +83,7 @@ const date = post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month:
 
   .prose :global(h2) {
     margin: var(--space-8) 0 var(--space-3);
-    color: var(--ink);
+    color: var(--display);
     font-size: 28px;
     font-weight: 500;
     letter-spacing: -0.02em;
@@ -147,6 +133,7 @@ const date = post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month:
     height: auto;
     margin: var(--space-5) 0 var(--space-2);
     border: 1px solid var(--line);
+    border-radius: var(--radius-card-lg);
   }
 
   .prose :global(em) {
@@ -171,6 +158,7 @@ const date = post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month:
     background: var(--letterbox) !important;
     font-size: 14px;
     line-height: 1.6;
+    border-radius: var(--radius-card);
   }
 
   /* Long inline identifiers wrap on narrow screens; code blocks scroll instead */

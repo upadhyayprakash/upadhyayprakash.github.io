@@ -178,7 +178,7 @@ const wins = [
 
 <script>
   // The lens: a circle that follows a fine pointer and inverts what is under it.
-  // "human" sits above the lens and turns pastel orange while the lens overlaps it.
+  // "human" sits above the lens and turns rose while the lens overlaps it.
   // Over the portrait, the lens reveals the colour photo instead of inverting it.
   // The giant word "Human" is hidden until the lens passes over it.
   // "See the work" and "Download resume" become bordered buttons while the lens overlaps them.
@@ -386,14 +386,14 @@ const wins = [
     color: var(--ink);
   }
 
-  /* The patent stands out in the photo frame's light orange */
+  /* The patent stands out in the light rose used for links on hover */
   .hero__links .hero__patent {
-    color: var(--frame-accent);
+    color: var(--link-hover);
     font-weight: 600;
   }
 
   .hero__links .hero__patent:hover {
-    color: var(--frame-accent) !important;
+    color: var(--link-hover) !important;
     text-decoration: underline;
     text-underline-offset: 5px;
   }
@@ -410,7 +410,7 @@ const wins = [
     font-weight: 600;
     line-height: 1.02;
     letter-spacing: -0.03em;
-    color: var(--accent);
+    color: var(--display);
   }
 
   .dot {
@@ -418,7 +418,7 @@ const wins = [
     width: 0.14em;
     height: 0.14em;
     border-radius: var(--radius-circle);
-    background: var(--accent);
+    background: var(--display);
     margin-left: 0.06em;
   }
 
@@ -491,7 +491,7 @@ const wins = [
     top: 50%;
     height: 48px;
     transform: translateY(-50%);
-    border: 1px solid var(--accent);
+    border: 1px solid currentColor;
     border-radius: var(--radius-pill);
     opacity: 0;
     pointer-events: none;
@@ -539,7 +539,7 @@ const wins = [
   }
 
   .see-work.is-framed .see-work__circle {
-    border-color: transparent;
+    border-color: transparent !important;
     background: transparent;
   }
 
@@ -701,6 +701,7 @@ const wins = [
     display: flex;
     flex-direction: column;
     gap: 14px;
+    border-radius: var(--radius-card);
   }
 
   .card h3 {
@@ -708,7 +709,7 @@ const wins = [
     font-size: 22px;
     font-weight: 500;
     letter-spacing: -0.01em;
-    color: var(--ink);
+    color: var(--display);
   }
 
   .card__text {
@@ -733,6 +734,7 @@ const wins = [
     flex-wrap: wrap;
     align-items: center;
     gap: 32px 56px;
+    border-radius: var(--radius-card-lg);
   }
 
   .seal {
@@ -750,7 +752,7 @@ const wins = [
 
   .patent__number {
     margin: 0;
-    color: var(--accent);
+    color: var(--display);
     font-size: clamp(48px, 6.4vw, 88px);
     font-weight: 300;
     letter-spacing: -0.03em;
@@ -759,7 +761,7 @@ const wins = [
 
   .patent h3 {
     margin: 0;
-    color: var(--accent);
+    color: var(--display);
     font-size: clamp(22px, 2.4vw, 28px);
     font-weight: 600;
     letter-spacing: -0.01em;
@@ -820,6 +822,7 @@ const wins = [
     overflow: hidden;
     border: 1px solid var(--line);
     background: var(--surface);
+    border-radius: var(--radius-card-lg);
   }
 
   .ride__slide {
@@ -919,7 +922,7 @@ const wins = [
     font-weight: 300;
     letter-spacing: -0.04em;
     line-height: 1;
-    color: var(--accent);
+    color: var(--display);
   }
 
   .ride__route {

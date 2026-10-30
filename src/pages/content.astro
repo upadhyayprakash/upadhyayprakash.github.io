@@ -96,7 +96,6 @@ const filters = [{ id: 'all', label: 'All' }, ...types.filter((t) => count(t.id)
     position: relative;
     overflow: hidden;
     border-bottom: 1px solid var(--line);
-    background: radial-gradient(900px 520px at 22% 30%, var(--hero-glow) 0%, var(--hero-mid) 55%, var(--bg) 100%);
   }
 
   .title-area__inner {
@@ -114,7 +113,7 @@ const filters = [{ id: 'all', label: 'All' }, ...types.filter((t) => count(t.id)
 
   h1 {
     margin: 0;
-    color: var(--accent);
+    color: var(--display);
     font-size: var(--size-page-title);
     font-weight: 500;
     letter-spacing: -0.035em;
@@ -221,7 +220,7 @@ const filters = [{ id: 'all', label: 'All' }, ...types.filter((t) => count(t.id)
 
   .group__label h2 {
     margin: 0;
-    font-weight: 500;
+    font-weight: var(--weight-label);
     color: var(--ink);
   }
 
@@ -257,6 +256,7 @@ const filters = [{ id: 'all', label: 'All' }, ...types.filter((t) => count(t.id)
     max-width: 100%;
     aspect-ratio: 16 / 9;
     border: 1px solid var(--line);
+    border-radius: var(--radius-card);
   }
 
   .row__art img {
@@ -277,6 +277,7 @@ const filters = [{ id: 'all', label: 'All' }, ...types.filter((t) => count(t.id)
     letter-spacing: 0.06em;
     text-transform: uppercase;
     padding: 3px var(--space-2);
+    font-weight: var(--weight-label);
   }
 
   .row__body {

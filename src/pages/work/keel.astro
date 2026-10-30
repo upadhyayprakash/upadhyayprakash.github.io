@@ -1,0 +1,339 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import keelBrowser from '../../assets/keel/keel-browser.png';
+import keelCli from '../../assets/keel/keel-cli-welcome.png';
+
+const facts = [
+  ['Role', 'Idea, design and build, solo'],
+  ['Stack', 'TypeScript · pnpm monorepo · libSQL · Mintlify'],
+  ['License', 'MIT, open source from the first commit'],
+  ['Status', 'v0.4.0 on npm · Goals in progress'],
+];
+
+const links = [
+  ['Read the docs', 'https://nouisi-keel.mintlify.site'],
+  ['Keel on GitHub', 'https://github.com/upadhyayprakash/keel'],
+  ['@nouisi/keel on npm', 'https://www.npmjs.com/package/@nouisi/keel'],
+];
+
+const failures = [
+  ['Promises', 'Missed: "I\'ll send it Friday" slipped.'],
+  ['Priorities', 'The wrong thing got the day.'],
+  ['Context', 'Coming back to a project cost 30 minutes of "where was I?"'],
+  ['Decisions', 'Rushed, with no record of why.'],
+];
+
+const built = [
+  ['One core, two terminals', 'A shared core does all the work, so a feature written once appears in the CLI, the shell and the browser at the same time.'],
+  ['Commands return blocks, not text', 'A command never prints. It returns blocks with meaning attached, and each terminal renders them in its own way.'],
+  ['Ready for a hosted database', 'v1 only needed a local file, but the storage rules meant multi-device sync needed no data model changes.'],
+];
+---
+
+<Base title="Keel, Prakash Upadhyay" description="Keel, an open-source terminal app for promises, priorities and project context, and the goal mode being built into it." current="work" progress>
+  <section class="head" aria-labelledby="page-title">
+    <div class="head__in">
+      <p class="crumbs"><a href="/work">Work</a><span aria-hidden="true">/</span><span>Keel</span></p>
+      <h1 id="page-title">Keel</h1>
+      <p class="head__tag">Promises. Priorities. Context.</p>
+      <p class="head__text">A terminal app that tracks what you owe, what you're waiting on, your focus for today and where you left each project. Your data stays in a local file.</p>
+    </div>
+  </section>
+
+  <main>
+    <div class="top">
+      <Image class="shot" src={keelBrowser} alt="keel serve in the browser, showing today: focus, waiting-on follow-ups and what's coming up." widths={[640, 1040]} sizes="(max-width: 900px) 100vw, 760px" />
+      <aside aria-label="Project facts">
+        {facts.map(([k, v]) => <div><p class="label">{k}</p><p class="fact">{v}</p></div>)}
+        <div class="links">{links.map(([t, href]) => <a href={href}>{t}</a>)}</div>
+      </aside>
+    </div>
+
+    <section aria-labelledby="problem-title">
+      <div class="rule"><h2 id="problem-title">The problem</h2><div aria-hidden="true"></div></div>
+      <p class="lead">Keel started as a personal annoyance: working on many things at once kept failing in the same four ways.</p>
+      <ul class="grid">
+        {failures.map(([t, d]) => <li><h3>{t}</h3><p>{d}</p></li>)}
+      </ul>
+    </section>
+
+    <section id="design" aria-labelledby="design-title">
+      <div class="rule"><h2 id="design-title">The design pivot</h2><div aria-hidden="true"></div></div>
+      <div class="split">
+        <Image class="shot" src={keelCli} alt="The Keel shell in a terminal: the logo, today with focus and follow-ups, and the prompt showing the current project." widths={[480, 800]} sizes="(max-width: 900px) 100vw, 520px" />
+        <div class="split__text">
+          <p class="lead">The first plan had a full web UI and a phone layout. Claude drew those screens as a canvas of boards in an artifact, next to the terminal ones.</p>
+          <p>Seeing them side by side made the call easy. I parked the graphical web app, dropped the phone and kept one terminal experience in two places: one command language, rendered twice, instead of two products.</p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="built-title">
+      <div class="rule"><h2 id="built-title">How it is built</h2><div aria-hidden="true"></div></div>
+      <ul class="grid">
+        {built.map(([t, d]) => <li><h3>{t}</h3><p>{d}</p></li>)}
+      </ul>
+    </section>
+
+    <section aria-labelledby="goals-title">
+      <div class="rule"><h2 id="goals-title">Goals in Keel</h2><div aria-hidden="true"></div></div>
+      <p class="lead">A goal mode for small personal goals with a finish line, days to a few weeks away, with a phone app served by <code>keel serve</code>.</p>
+      <p>People rarely fail at such goals for lack of a list. They fail because the goal is vague, one missed day turns into quitting, or the last 10% drifts. So a finish line and an if-then plan are required before a goal can be saved.</p>
+      <p class="status"><span>In progress</span>Merged to <code>main</code> and documented. Not in a release yet: it's planned for 0.5.0.</p>
+      <div class="links links--row">
+        <a href="https://nouisi-keel.mintlify.site/guides/goals">Goals guide</a>
+        <a href="https://github.com/upadhyayprakash/keel/blob/25a568ec0a1c26c24bac20e3710038f5642903b8/docs/adr/0004-goals.md">ADR 0004</a>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .head {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .head__in {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 72px clamp(16px, 4vw, 40px) 80px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .crumbs {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-family: var(--font-label);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: var(--weight-label);
+  }
+
+  .crumbs a {
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  h1 {
+    margin: 0;
+    color: var(--display);
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+  }
+
+  .head__tag {
+    margin: 0;
+    font-size: clamp(22px, 2.6vw, 30px);
+    font-weight: 300;
+    color: var(--text-muted);
+  }
+
+  .head__text {
+    margin: 0;
+    max-width: 640px;
+    font-size: 18px;
+    color: var(--text);
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 72px clamp(16px, 4vw, 40px) 0;
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    scroll-margin-top: 96px;
+  }
+
+  section p {
+    margin: 0;
+    max-width: 760px;
+    font-size: 16px;
+  }
+
+  section .lead {
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--display);
+  }
+
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px 64px;
+    align-items: flex-start;
+  }
+
+  .top :global(.shot) {
+    flex: 1 1 560px;
+    min-width: 0;
+  }
+
+  .shot {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card-lg);
+  }
+
+  aside {
+    flex: 0 1 300px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  aside > div:not(.links) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .label {
+    margin: 0;
+    font-family: var(--font-label);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: var(--weight-label);
+  }
+
+  .fact {
+    margin: 0;
+    font-size: 15px;
+    color: var(--ink);
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--line);
+    padding-top: var(--space-3);
+  }
+
+  .links--row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--touch-target);
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .rule {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .rule div {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  h2 {
+    margin: 0;
+    font-family: var(--font-label);
+    font-size: 13px;
+    font-weight: var(--weight-label);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+    gap: var(--space-4);
+  }
+
+  .grid li {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .grid p {
+    font-size: 15px;
+  }
+
+  .split {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px 64px;
+    align-items: center;
+  }
+
+  .split :global(.shot) {
+    flex: 0 1 420px;
+    min-width: 0;
+  }
+
+  .split__text {
+    flex: 1 1 340px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .status {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  .status span {
+    border: 1px solid var(--outline);
+    border-radius: var(--radius-pill);
+    padding: 6px 14px;
+    font-family: var(--font-label);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: var(--weight-label);
+  }
+</style>

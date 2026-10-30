@@ -1,11 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
 ---
 
 <Base title="Writing, Prakash Upadhyay" description="Articles by Prakash Upadhyay on building software, AI tools and the web." current="writing">
-<section aria-labelledby="page-title" style="position: relative; overflow: hidden; border-bottom: 1px solid var(--line); background: radial-gradient(900px 520px at 22% 30%, var(--hero-glow) 0%, var(--hero-mid) 55%, var(--bg) 100%)">
+<section aria-labelledby="page-title" style="position: relative; overflow: hidden; border-bottom: 1px solid var(--line)">
 <div style="position: relative; max-width: 1200px; margin: 0 auto; padding: 72px clamp(16px, 4vw, 40px) 80px; display: flex; flex-direction: column; gap: 24px">
-<h1 id="page-title" style="margin: 0; color: var(--accent); font-size: clamp(48px, 7vw, 96px); font-weight: 500; letter-spacing: -0.035em; line-height: 0.98">Writing</h1>
+<h1 id="page-title" style="margin: 0; color: var(--display); font-size: clamp(48px, 7vw, 96px); font-weight: 500; letter-spacing: -0.035em; line-height: 0.98">Writing</h1>
 <p style="margin: 0; font-size: clamp(22px, 2.6vw, 30px); font-weight: 300; color: var(--text-muted)">Notes. Builds. Lessons.</p>
 <p style="margin: 0; max-width: 640px; font-size: 18px; color: var(--text)">Longer pieces on what I build and how. Short posts and videos live on the <a href="/content" style="color: var(--ink); text-underline-offset: 4px">Content</a> page.</p>
 </div>
@@ -14,69 +15,128 @@ import Base from '../layouts/Base.astro';
 <main style="max-width: 1200px; margin: 0 auto; padding: 96px clamp(16px, 4vw, 40px) 0; display: flex; flex-direction: column; gap: 48px">
 <section aria-labelledby="y2026" style="display: flex; flex-direction: column; gap: 24px">
 <div style="display: flex; align-items: center; gap: 20px">
-<h2 id="y2026" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">2026</h2>
+<h2 id="y2026" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: var(--weight-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">2026</h2>
 <div aria-hidden="true" style="flex: 1; height: 1px; background: var(--line)"></div>
 </div>
-<div style="border-top: 1px solid var(--line)">
-<article style="border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; align-items: center; gap: 20px 40px; padding: 28px 0">
-<div aria-hidden="true" style="flex: 0 0 300px; max-width: 100%; aspect-ratio: 16 / 9; border: 1px solid var(--line); overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)"><img src="/blog/noui-logo/cover.png" alt="" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover" /></div>
+<div class="posts">
+<article class="post">
+<div class="post__thumb" aria-hidden="true" style="aspect-ratio: 16 / 9; border: 1px solid var(--line); overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); border-radius: var(--radius-card); font-weight: var(--weight-label)"><img src="/blog/noui-logo/cover.png" alt="" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover" /></div>
 <div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 10px">
-<p style="margin: 0; display: flex; flex-wrap: wrap; gap: 12px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)"><span style="color: var(--ink)">Article</span><span>10 Oct 2026</span></p>
-<h3 style="margin: 0; color: var(--accent); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3">The logo that lost a dot</h3>
+<p style="margin: 0; display: flex; flex-wrap: wrap; gap: 12px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)"><span>10 Oct 2026</span><span class="post__linkedin" role="img" aria-label="Also on LinkedIn" title="Also on LinkedIn"><Icon name="linkedin-logo" size={18} /></span></p>
+<h3 style="margin: 0; color: var(--display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3"><a class="post__link" href="/blog/the-logo-that-lost-a-dot">The logo that lost a dot</a></h3>
 <p style="margin: 0; font-size: 15px; color: var(--text); max-width: 640px">How noui got its face, one decision at a time: three rules, a 16-pixel test, and the dot that didn't need to exist.</p>
 <p style="margin: 0; font-size: 14px; color: var(--text-muted)">noui · Brand · Logo design</p>
-<span style="display: flex; flex-wrap: wrap; gap: 0 28px"><a href="/blog/the-logo-that-lost-a-dot" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 15px; font-weight: 500; text-decoration: none">Read the article<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a><a href="https://www.linkedin.com/pulse/logo-lost-dot-prakash-upadhyay-wpfbf/" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 15px; font-weight: 500; text-decoration: none">On LinkedIn<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"></path><path d="M8 7h9v9"></path></svg></a></span>
 </div>
 </article>
-<article style="border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; align-items: center; gap: 20px 40px; padding: 28px 0">
-<div aria-hidden="true" style="flex: 0 0 300px; max-width: 100%; aspect-ratio: 16 / 9; border: 1px solid var(--line); overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)"><img src="/blog/noui-interface/cover.png" alt="" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover" /></div>
+<article class="post">
+<div class="post__thumb" aria-hidden="true" style="aspect-ratio: 16 / 9; border: 1px solid var(--line); overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); border-radius: var(--radius-card); font-weight: var(--weight-label)"><img src="/blog/noui-interface/cover.png" alt="" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover" /></div>
 <div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 10px">
-<p style="margin: 0; display: flex; flex-wrap: wrap; gap: 12px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)"><span style="color: var(--ink)">Article</span><span>2 Oct 2026</span></p>
-<h3 style="margin: 0; color: var(--accent); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3">What if software could shape its own interface?</h3>
+<p style="margin: 0; display: flex; flex-wrap: wrap; gap: 12px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)"><span>2 Oct 2026</span><span class="post__linkedin" role="img" aria-label="Also on LinkedIn" title="Also on LinkedIn"><Icon name="linkedin-logo" size={18} /></span></p>
+<h3 style="margin: 0; color: var(--display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3"><a class="post__link" href="/blog/what-if-software-could-shape-its-own-interface">What if software could shape its own interface?</a></h3>
 <p style="margin: 0; font-size: 15px; color: var(--text); max-width: 640px">An early exploration into AI-generated, context-aware interfaces, and what has to be true before people would trust them.</p>
 <p style="margin: 0; font-size: 14px; color: var(--text-muted)">noui · Interfaces · AI</p>
-<span style="display: flex; flex-wrap: wrap; gap: 0 28px"><a href="/blog/what-if-software-could-shape-its-own-interface" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 15px; font-weight: 500; text-decoration: none">Read the article<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a><a href="https://www.linkedin.com/pulse/what-software-could-shape-its-own-interface-prakash-upadhyay-ueumf/" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 15px; font-weight: 500; text-decoration: none">On LinkedIn<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"></path><path d="M8 7h9v9"></path></svg></a></span>
 </div>
 </article>
-<article style="border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; align-items: center; gap: 20px 40px; padding: 28px 0">
-<div aria-hidden="true" style="flex: 0 0 300px; max-width: 100%; aspect-ratio: 16 / 9; border: 1px solid var(--line); overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)"><img src="/blog/account-deletion/cover.png" alt="" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover" /></div>
+<article class="post">
+<div class="post__thumb" aria-hidden="true" style="aspect-ratio: 16 / 9; border: 1px solid var(--line); overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); border-radius: var(--radius-card); font-weight: var(--weight-label)"><img src="/blog/account-deletion/cover.png" alt="" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover" /></div>
 <div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 10px">
-<p style="margin: 0; display: flex; flex-wrap: wrap; gap: 12px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)"><span style="color: var(--ink)">Article</span><span>30 Sep 2026</span></p>
-<h3 style="margin: 0; color: var(--accent); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3">5 things I got wrong building account deletion for a solo SaaS</h3>
+<p style="margin: 0; display: flex; flex-wrap: wrap; gap: 12px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)"><span>30 Sep 2026</span><span class="post__linkedin" role="img" aria-label="Also on LinkedIn" title="Also on LinkedIn"><Icon name="linkedin-logo" size={18} /></span></p>
+<h3 style="margin: 0; color: var(--display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3"><a class="post__link" href="/blog/5-things-i-got-wrong-building-account-deletion-solo-saas">5 things I got wrong building account deletion for a solo SaaS</a></h3>
 <p style="margin: 0; font-size: 15px; color: var(--text); max-width: 640px">Soft deletes, 30-day purges, email blocklists, and a privacy policy I had to rewrite so it tells the truth.</p>
 <p style="margin: 0; font-size: 14px; color: var(--text-muted)">CertPulse · Privacy · Solo SaaS</p>
-<span style="display: flex; flex-wrap: wrap; gap: 0 28px"><a href="/blog/5-things-i-got-wrong-building-account-deletion-solo-saas" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 15px; font-weight: 500; text-decoration: none">Read the article<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a><a href="https://www.linkedin.com/pulse/5-things-i-got-wrong-building-account-deletion-solo-saas-upadhyay-ywytf/" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 15px; font-weight: 500; text-decoration: none">On LinkedIn<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"></path><path d="M8 7h9v9"></path></svg></a></span>
 </div>
 </article>
-<article style="border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; align-items: center; gap: 20px 40px; padding: 28px 0">
-<div aria-hidden="true" style="flex: 0 0 300px; max-width: 100%; aspect-ratio: 16 / 9; border: 1px solid var(--line); overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)"><img src="/blog/carousel-creator-hero.png" alt="" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover" /></div>
+<article class="post">
+<div class="post__thumb" aria-hidden="true" style="aspect-ratio: 16 / 9; border: 1px solid var(--line); overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); border-radius: var(--radius-card); font-weight: var(--weight-label)"><img src="/blog/carousel-creator-hero.png" alt="" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover" /></div>
 <div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 10px">
-<p style="margin: 0; display: flex; flex-wrap: wrap; gap: 12px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)"><span style="color: var(--ink)">Article</span><span>5 Jun 2026</span></p>
-<h3 style="margin: 0; color: var(--accent); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3">I built a production-grade AI carousel creator in a day. Here's exactly how.</h3>
+<p style="margin: 0; display: flex; flex-wrap: wrap; gap: 12px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)"><span>5 Jun 2026</span></p>
+<h3 style="margin: 0; color: var(--display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3"><a class="post__link" href="/blog/built-production-grade-ai-carousel-creator">I built a production-grade AI carousel creator in a day. Here's exactly how.</a></h3>
 <p style="margin: 0; font-size: 15px; color: var(--text); max-width: 640px">How I used Claude's skill-creator plugin, a 6-stage pipeline and eval-driven iteration to build a branded, multi-platform carousel generator.</p>
 <p style="margin: 0; font-size: 14px; color: var(--text-muted)">Claude Code · AI tools · Content automation</p>
-<a href="/blog/built-production-grade-ai-carousel-creator" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 15px; font-weight: 500; text-decoration: none">Read the article<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
 </div>
 </article>
 </div>
 </section>
 <section aria-labelledby="y2024" style="display: flex; flex-direction: column; gap: 24px">
 <div style="display: flex; align-items: center; gap: 20px">
-<h2 id="y2024" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">2024</h2>
+<h2 id="y2024" style="margin: 0; font-family: var(--font-label); font-size: 13px; font-weight: var(--weight-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px">2024</h2>
 <div aria-hidden="true" style="flex: 1; height: 1px; background: var(--line)"></div>
 </div>
-<div style="border-top: 1px solid var(--line)">
-<article style="border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; align-items: center; gap: 20px 40px; padding: 28px 0">
-<div aria-hidden="true" style="flex: 0 0 300px; max-width: 100%; aspect-ratio: 16 / 9; border: 1px solid var(--line); overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)"><img src="/blog/blog-1-hero.png" alt="" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover" /></div>
+<div class="posts">
+<article class="post">
+<div class="post__thumb" aria-hidden="true" style="aspect-ratio: 16 / 9; border: 1px solid var(--line); overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); border-radius: var(--radius-card); font-weight: var(--weight-label)"><img src="/blog/blog-1-hero.png" alt="" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover" /></div>
 <div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 10px">
-<p style="margin: 0; display: flex; flex-wrap: wrap; gap: 12px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted)"><span style="color: var(--ink)">Article</span><span>15 Oct 2024</span></p>
-<h3 style="margin: 0; color: var(--accent); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3">Building a type-safe reusable Button component in React.js</h3>
+<p style="margin: 0; display: flex; flex-wrap: wrap; gap: 12px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: var(--weight-label)"><span>15 Oct 2024</span></p>
+<h3 style="margin: 0; color: var(--display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3"><a class="post__link" href="/blog/typesafe-reusable-button-component-in-reactjs">Building a type-safe reusable Button component in React.js</a></h3>
 <p style="margin: 0; font-size: 15px; color: var(--text); max-width: 640px">Type-safe reusable React components with TypeScript, for a better developer experience and fewer runtime errors.</p>
 <p style="margin: 0; font-size: 14px; color: var(--text-muted)">React · TypeScript</p>
-<a href="/blog/typesafe-reusable-button-component-in-reactjs" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 15px; font-weight: 500; text-decoration: none">Read the article<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
 </div>
 </article>
 </div>
 </section>
 </main>
 </Base>
+
+<style>
+  .posts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  /* The title's link stretches over the whole card */
+  .post {
+    position: relative;
+    margin: 0 -16px;
+    padding: 16px;
+    border-radius: var(--radius-card-lg);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px 40px;
+    transition: background-color 160ms ease-out;
+  }
+
+  .post:hover,
+  .post:has(.post__link:focus-visible) {
+    background: color-mix(in srgb, var(--frame-accent) 12%, transparent);
+  }
+
+  .post__thumb {
+    flex: 0 0 300px;
+    max-width: 100%;
+  }
+
+  .post__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .post__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-card-lg);
+  }
+
+  .post__link:focus-visible {
+    outline: none;
+  }
+
+  .post__link:focus-visible::after {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 3px;
+  }
+
+  /* Says the article also ran on LinkedIn; the link to it is inside the article */
+  .post__linkedin {
+    display: inline-flex;
+    align-self: center;
+  }
+
+  @media (max-width: 760px) {
+    .post__thumb {
+      flex: 1 1 100%;
+    }
+  }
+</style>

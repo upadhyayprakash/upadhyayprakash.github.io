@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ReadingProgress from '../components/ReadingProgress.astro';
 import { site, type NavKey } from '../data/site';
 
 interface Props {
@@ -10,9 +11,10 @@ interface Props {
   current?: NavKey;
   hand?: boolean;
   lens?: boolean;
+  progress?: boolean;
 }
 
-const { title, description, current, hand = false, lens = false } = Astro.props;
+const { title, description, current, hand = false, lens = false, progress = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, site.url);
 const fonts = hand
   ? 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Caveat:wght@500;600&display=swap'
@@ -42,6 +44,7 @@ const fonts = hand
     <link rel="stylesheet" href={fonts} />
   </head>
   <body>
+    {progress && <ReadingProgress />}
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="site-top" data-site-top data-lens-zone={lens ? '' : undefined}>
       <Header current={current} />
