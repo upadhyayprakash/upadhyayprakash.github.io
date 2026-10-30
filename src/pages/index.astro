@@ -2,7 +2,17 @@
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import SectionLabel from '../components/SectionLabel.astro';
+import { Image } from 'astro:assets';
 import { site } from '../data/site';
+import portrait from '../assets/portrait.png';
+import portraitColor from '../assets/portrait-color.png';
+import usptoSeal from '../assets/uspto-seal.png';
+import medal from '../assets/riding/medal.jpg';
+import race from '../assets/riding/race.jpg';
+import sunrise from '../assets/riding/sunrise.jpg';
+import roadside from '../assets/riding/roadside.jpg';
+import wall from '../assets/riding/wall.jpg';
+import parts from '../assets/riding/parts.jpg';
 
 const now = [
   {
@@ -37,12 +47,12 @@ const now = [
 
 // Riding photos, cropped to 4:3. The slider fades through them; the first one shows without script.
 const rides = [
-  { file: 'medal.jpg', w: 720, h: 540, alt: 'The Bangalore Randonneurs medal for the Jog Falls 1000 km BRM, hanging in autumn light.' },
-  { file: 'race.jpg', w: 999, h: 750, alt: 'Prakash racing as number 029 in the BBCh Race #02 individual time trial.' },
-  { file: 'sunrise.jpg', w: 652, h: 489, alt: 'A rider\u2019s view over the handlebars, down a wide road at dawn.' },
-  { file: 'roadside.jpg', w: 882, h: 661, alt: 'Prakash in helmet and race kit, standing astride his road bike on a sunny pavement.' },
-  { file: 'wall.jpg', w: 797, h: 598, alt: 'A black road bike with two bottles and a saddle bag, leaning against a stone wall.' },
-  { file: 'parts.jpg', w: 946, h: 709, alt: 'A road bike stripped down: frame, wheels, chainrings and small parts laid out on a tiled floor.' },
+  { image: medal, alt: 'The Bangalore Randonneurs medal for the Jog Falls 1000 km BRM, hanging in autumn light.' },
+  { image: race, alt: 'Prakash racing as number 029 in the BBCh Race #02 individual time trial.' },
+  { image: sunrise, alt: 'A rider\u2019s view over the handlebars, down a wide road at dawn.' },
+  { image: roadside, alt: 'Prakash in helmet and race kit, standing astride his road bike on a sunny pavement.' },
+  { image: wall, alt: 'A black road bike with two bottles and a saddle bag, leaning against a stone wall.' },
+  { image: parts, alt: 'A road bike stripped down: frame, wheels, chainrings and small parts laid out on a tiled floor.' },
 ];
 
 const wins = [
@@ -76,15 +86,15 @@ const wins = [
           </p>
         </div>
         <div class="hero__actions">
-          <a class="see-work" href="#now">See the work<span class="see-work__circle"><Icon name="chevron-right" size={16} /></span></a>
-          <a class="resume" href={site.resumePdf} download="prakash_upadhyay_resume.pdf" aria-label="Download resume (PDF)">Download resume<Icon name="download" size={16} /></a>
+          <a class="see-work" href="#now" data-lens-cta>See the work<span class="see-work__circle"><Icon name="chevron-right" size={16} /></span></a>
+          <a class="resume" href={site.resumePdf} download="prakash_upadhyay_resume.pdf" aria-label="Download resume (PDF)" data-lens-cta>Download resume<Icon name="download" size={16} /></a>
         </div>
       </div>
 
       <div class="portrait" data-lens-portrait>
         <div class="portrait__frame" aria-hidden="true"></div>
-        <img src="/images/portrait.png" alt="Portrait of Prakash Upadhyay in a flat cap, smiling, turned to the right" width="784" height="670" />
-        <img class="portrait__color" src="/images/portrait-color.png" alt="" aria-hidden="true" width="784" height="670" data-lens-color />
+        <Image src={portrait} quality={90} alt="Portrait of Prakash Upadhyay in a flat cap, smiling, turned to the right" loading="eager" fetchpriority="high" />
+        <Image class="portrait__color" src={portraitColor} quality={90} alt="" aria-hidden="true" loading="eager" data-lens-color />
         <div class="hero__giant" aria-hidden="true" data-lens-giant>
           <svg viewBox="0 0 1000 240"><text x="0" y="232" textLength="1000" lengthAdjust="spacingAndGlyphs">Human</text></svg>
           <p class="label hero__giant-note">in the AI loop</p>
@@ -117,12 +127,7 @@ const wins = [
   <section id="recognition" class="container block" aria-labelledby="recognition-title">
     <SectionLabel id="recognition-title" title="Recognition" />
     <article class="patent" aria-labelledby="patent-title">
-      <div class="badge" role="img" aria-label="Granted by the United States Patent and Trademark Office">
-        <span class="badge__ring" aria-hidden="true"></span>
-        <Icon name="patent" size={34} />
-        <span class="badge__word" aria-hidden="true">USPTO</span>
-        <span class="badge__year" aria-hidden="true">Granted 2021</span>
-      </div>
+      <Image class="seal" src={usptoSeal} width={336} height={336} alt="Seal of the United States Patent and Trademark Office" />
       <div class="patent__body">
         <p class="meta">United States patent · Granted Mar 2021 · SAP Labs</p>
         <p class="patent__number">{site.patent.number}</p>
@@ -146,13 +151,10 @@ const wins = [
     <div class="ride">
       <figure class="ride__photo" aria-roledescription="carousel" aria-label="Riding photos" data-ride>
         {rides.map((r, i) => (
-          <img
+          <Image
             class:list={['ride__slide', { 'is-on': i === 0 }]}
-            src={`/images/riding/${r.file}`}
+            src={r.image}
             alt={r.alt}
-            width={r.w}
-            height={r.h}
-            loading="lazy"
             data-slide
           />
         ))}
@@ -163,7 +165,7 @@ const wins = [
         </div>
       </figure>
       <div class="ride__facts">
-        <p class="meta">BRM · [year]</p>
+        <p class="meta">BRM</p>
         <div class="ride__stats">
           <p><span class="stat">1,000</span><span>kilometres</span></p>
           <p><span class="stat">73.5</span><span>hours</span></p>
@@ -179,6 +181,7 @@ const wins = [
   // "human" sits above the lens and turns pastel orange while the lens overlaps it.
   // Over the portrait, the lens reveals the colour photo instead of inverting it.
   // The giant word "Human" is hidden until the lens passes over it.
+  // "See the work" and "Download resume" become bordered buttons while the lens overlaps them.
   // It works over the hero, and over the pinned header only while part of the hero is still visible
   // below it; it hides anywhere else or on scroll.
   // Off for touch screens and for reduced motion; nothing on the page depends on it.
@@ -187,6 +190,7 @@ const wins = [
   const portrait = document.querySelector<HTMLElement>('[data-lens-portrait]');
   const color = document.querySelector<HTMLElement>('[data-lens-color]');
   const giant = document.querySelector<HTMLElement>('[data-lens-giant]');
+  const ctas = document.querySelectorAll<HTMLElement>('[data-lens-cta]');
   const hero = document.querySelector<HTMLElement>('.hero');
   const top = document.querySelector<HTMLElement>('[data-site-top]');
   const heroBelowHeader = () =>
@@ -195,9 +199,17 @@ const wins = [
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const RADIUS = 100;
 
+  const overlaps = (el: HTMLElement, e: PointerEvent) => {
+    const b = el.getBoundingClientRect();
+    const dx = Math.max(b.left - e.clientX, 0, e.clientX - b.right);
+    const dy = Math.max(b.top - e.clientY, 0, e.clientY - b.bottom);
+    return dx * dx + dy * dy < RADIUS * RADIUS;
+  };
+
   const hide = () => {
     lens?.classList.remove('is-on');
     word?.classList.remove('is-lit');
+    ctas.forEach((cta) => cta.classList.remove('is-framed'));
     if (color) {
       color.style.clipPath = '';
       color.classList.remove('is-on');
@@ -217,12 +229,8 @@ const wins = [
       }
       lens.style.transform = `translate(${e.clientX - RADIUS}px, ${e.clientY - RADIUS}px)`;
       lens.classList.add('is-on');
-      if (word) {
-        const b = word.getBoundingClientRect();
-        const dx = Math.max(b.left - e.clientX, 0, e.clientX - b.right);
-        const dy = Math.max(b.top - e.clientY, 0, e.clientY - b.bottom);
-        word.classList.toggle('is-lit', dx * dx + dy * dy < RADIUS * RADIUS);
-      }
+      if (word) word.classList.toggle('is-lit', overlaps(word, e));
+      ctas.forEach((cta) => cta.classList.toggle('is-framed', overlaps(cta, e)));
       if (portrait && color) {
         const p = portrait.getBoundingClientRect();
         color.style.clipPath = `circle(${RADIUS}px at ${e.clientX - p.left}px ${e.clientY - p.top}px)`;
@@ -470,6 +478,41 @@ const wins = [
     gap: var(--space-3) 36px;
   }
 
+  /* The lens frames each action as a bordered button. The border is a drawn layer, so nothing shifts */
+  .see-work,
+  .resume {
+    position: relative;
+  }
+
+  .see-work::before,
+  .resume::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    height: 48px;
+    transform: translateY(-50%);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-pill);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 160ms ease-out;
+  }
+
+  .see-work::before {
+    left: calc(-1 * var(--space-5));
+    right: 0;
+  }
+
+  .resume::before {
+    left: calc(-1 * var(--space-5));
+    right: calc(-1 * var(--space-5));
+  }
+
+  .see-work.is-framed::before,
+  .resume.is-framed::before {
+    opacity: 1;
+  }
+
   .see-work {
     display: flex;
     align-items: center;
@@ -493,6 +536,11 @@ const wins = [
 
   .see-work:hover .see-work__circle {
     background: var(--surface-raised);
+  }
+
+  .see-work.is-framed .see-work__circle {
+    border-color: transparent;
+    background: transparent;
   }
 
   .resume {
@@ -687,39 +735,10 @@ const wins = [
     gap: 32px 56px;
   }
 
-  .badge {
+  .seal {
     flex: 0 0 168px;
     width: 168px;
     height: 168px;
-    border-radius: var(--radius-circle);
-    border: 1.5px solid var(--accent);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    color: var(--accent);
-  }
-
-  .badge__ring {
-    position: absolute;
-    inset: 8px;
-    border-radius: var(--radius-circle);
-    border: 1px dashed var(--outline);
-  }
-
-  .badge__word {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-  }
-
-  .badge__year {
-    font-size: 11px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--text-muted);
   }
 
   .patent__body {
