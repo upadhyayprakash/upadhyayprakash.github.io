@@ -15,6 +15,8 @@ export interface ContentEntry {
   // Set when the post is replicated on the site at /content/<slug>
   slug?: string;
   video?: string;
+  // A live demo the post is about, linked from its page
+  demo?: { label: string; url: string };
 }
 
 export const types: { id: ContentType; label: string; single: string }[] = [
@@ -26,6 +28,19 @@ export const types: { id: ContentType; label: string; single: string }[] = [
 ];
 
 export const entries: ContentEntry[] = [
+  {
+    type: 'video',
+    year: '2026',
+    date: '8 Nov 2026',
+    title: 'ScrollManga: what if the scroll was the play button?',
+    tags: 'ScrollManga · Interactive storytelling · Concept',
+    url: 'https://www.linkedin.com/feed/update/urn:li:activity:7524909680708530176/',
+    thumb: '/content-media/scrollmanga.jpg',
+    thumbAlt: '',
+    video: '/content-media/scrollmanga.mp4',
+    slug: 'scrollmanga',
+    demo: { label: 'Try the reader demo', url: '/work/scrollmanga/' },
+  },
   {
     type: 'post',
     year: '2026',

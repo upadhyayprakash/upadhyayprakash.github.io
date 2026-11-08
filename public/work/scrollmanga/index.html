@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Scroll to play a scene from the Ramayana: layered art, Hindi voices, a narrator and sound that follow your scroll, and rewind when you scroll back.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sita Haran: a ScrollManga reader demo</title>
+  <link rel="canonical" href="https://upadhyayprakash.github.io/work/scrollmanga/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sita Haran: a ScrollManga reader demo">
+  <meta property="og:description" content="Scroll to play a scene from the Ramayana: layered art, Hindi voices, a narrator and sound that follow your scroll, and rewind when you scroll back.">
+  <meta property="og:url" content="https://upadhyayprakash.github.io/work/scrollmanga/">
+  <meta property="og:image" content="https://upadhyayprakash.github.io/work/scrollmanga/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sita at her doorway offering alms to a holy man, with a speech bubble: Lijiye, bhiksha.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&family=Inter:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Shelf: pick the story, one tap starts sound -->
+  <div id="shelf" class="shelf">
+    <div class="shelf-card">
+      <div class="shelf-art"><img src="media/cover2.jpg" alt=""></div>
+      <div class="shelf-body">
+        <div class="brand">ScrollManga <span class="tag">Concept demo</span></div>
+        <h1>Sita Haran</h1>
+        <p class="sub">The abduction of Sita</p>
+        <ul class="meta">
+          <li>1 scene</li><li>about 2 min at your pace</li><li>Hindi audio</li><li>headphones on</li>
+        </ul>
+        <p class="how">Scroll to play. Scroll slowly and it lingers. Scroll up and it rewinds, the music running backward with you while the voices wait. Stop on a line and it finishes speaking. Tap a speech bubble to hear it again.</p>
+        <div class="load"><div class="load-bar"><i id="loadFill"></i></div><span id="loadText">Loading the story...</span></div>
+        <div class="actions">
+          <button id="startSound" class="btn primary" disabled>Start reading, sound on</button>
+          <button id="startAuto" class="btn ghost" disabled>Lazy mode: play it for me</button>
+          <button id="startSilent" class="btn ghost" disabled>Read silently</button>
+        </div>
+        <p class="fine">A fan-made, non-commercial technology demo. Footage and Hindi audio from <em>Ramayana: The Legend of Prince Rama</em> (1992); all rights belong to their owners, and it will be taken down on request.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reader chrome -->
+  <header class="hud" id="hud">
+    <div class="hud-left"><span class="wordmark">ScrollManga</span><span class="tag">Concept</span></div>
+    <div class="hud-title">Sita Haran</div>
+    <div class="hud-right">
+      <div class="seg" role="group" aria-label="Layout">
+        <button data-layout="auto" class="on" title="Pick the layout from the window shape">Auto</button>
+        <button data-layout="wide" title="Desktop layout">Desktop</button>
+        <button data-layout="tall" title="Phone layout">Phone</button>
+      </div>
+      <button id="autoBtn" class="auto-btn" aria-pressed="false" title="Lazy mode: scrolls for you at natural speed">Auto</button>
+      <button id="soundBtn" class="icon-btn" aria-label="Sound on" title="Sound"></button>
+    </div>
+  </header>
+
+  <div class="rail" id="rail" aria-hidden="true"><div class="rail-track" id="railTrack"><i id="railFill"></i><b id="railHead"></b></div><span id="railTime">0:00</span></div>
+  <div class="mode-pill" id="modePill"></div>
+
+  <!-- The scene fills the screen; the page below it is only scroll length -->
+  <div id="stage" class="stage">
+    <div id="scenes" class="scenes"></div>
+    <div id="smoke" class="smoke"></div>
+    <div class="vignette"></div>
+    <div id="inset" class="inset"><div id="insetFrames" class="inset-frames"></div><div id="glow" class="glow"></div></div>
+    <div id="narr" class="narr"></div>
+    <div id="layer" class="layer"><svg id="tails" class="tails"></svg></div>
+    <div id="flash" class="flash"></div>
+  </div>
+  <div id="spacer" class="spacer"></div>
+  <section class="end">
+    <div>
+      <h2>End of scene</h2>
+      <p class="rew">Now scroll back up. Ravan turns back into the holy man and the music runs backward with you; the voices wait until you read forward again.</p>
+      <p>ScrollManga is a concept: a manga reader where your scroll is the play button. This page is a working prototype of the reader, built on one scene.</p>
+      <button class="btn primary" id="toTop">Read it again</button>
+      <p class="credits">A fan-made, non-commercial technology demo. Footage and Hindi audio from <em>Ramayana: The Legend of Prince Rama</em> (1992); all rights belong to their owners, and it will be taken down on request.<br>ScrollManga concept by Prakash Upadhyay. <a href="/content/scrollmanga">Read the announcement</a>.</p>
+    </div>
+  </section>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

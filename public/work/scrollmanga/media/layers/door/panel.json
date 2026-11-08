@@ -1,0 +1,43 @@
+{
+ "size": [
+  1904,
+  960
+ ],
+ "layers": [
+  {
+   "id": "wall",
+   "src": "0-wall.webp",
+   "depth": 0.15
+  },
+  {
+   "id": "sage-back",
+   "src": "9-sage-back.webp",
+   "depth": 1.1,
+   "front": true
+  }
+ ],
+ "characters": {
+  "sita-listens": {
+   "x": 217,
+   "y": 97,
+   "w": 646,
+   "h": 863,
+   "depth": 0.5
+  },
+  "sita-turns-in": {
+   "x": 365,
+   "y": 138,
+   "w": 497,
+   "h": 822,
+   "depth": 0.5
+  },
+  "sita-offers": {
+   "x": 353,
+   "y": 129,
+   "w": 498,
+   "h": 831,
+   "depth": 0.5
+  }
+ },
+ "charExt": "webp"
+}

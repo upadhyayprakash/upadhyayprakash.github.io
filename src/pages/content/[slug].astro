@@ -23,6 +23,7 @@ const body = bodies[entry.slug!];
       <img class="media" src={entry.thumb} alt={entry.thumbAlt ?? ''} />
     )}
     <p class="body">{body}</p>
+    {entry.demo && <a class="link" href={entry.demo.url}>{entry.demo.label}<Icon name="arrow-up-right" size={16} /></a>}
     <a class="link" href={entry.url}>View the original on LinkedIn<Icon name="arrow-up-right" size={16} /></a>
   </main>
 </Base>

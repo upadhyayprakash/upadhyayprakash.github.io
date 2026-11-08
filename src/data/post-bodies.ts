@@ -1,5 +1,33 @@
 // Exact copies of Prakash's LinkedIn captions, kept as posted, keyed by the entry's slug.
 export const bodies: Record<string, string> = {
+  scrollmanga: `Past midnight. Again.
+
+You've probably noticed: every launch, demo and MVP lands around this hour.
+
+It's not a strategy. Midnight is when the day finally goes quiet and I get to build the things I keep thinking about.
+
+It's also when I read. Phone in hand, one thumb, scrolling a manga at my own pace.
+
+Two months ago I posted a teaser here: "What if there was a Spotify for manga?"
+
+The question became: what if the "scroll" itself was the "play" button?
+
+That's ScrollManga, a concept:
+🌙 You scroll, the story plays. Waves, voices and sound follow your thumb. Scroll back and it rewinds.
+📱 One story, laid out for a laptop or a phone.
+✍️ A studio where any storyteller can build one without code.
+
+The 2 minute explainer is below, told with the folktale Urashima Tarō and Hokusai's art.
+
+Still a concept. Still built after midnight.
+
+----
+WEBTOON, Toonsutra, Pocket FM, Kuku FM: you have the stories and the readers. Would a reading mode where the scroll plays the story be something your readers wants?
+
+Night readers and night builders: what keeps you up?
+
+#Manga #Webtoon`,
+
   'hdr-brightness-spike': `[CSSWG] [HDR]
 
 So this afternoon, in a dimly lit cafe, I was casually checking LinkedIn job listing alerts in my Yahoo Mailbox (Chrome), and I noticed that one of the company logo was glowing intensely. It looked like an LED flash in the shape of logo (square blocks).

@@ -1,0 +1,58 @@
+{
+ "size": [
+  1904,
+  960
+ ],
+ "layers": [
+  {
+   "id": "sky",
+   "src": "0-sky.webp",
+   "depth": 0.05
+  },
+  {
+   "id": "trees",
+   "src": "1-trees.webp",
+   "depth": 0.22
+  },
+  {
+   "id": "hut",
+   "src": "2-hut.webp",
+   "depth": 0.45
+  },
+  {
+   "id": "ground",
+   "src": "3-ground.webp",
+   "depth": 0.6
+  },
+  {
+   "id": "palm",
+   "src": "4-palm.webp",
+   "depth": 1.25,
+   "front": true
+  }
+ ],
+ "characters": {
+  "sage-arrives": {
+   "x": 1141,
+   "y": 593,
+   "w": 130,
+   "h": 302,
+   "depth": 0.62
+  },
+  "sita-at-door": {
+   "x": 665,
+   "y": 497,
+   "w": 142,
+   "h": 317,
+   "depth": 0.62
+  },
+  "sage-calls": {
+   "x": 1153,
+   "y": 589,
+   "w": 122,
+   "h": 309,
+   "depth": 0.62
+  }
+ },
+ "charExt": "webp"
+}

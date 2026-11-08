@@ -1,0 +1,80 @@
+{
+ "size": [
+  1904,
+  960
+ ],
+ "layers": [
+  {
+   "id": "sky",
+   "src": "0-sky.webp",
+   "depth": 0.05
+  },
+  {
+   "id": "trees",
+   "src": "1-trees.webp",
+   "depth": 0.25
+  },
+  {
+   "id": "hut",
+   "src": "2-hut.webp",
+   "depth": 0.55
+  },
+  {
+   "id": "ground",
+   "src": "3-ground.webp",
+   "depth": 0.8
+  }
+ ],
+ "characters": {
+  "sita-door-offering": {
+   "x": 311,
+   "y": 300,
+   "w": 217,
+   "h": 595,
+   "frame": "f45.0"
+  },
+  "sage-standing": {
+   "x": 1350,
+   "y": 360,
+   "w": 197,
+   "h": 600,
+   "frame": "f45.0"
+  },
+  "sita-steps-out": {
+   "x": 476,
+   "y": 313,
+   "w": 234,
+   "h": 619,
+   "frame": "f58.0"
+  },
+  "hiran-standing": {
+   "x": 352,
+   "y": 570,
+   "w": 393,
+   "h": 374,
+   "frame": "f69.8"
+  },
+  "grab": {
+   "x": 872,
+   "y": 463,
+   "w": 586,
+   "h": 497,
+   "frame": "f69.8"
+  },
+  "ravan-carries-sita": {
+   "x": 1028,
+   "y": 358,
+   "w": 358,
+   "h": 602,
+   "frame": "f74.0"
+  },
+  "ravan-true-form": {
+   "x": 1464,
+   "y": 331,
+   "w": 344,
+   "h": 504,
+   "frame": "f79.5"
+  }
+ },
+ "charExt": "webp"
+}
