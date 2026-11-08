@@ -48,7 +48,7 @@ export const STORY = {
 
   // Live caption on the story boxes: the word the narrator is saying gets the word pill.
   // Off in the public build until Prakash clears it (close to his patent-pending "spoken focus").
-  captionSync: false,
+  captionSync: true,
 
   // Screen flashes (the film's own cut-to-white moments).
   flashes: [60.96, 69.25],
