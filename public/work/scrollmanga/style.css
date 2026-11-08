@@ -114,6 +114,29 @@ button { font: inherit; color: inherit; }
 body.tall .rail { right: 6px; width: 16px; }
 
 /* ---------- Direction pill ---------- */
+/* ---------- "Scroll to play" hint ---------- */
+.scroll-hint {
+  position: fixed; z-index: 19; left: 50%; bottom: 64px; transform: translate(-50%, 12px);
+  display: flex; align-items: center; gap: 12px; padding: 10px 18px 10px 14px;
+  background: var(--paper); color: var(--ink); border: 2.5px solid var(--ink); border-radius: 99px;
+  box-shadow: 4px 4px 0 var(--vermilion); opacity: 0; pointer-events: none;
+  transition: opacity .35s, transform .35s;
+}
+.scroll-hint.show { opacity: 1; transform: translate(-50%, 0); }
+.hint-text { display: flex; flex-direction: column; line-height: 1.2; }
+.hint-text b { font-size: 15px; }
+.hint-text small { font-size: 11px; color: var(--ink-2); font-weight: 600; }
+/* a mouse with a rolling wheel */
+.hint-icon { position: relative; width: 20px; height: 30px; border: 2.5px solid var(--ink); border-radius: 11px; flex: none; }
+.hint-icon i { position: absolute; left: 50%; top: 5px; width: 4px; height: 7px; margin-left: -2px; border-radius: 2px; background: var(--vermilion); animation: hint-wheel 1.4s ease-in-out infinite; }
+@keyframes hint-wheel { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(9px); opacity: 0; } 100% { transform: translateY(0); opacity: 0; } }
+/* touch screens: a bouncing chevron instead of a mouse */
+.scroll-hint.touch .hint-icon { border: 0; width: 22px; height: 26px; }
+.scroll-hint.touch .hint-icon i { left: 3px; top: 4px; width: 14px; height: 14px; margin: 0; border-radius: 0; background: none;
+  border-left: 3px solid var(--vermilion); border-top: 3px solid var(--vermilion); transform: rotate(45deg); animation: hint-swipe 1.4s ease-in-out infinite; }
+@keyframes hint-swipe { 0%, 100% { transform: translateY(6px) rotate(45deg); } 50% { transform: translateY(-2px) rotate(45deg); } }
+@media (prefers-reduced-motion: reduce) { .hint-icon i { animation: none; } }
+
 .mode-pill {
   position: fixed; z-index: 19; left: 50%; bottom: 18px; transform: translateX(-50%);
   font-size: 12px; font-weight: 700; letter-spacing: .04em; padding: 6px 12px; border-radius: 99px;

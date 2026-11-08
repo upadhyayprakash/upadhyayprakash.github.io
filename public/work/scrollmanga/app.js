@@ -456,6 +456,20 @@ function replay(li) {
 function endReplay() { if (!replaying) return; replaying = null; fade(audio.voice, false); }
 
 // ---------------------------------------------------------------- pill
+// "Scroll to play": shown once the opening narration is over and the reader hasn't scrolled yet,
+// and again after 6 s idle mid-story while nothing is speaking. Gone on any scroll, Auto or the end.
+const hintEl = $('#scrollHint');
+const hint = { scrolled: false, startedAt: 0, on: false };
+if (matchMedia('(pointer: coarse)').matches) { hintEl.classList.add('touch'); $('#hintVerb').textContent = 'Swipe up to play'; }
+function updateHint(now) {
+  const speaking = !!(soundOn && (audio.story || audio.line));
+  const quiet = !auto.on && !replaying && !speaking && Tscroll < D - 0.1 && scrollY < U_TOTAL * pxPerUnit;
+  const since = now - hint.startedAt;
+  const show = quiet && (hint.scrolled ? now - lastMoveAt > 6000 : since > (soundOn ? 1200 : 1500) || since > 17000);
+  if (show !== hint.on) { hint.on = show; hintEl.classList.toggle('show', show); }
+}
+$('#autoBtn').addEventListener('click', () => { hint.scrolled = true; });
+
 const pill = $('#modePill');
 let pillState = '';
 function updatePill(now) {
@@ -489,6 +503,7 @@ function frame(now) {
     if (Math.abs(scrollY - lastY) > 0.5) {
       if (replaying && Math.abs(scrollY - replaying.scrollAt) > 4) endReplay();
       lastDir = scrollY > lastY ? 1 : -1; lastMoveAt = now;
+      if (!auto.on) hint.scrolled = true;
     }
     lastY = scrollY;
     if (Math.abs(t - Tscroll) > 1e-4) { tDir = t > Tscroll ? 1 : -1; tMoveAt = now; }
@@ -497,6 +512,7 @@ function frame(now) {
     Tdisp = Math.abs(Tscroll - Tdisp) > 3 ? Tscroll : lerp(Tdisp, Tscroll, 0.3);
     soundTick(now);
     updatePill(now);
+    updateHint(now);
     render();
   }
   requestAnimationFrame(frame);
@@ -537,6 +553,7 @@ function start(withSound, urls, lazy = false) {
   for (const ch of [audio.bed, audio.rev, audio.voice, audio.amb, ...Object.values(audio.narr)]) ch.a.play().then(() => { if (!(ch._to > 0)) ch.a.pause(); }).catch(() => {});
   soundOn = withSound; setSoundIcon();
   started = true;
+  hint.startedAt = performance.now();
   document.body.classList.remove('locked');
   $('#shelf').classList.add('gone');
   window.scrollTo(0, 0);
