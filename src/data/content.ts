@@ -29,6 +29,18 @@ export const types: { id: ContentType; label: string; single: string }[] = [
 
 export const entries: ContentEntry[] = [
   {
+    type: 'post',
+    year: '2026',
+    date: '10 Nov 2026',
+    title: 'If this laptop died tonight, how fast could I be working again?',
+    tags: 'Claude Code · Backup · Developer setup',
+    url: 'https://www.linkedin.com/feed/update/urn:li:activity:7525649704144142336/',
+    thumb: '/content-media/dead-laptop-drill-teaser.jpg',
+    thumbAlt:
+      'A stopwatch showing 1 hr, labelled the pass mark, beside the question: if this laptop died tonight, how fast could I be working again?',
+    slug: 'dead-laptop-drill-teaser',
+  },
+  {
     type: 'video',
     year: '2026',
     date: '8 Nov 2026',

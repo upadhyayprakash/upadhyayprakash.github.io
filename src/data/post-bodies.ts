@@ -241,4 +241,22 @@ Thanks Rohan Shravan for all the research work and in-depth coaching.
 Stay tuned for more cool stuffs coming soon.
 
 #YOLOv3 #potholeDetection #googleColab #theSchoolOfAI #EVA`,
+  'dead-laptop-drill-teaser': `The Dead Laptop Drill · Start here · Claude Code
+
+If this laptop died tonight, how fast could I be working again?
+
+Not "could I get my files back". I mean: a new machine with nothing installed, one command, under an hour. And Claude still knows how I work: my CLAUDE.md, my memory notes, my hooks.
+
+For months, honestly, my answer was that I'd lose all of it. After every bad session I added a line to my rules. Claude wrote notes about every project. None of it was backed up.
+
+So I decided to fix it, and then tested it on a blank machine to make sure it really restores.
+
+Over six short parts I'll show how, so you can do the same for your own Claude Code setup.
+
+Part 1 is next: Map where your CLAUDE files live.
+
+Full write-up, if you'd rather read it all at once:
+https://upadhyayprakash.github.io/blog/back-up-your-ai-assistants-memory/
+
+#ClaudeCode #DeveloperTools #Backup`,
 };
