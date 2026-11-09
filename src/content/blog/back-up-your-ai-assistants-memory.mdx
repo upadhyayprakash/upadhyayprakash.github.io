@@ -1,0 +1,186 @@
+---
+title: "Your Claude Code setup is not backed up. I fixed mine in case my laptop dies"
+date: "2026-11-09"
+slug: "back-up-your-ai-assistants-memory"
+tags: ["Claude Code", "Backup", "Encryption", "Developer setup"]
+description: "How to back up your local Claude Code environment: rules, memory, hooks and settings. A private git repo, encryption, an automatic sync, and a restore you can trust on a new machine."
+heroImage: "/blog/back-up-your-ai-assistants-memory/cover.png"
+---
+After months of using Claude Code every day, I realised my local setup held more of my working knowledge than any single project. Global rules I had refined after every bad session. Notes the assistant wrote about each project. Hooks, a status line, per-project permissions. None of it was backed up. A dead laptop would have taken all of it.
+
+This is how I fixed that, in a way you can copy. By the end you will have:
+
+- a map of everything your setup keeps, and where it lives
+- a short list of what is worth saving (for me, 1 MB out of a 1 GB folder)
+- a private git repo that mirrors it, with full history
+- sensitive notes encrypted, with the filenames hidden too
+- a sync that runs by itself whenever a session ends
+- a restore you have actually tried on a blank machine
+
+I use Claude Code, so the paths are Claude Code paths. The approach carries over to other assistants, and the last section says how.
+
+## The question that shaped everything
+
+I started from one question: **if this laptop died tonight, how fast could I be working again on a new one?**
+
+I wrote down the answer I wanted. A new machine, one key from my password manager, one command, under an hour. Nothing missing, nothing secret exposed. I call this the dead laptop drill, and every choice below comes from making it pass.
+
+## Step 1: Map where everything lives
+
+Before saving anything, find out where your assistant keeps its instructions. Claude Code reads from several layers, and they live in different places:
+
+| Layer | Where | Already backed up? |
+|---|---|---|
+| Global rules | `~/.claude/CLAUDE.md`, plus files it imports | No |
+| Global settings | `~/.claude/settings.json`: permissions, hooks, model, plugins, status line | No |
+| Personal agents, commands, skills | `~/.claude/agents/`, `commands/`, `skills/` | Only if you keep them in their own repo |
+| Auto memory | `~/.claude/projects/<encoded-project-path>/memory/` | No, and this one hurts most |
+| Project rules (shared) | `CLAUDE.md`, `.claude/settings.json`, `.claude/rules/`, `.mcp.json`, `AGENTS.md` in each project | Yes, if the project is pushed |
+| Project rules (personal) | `CLAUDE.local.md`, `.claude/settings.local.json` | No: gitignored by design |
+| App state | `~/.claude.json`: login, per-project state, MCP servers | Mostly it should not be |
+
+Three things are easy to miss:
+
+- **Auto memory lives only on your machine.** It is keyed by the project's absolute path, so `/Users/me/code/app` becomes `-Users-me-code-app`. Move the folder, or restore onto a machine with a different username, and the memory is orphaned even though the files still exist.
+- **"My projects are in git" is only partly true.** Some folders have a `CLAUDE.md` and no git at all. Some repos have no remote. Personal `.local` files are gitignored on purpose, so a project repo will never back them up.
+- **Some layers are not yours to back up.** Plugin caches and the assistant's binary can be downloaded again. Session transcripts and prompt history are huge and full of pasted content. Login tokens should never leave the machine.
+
+**What you gain:** you know exactly what a dead laptop would cost you.
+
+## Step 2: Decide what is worth saving
+
+**Back up** (small, irreplaceable, written by you or for you):
+
+- global rules and their imports, `settings.json`, hook and status line scripts
+- personal agents, commands and rules
+- every auto memory folder
+- project Claude files that no pushed repo holds
+- a **restore list**: symlinks, the git repos your setup depends on, installed plugins
+- a **slice** of the app state file: MCP servers and per-project tool approvals, never login data
+
+**Leave out:**
+
+- session transcripts and prompt history
+- caches, file history, plugin caches, downloaded binaries, telemetry
+- login and OAuth state, machine IDs
+- private keys, and anything over a size limit
+
+For me that came to about 175 files and 1 MB. What I left out was about 1 GB.
+
+**What you gain:** a backup that is small, fast, and cannot pick up something sensitive by accident.
+
+## Step 3: Copy a whitelist, do not point at the live folder
+
+The backup repo is not a symlink to `~/.claude`, and it does not use `.gitignore` to filter the live folder. A sync script copies a whitelist into the repo and deletes anything that is no longer on the list.
+
+Settings and memory folder names contain your home path, so the sync swaps it for a token (`@@HOME@@`) on the way in, and the restore swaps the new home in on the way out. That covers memory folder names too.
+
+**What you gain:**
+
+- deletions are versioned, so a removed memory note shows up as a commit and stays in history
+- nothing gets in by accident when the assistant adds another cache folder next year
+- the backup restores under any username
+
+## Step 4: Encrypt what is sensitive, and hide the names
+
+Some notes reference unreleased work, private hosts or ideas you are not ready to share. A private repo is still someone else's server, so those files are encrypted with [age](https://github.com/FiloSottile/age) before git sees them.
+
+A file is encrypted when its name matches a pattern such as `*private*`, when its content matches a local list of confidential terms, or when it looks like a credential (API keys, tokens, private keys, JWTs).
+
+Two details make it work well:
+
+- **Hide the filenames too.** A file called `launch-plan-for-client-x.md.age` tells a reader most of the story. Encrypted files are stored under an opaque name, an HMAC of the path keyed with your secret, and the map from names to paths is itself encrypted.
+- **Keep unchanged files unchanged.** age output is different every time, so re-encrypting a file would create a commit on every sync. The sync decrypts the stored copy, compares, and only re-encrypts when the content really changed.
+
+You still get readable history on your own machine. A git `textconv` driver decrypts those files for `git diff` and `git log -p`. Without the key, git just shows binary.
+
+```
+# .gitattributes
+vault/*.age diff=age -text
+```
+
+A `pre-commit` guard scans everything being committed. It blocks credentials anywhere in plain text, confidential content outside the vault, and any file in the vault that is not actually encrypted. If the list of confidential terms is missing, it refuses to commit at all.
+
+The private key lives outside the repo, and a copy goes in your password manager. Skip that copy and your backup cannot be decrypted after the disk it protects fails.
+
+**What you gain:** a repo that is safe to push, with readable history that only you can read.
+
+## Step 5: Do not trust "pushed"
+
+The most useful habit I took from this: **a pushed repo is not the same as a safe setup.** Four rules close the gap.
+
+- **Compare tracked files with the remote.** A file that is tracked is only safe if it equals the remote's copy. Compare each one with the upstream branch, and back up anything that differs: edited and uncommitted, or committed and not yet pushed.
+- **Do not assume ignored means reinstallable.** Skip only an explicit list of third-party skills you can download again. Back up everything else, including your own skills that an ignore pattern happens to cover.
+- **The repo that holds your skills is not a backup of your skills.** Anything uncommitted there exists exactly once. Capture what git does not have yet for repos you list, and print the count of uncommitted changes on every sync.
+- **Use relative symlinks.** A skill link that points at `/Users/<you>/...` works on your laptop and nowhere else.
+
+One more: your global gitignore applies to the backup repo too. If it ignores `settings.local.json` everywhere, those files will be copied in and never committed. Have the sync add its own folders explicitly.
+
+**What you gain:** nothing important lives only on your laptop.
+
+## Step 6: Make it automatic
+
+A backup that needs you to remember is a backup that stops. Claude Code supports hooks, and a `SessionEnd` hook runs the sync in the background whenever a session ends:
+
+```json
+{
+  "hooks": {
+    "SessionEnd": [
+      { "hooks": [{ "type": "command",
+        "command": "nohup bash ~/code/assistant-config/bin/hook.sh </dev/null >/dev/null 2>&1 &" }] }
+    ]
+  }
+}
+```
+
+The script takes a lock, because two sessions ending together must not race. It syncs, commits only if something changed, pushes, and writes everything to a log. It never fails the session. It also works on a fresh machine that has no git identity yet, by using a neutral one for its own commits. Commit messages list the plain-text files that changed and only a count for encrypted ones, so even the log does not leak names.
+
+**What you gain:** set it up once and forget it.
+
+## Step 7: Run the drill
+
+Now answer the question from the start. Start a blank Linux container with a different username (I use Ubuntu in Docker), and do exactly what you would do on a new laptop: install git and age, log in to GitHub, paste the key from your password manager, clone the backup, restore, verify.
+
+A restore you can trust does this, in order:
+
+1. It needs the key, and **decrypts everything before writing anything**. A wrong or missing key leaves the machine untouched.
+2. It clones the repos your setup depends on **first**, so project files land inside real checkouts.
+3. It writes files with their original permissions, swapping in the new home path.
+4. It keeps any file it would overwrite as `*.pre-restore-<time>`.
+5. It **merges** the app state slice into the new machine's state file instead of replacing it.
+6. It recreates symlinks and prints the plugin install commands.
+
+A `--dry-run` shows what would change, and a `verify` command compares the machine with the backup, byte for byte and permission for permission.
+
+What to check afterwards:
+
+- every file matches the original, including permissions
+- memory folders are renamed for the new username
+- skill links resolve inside the new home
+- a sync from the new machine changes nothing, which proves nothing was lost on the round trip
+
+I also keep an automated test suite on a fake machine that covers the rules above: no secret ever reaches the repo's history, a second sync commits nothing, and a restore matches the original byte for byte.
+
+**What you gain:** confidence that you would be back at work in under an hour.
+
+## Other assistants
+
+The layers are similar elsewhere, so the same plan works. Check your tool's docs for exact paths:
+
+- Most tools have a **global instruction file and a settings file** in a dot-folder in your home.
+- Many read a **project instruction file** (`AGENTS.md` is becoming common) and a project rules folder.
+- Any tool with **persistent memory** keeps it somewhere local. Find it, because it is the part you cannot rebuild.
+
+Point the whitelist at those paths, keep transcripts and caches out, encrypt what is sensitive, and run the drill.
+
+## Checklist
+
+- [ ] Map your layers: global, memory, project shared, project personal, app state
+- [ ] Whitelist what you wrote. Leave caches, transcripts, logins and keys out
+- [ ] Copy into a private repo instead of symlinking, with portable paths
+- [ ] Encrypt sensitive files and hide their names. Add a guard that fails closed
+- [ ] Keep the key outside the repo and in a password manager
+- [ ] Back up what git does not have yet: unpushed commits, uncommitted work, ignored files that are yours
+- [ ] Use relative symlinks
+- [ ] Automate the sync with a hook, a lock and a log
+- [ ] Run the drill on a blank machine before you need it
