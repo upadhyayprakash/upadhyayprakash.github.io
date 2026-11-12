@@ -1,0 +1,501 @@
+---
+title: "5 shades of TOCTOU: your app passed every test, then two users clicked at once"
+date: "2026-11-12"
+slug: "5-shades-of-toctou"
+tags: ["Security", "Race conditions", "Node.js", "MongoDB"]
+description: "Five ways a check goes stale before your code acts on it, in a ticket-booking app: the last ticket, a changed price, a reused coupon, a revoked permission and a late payment callback. Each one runs on your laptop, with the fix next to it."
+heroImage: "/blog/5-shades-of-toctou/cover.png"
+---
+Here is a bug that passes every test you will ever write by hand.
+
+You build a ticket-booking feature. You click **Book**, a ticket is booked. You click **Book** on a sold-out event, you get "sold out". The tests are green, the demo is smooth, and you ship it.
+
+Then one evening two people click **Book** on the last ticket within the same blink. Both get a confirmation. One ticket, two customers.
+
+Nothing in your code is "wrong" line by line. Every line does what it says. The bug lives in the gap between two lines, and it has a name: **TOCTOU**, short for *Time Of Check To Time Of Use*.
+
+By the end of this article you will have:
+
+- a one-sentence way to spot TOCTOU in any code
+- five real-looking versions of it, in a ticket-booking app you can follow even if you have never thought about security
+- a small script that makes each bug happen on your own machine, every time, with the fix beside it
+- a short list of what the fixes do **not** cover, so you do not trust them more than you should
+
+The code is Node.js, TypeScript and MongoDB (Mongoose), because that is the stack many of us build on. The idea works in any language and any database.
+
+## The whole idea in one line
+
+Most code that protects something looks like this:
+
+```
+CHECK  →  (something else happens)  →  USE
+```
+
+You **check** that something is true. You **use** that fact to do something important. In between there is a gap, and anything can change inside it.
+
+> What was true when you checked is not guaranteed to be true when you act.
+
+That is the entire article. The five shades are five different things that can go stale inside that gap.
+
+### A few words you'll need
+
+- **Race window.** The gap between the check and the use. It might be a few milliseconds, or a whole payment call. Two requests that land inside the same window are "racing".
+- **Atomic.** One step that cannot be cut in half. If a database operation is atomic, no other request can sneak in between its "look" and its "change".
+- **Conditional write.** An update that says "change this, but only if it is still in the state I expect". This one idea fixes most of the article.
+
+One note before we start. These five shades are my way of sorting the examples so they are easy to remember. They are not an official list. The weakness itself is a recognised one, [CWE-367](https://cwe.mitre.org/data/definitions/367.html), and all five are just different places it shows up.
+
+## The app: booking a ticket
+
+Picture a simple event app. A user clicks **Book ticket**, and the backend does a few things: checks that a ticket is left, checks the price, applies a coupon, makes sure the organizer is allowed to change an event, and confirms the booking once the payment comes back.
+
+Each of those is a check followed by a use. So each is a place for the gap to bite. Our models are tiny:
+
+```typescript
+const Event = mongoose.model("Event", new Schema({
+  availableTickets: Number,
+  price: Number,
+  organizerId: String,
+}));
+const Coupon = mongoose.model("Coupon", new Schema({ code: String, remainingUses: Number }));
+const Booking = mongoose.model("Booking", new Schema({ status: String }));
+```
+
+### Making the gap visible
+
+In production the gap is natural. A payment call takes a few hundred milliseconds, a second database read takes a few. The bug then shows up once in a thousand requests, and you will never reproduce it on demand.
+
+For this article I add the gap on purpose, so the bug appears every time:
+
+```typescript
+// The gap between check and use. In a real app this is a payment call,
+// a second query, a slow network hop. Here it is 50 ms on purpose.
+const gap = () => new Promise((r) => setTimeout(r, 50));
+```
+
+That is the only trick in the demo. The check and use code around it is the kind of code you would write on a first pass.
+
+## Shade 1: Resource, the last ticket
+
+One ticket left. Two users click **Book** at the same moment.
+
+```typescript
+const e = await Event.findById(event._id);
+if (e.availableTickets > 0) {                                   // CHECK
+  await gap();
+  await Event.updateOne({ _id: event._id }, { $inc: { availableTickets: -1 } }); // USE
+  sold++;
+}
+```
+
+Both requests read `availableTickets = 1`. Both pass the `if`. Both decrement. Two tickets sold, and the inventory now says **-1**.
+
+The fix is to stop checking and using in two steps. Let the database do both as one atomic operation:
+
+```typescript
+const e = await Event.findOneAndUpdate(
+  { _id: event._id, availableTickets: { $gt: 0 } },   // the check lives inside the write
+  { $inc: { availableTickets: -1 } },
+  { returnDocument: "after" }
+);
+if (e) sold++;                                         // null means someone else got it
+```
+
+Now only one request can match `availableTickets > 0` and decrement it. The second finds nothing and gets `null`, which you turn into "sold out".
+
+**What you gain:** the check and the use cannot be separated, because there is no longer a gap to put anything in.
+
+## Shade 2: Value, the price that moved
+
+A customer sees a ticket for ₹500 and clicks **Pay**. While your server is busy, the organizer changes the price to ₹800.
+
+```typescript
+const e = await Event.findById(event._id);
+if (e.price !== agreed) throw new Error("Price changed");        // CHECK: 500, fine
+await gap();
+const charged = (await Event.findById(event._id)).price;         // USE: a second read
+```
+
+The check passed on ₹500. The charge used a fresh read, so it is ₹800. The customer agreed to one number and paid another.
+
+Notice this one is not about two users racing. It is one request, and the stale thing is a **value** your code carried across the gap.
+
+The fix is a different idea: do not look the price up again. When the customer agrees, **freeze** it.
+
+```typescript
+const quote = e.price;           // freeze it at the moment of agreement
+await gap();
+const charged = quote;           // charge the amount that was agreed
+```
+
+In a real app that frozen value is a small document with an expiry, and its id doubles as your payment provider's idempotency key, so a retry cannot charge twice:
+
+```typescript
+const quote = await Quote.create({
+  eventId, amount: event.price, expiresAt: new Date(Date.now() + 5 * 60_000),
+});
+await paymentGateway.charge({ amount: quote.amount, idempotencyKey: quote._id.toString() });
+```
+
+**What you gain:** the customer is charged what they saw, whatever happens to the live price afterwards.
+
+## Shade 3: Entitlement, the coupon that works twice
+
+A coupon has one use left. Two checkouts redeem it at the same time. It is Shade 1 again, wearing a different hat: here the thing being used up is not a ticket but a right.
+
+```typescript
+const c = await Coupon.findOne({ code: "WELCOME", remainingUses: { $gt: 0 } });  // CHECK
+if (c) {
+  await gap();
+  applied++;                                                    // USE: discount applied
+  await Coupon.updateOne({ code: "WELCOME" }, { $inc: { remainingUses: -1 } });
+}
+```
+
+Both requests see `remainingUses = 1`, both apply the discount, and the counter ends at -1.
+
+Same fix: consume the entitlement in the check itself.
+
+```typescript
+const c = await Coupon.findOneAndUpdate(
+  { code: "WELCOME", remainingUses: { $gt: 0 } },
+  { $inc: { remainingUses: -1 } },
+  { returnDocument: "after" }
+);
+if (c) applied++;
+```
+
+**What you gain:** "single use" really means single use.
+
+## Shade 4: Authorization, the permission that was just revoked
+
+An organizer is allowed to edit their own event's price. You check that they are the organizer, and then you edit. In between, an admin removes their access.
+
+```typescript
+const e = await Event.findById(event._id);
+if (e.organizerId === "ravi") {                                 // CHECK: allowed
+  await gap();
+  await Event.updateOne({ _id: event._id }, { price: 1 });      // USE: access already gone
+}
+```
+
+The check was true when it ran. By the time the update ran it was not. Your code kept trusting an answer that had expired.
+
+You can fix this one the same way, by making the permission part of the write:
+
+```typescript
+const r = await Event.updateOne(
+  { _id: event._id, organizerId: "ravi" },    // ownership is checked by the update itself
+  { price: 1 }
+);
+const changed = r.modifiedCount === 1;        // 0 means they were no longer the organizer
+```
+
+There is an honest limit here, and it is worth knowing. This works because `organizerId` lives **on the same document** you are changing. If permissions live in a separate collection (roles, teams, memberships), one filter cannot see them. You then need a transaction across both, or a permission version number stored on the document that the write compares. The principle is the same: the permission must be checked at the moment of the write, not before it.
+
+**What you gain:** a revoked user cannot finish an action that started before the revocation.
+
+## Shade 5: Workflow, the payment callback that arrives late
+
+A booking is `PENDING` while the customer pays. Payment providers tell you the result with a **callback** (a webhook): "payment succeeded". Meanwhile the booking expired and your system cancelled it.
+
+```typescript
+const b = await Booking.findById(booking._id);
+if (b.status === "PENDING") {                                   // CHECK
+  await gap();
+  await Booking.updateOne({ _id: booking._id }, { status: "CONFIRMED" });  // USE
+}
+```
+
+The check saw `PENDING`. During the gap the booking was cancelled. The callback then confirmed it anyway, so a cancelled booking comes back to life.
+
+The stale thing here is the **state of a workflow**. The fix is to make the state change itself conditional, so a transition only happens from the state you expect:
+
+```typescript
+await Booking.updateOne(
+  { _id: booking._id, status: "PENDING" },     // only PENDING can become CONFIRMED
+  { status: "CONFIRMED" }
+);
+```
+
+Cancelled bookings no longer match, so the late callback changes nothing.
+
+**What you gain:** states move only along the paths you drew, whatever order the messages arrive in.
+
+## The pattern behind the five
+
+Look back at the fixes. Four of them are the same move:
+
+> Put the check inside the write.
+
+Shade 2 is the odd one. Its fix is a **snapshot**: capture the value once, then use that copy instead of looking again.
+
+| Shade | What went stale | The fix |
+|---|---|---|
+| Resource | Availability | Conditional atomic update |
+| Value | A price or amount | Freeze it as a quote |
+| Entitlement | A coupon or usage limit | Conditional atomic update |
+| Authorization | Ownership or permission | Check inside the write |
+| Workflow | The booking's state | Conditional state transition |
+
+If you remember one rule, make it this: **do not separate a check from the thing that depends on it.**
+
+### What helps, in five lines
+
+- **Atomic conditional database updates.** Put the check inside the write (Resource, Entitlement, Authorization, Workflow).
+- **Transactions for related database operations.** When several documents must change together.
+- **Version checks and immutable snapshots.** Freeze the value instead of reading it again (Value).
+- **Authorization at the point of mutation.** Check permission in the write, not before it (Authorization).
+- **Idempotency and explicit state transitions.** Safe retries, and states that only move along the paths you drew (Workflow, and payments).
+
+## Run it yourself
+
+All five are in a single file. It starts an in-memory MongoDB, runs each shade twice (once vulnerable, once safe) and prints what happened. I ran it on Node 22.
+
+```bash
+mkdir toctou-demo && cd toctou-demo
+npm init -y
+npm i mongoose mongodb-memory-server tsx typescript @types/node
+# paste the script below into toctou.ts
+npx tsx toctou.ts
+```
+
+The first run downloads a MongoDB binary for the in-memory server, so give it a minute. I ran it with Mongoose 9, mongodb-memory-server 11 and tsx 4.
+
+You should see this:
+
+```
+RESOURCE
+  vulnerable tickets sold: 2, tickets left: -1
+  safe       tickets sold: 1, tickets left: 0
+
+VALUE
+  vulnerable customer agreed to ₹500, charged ₹800
+  safe       customer agreed to ₹500, charged ₹500
+
+ENTITLEMENT
+  vulnerable single-use coupon applied 2 time(s)
+  safe       single-use coupon applied 1 time(s)
+
+AUTHORIZATION
+  vulnerable price edited after access was revoked: YES
+  safe       price edited after access was revoked: no
+
+WORKFLOW
+  vulnerable final booking status: CONFIRMED
+  safe       final booking status: CANCELLED
+```
+
+Then try this: change `gap()` to wait 0 ms instead of 50 and run it again. Value and Workflow stop reproducing, because the price change and the cancellation now land after the check and use are already done. The other three still fire. That is exactly why these problems are so slippery in real life: the same code is fine or broken depending on timing you do not control.
+
+<details>
+<summary>The full script (toctou.ts)</summary>
+
+```typescript
+import mongoose, { Schema } from "mongoose";
+import { MongoMemoryServer } from "mongodb-memory-server";
+
+// The "gap" between check and use. In a real app this is a payment call,
+// a second query, a slow network hop. Here it is 50 ms on purpose.
+const gap = () => new Promise((r) => setTimeout(r, 50));
+
+const Event = mongoose.model("Event", new Schema({
+  availableTickets: Number,
+  price: Number,
+  organizerId: String,
+}));
+const Coupon = mongoose.model("Coupon", new Schema({ code: String, remainingUses: Number }));
+const Booking = mongoose.model("Booking", new Schema({ status: String }));
+
+type Mode = "vulnerable" | "safe";
+
+// 1. Resource: the last ticket
+async function resource(mode: Mode) {
+  const event = await Event.create({ availableTickets: 1 });
+  let sold = 0;
+
+  const book = async () => {
+    if (mode === "vulnerable") {
+      const e = await Event.findById(event._id);
+      if (e!.availableTickets > 0) {          // CHECK
+        await gap();
+        await Event.updateOne({ _id: event._id }, { $inc: { availableTickets: -1 } }); // USE
+        sold++;
+      }
+    } else {
+      const e = await Event.findOneAndUpdate(  // CHECK and USE in one step
+        { _id: event._id, availableTickets: { $gt: 0 } },
+        { $inc: { availableTickets: -1 } },
+        { returnDocument: "after" }
+      );
+      if (e) { await gap(); sold++; }
+    }
+  };
+
+  await Promise.all([book(), book()]);
+  const left = (await Event.findById(event._id))!.availableTickets;
+  return `tickets sold: ${sold}, tickets left: ${left}`;
+}
+
+// 2. Value: the price that changed
+async function value(mode: Mode) {
+  const event = await Event.create({ price: 500 });
+  const agreed = 500;                          // what the customer saw and accepted
+  let charged = 0;
+
+  const checkout = async () => {
+    const e = await Event.findById(event._id);
+    if (e!.price !== agreed) throw new Error("Price changed");   // CHECK
+    const quote = e!.price;                    // freeze it now (used only in "safe")
+    await gap();
+    if (mode === "vulnerable") {
+      charged = (await Event.findById(event._id))!.price;        // USE: a second read
+    } else {
+      charged = quote;                         // USE: the amount that was agreed
+    }
+  };
+
+  const organizer = (async () => {
+    await new Promise((r) => setTimeout(r, 10));
+    await Event.updateOne({ _id: event._id }, { price: 800 });
+  })();
+
+  await Promise.all([checkout(), organizer]);
+  return `customer agreed to ₹${agreed}, charged ₹${charged}`;
+}
+
+// 3. Entitlement: the single-use coupon
+async function entitlement(mode: Mode) {
+  await Coupon.create({ code: "WELCOME", remainingUses: 1 });
+  let applied = 0;
+
+  const redeem = async () => {
+    if (mode === "vulnerable") {
+      const c = await Coupon.findOne({ code: "WELCOME", remainingUses: { $gt: 0 } }); // CHECK
+      if (c) {
+        await gap();
+        applied++;                             // USE: discount applied
+        await Coupon.updateOne({ code: "WELCOME" }, { $inc: { remainingUses: -1 } });
+      }
+    } else {
+      const c = await Coupon.findOneAndUpdate(
+        { code: "WELCOME", remainingUses: { $gt: 0 } },
+        { $inc: { remainingUses: -1 } },
+        { returnDocument: "after" }
+      );
+      if (c) { await gap(); applied++; }
+    }
+  };
+
+  await Promise.all([redeem(), redeem()]);
+  return `single-use coupon applied ${applied} time(s)`;
+}
+
+// 4. Authorization: the revoked organizer
+async function authorization(mode: Mode) {
+  const event = await Event.create({ price: 500, organizerId: "ravi" });
+  let changed = false;
+
+  const editPrice = async () => {
+    if (mode === "vulnerable") {
+      const e = await Event.findById(event._id);
+      if (e!.organizerId === "ravi") {         // CHECK
+        await gap();
+        await Event.updateOne({ _id: event._id }, { price: 1 });   // USE
+        changed = true;
+      }
+    } else {
+      await gap();
+      const r = await Event.updateOne(          // ownership is part of the write
+        { _id: event._id, organizerId: "ravi" },
+        { price: 1 }
+      );
+      changed = r.modifiedCount === 1;
+    }
+  };
+
+  const revoke = (async () => {
+    await new Promise((r) => setTimeout(r, 10));
+    await Event.updateOne({ _id: event._id }, { organizerId: "someone-else" });
+  })();
+
+  await Promise.all([editPrice(), revoke]);
+  return `price edited after access was revoked: ${changed ? "YES" : "no"}`;
+}
+
+// 5. Workflow: the late payment callback
+async function workflow(mode: Mode) {
+  const booking = await Booking.create({ status: "PENDING" });
+
+  const paymentCallback = async () => {
+    if (mode === "vulnerable") {
+      const b = await Booking.findById(booking._id);
+      if (b!.status === "PENDING") {           // CHECK
+        await gap();
+        await Booking.updateOne({ _id: booking._id }, { status: "CONFIRMED" }); // USE
+      }
+    } else {
+      await gap();
+      await Booking.updateOne({ _id: booking._id, status: "PENDING" }, { status: "CONFIRMED" });
+    }
+  };
+
+  const cancel = (async () => {
+    await new Promise((r) => setTimeout(r, 10));
+    await Booking.updateOne({ _id: booking._id }, { status: "CANCELLED" });
+  })();
+
+  await Promise.all([paymentCallback(), cancel]);
+  return `final booking status: ${(await Booking.findById(booking._id))!.status}`;
+}
+
+async function main() {
+  const mongod = await MongoMemoryServer.create();
+  await mongoose.connect(mongod.getUri());
+
+  const shades = { resource, value, entitlement, authorization, workflow };
+  for (const [name, run] of Object.entries(shades)) {
+    console.log(`\n${name.toUpperCase()}`);
+    for (const mode of ["vulnerable", "safe"] as Mode[]) {
+      await mongoose.connection.dropDatabase();
+      console.log(`  ${mode.padEnd(10)} ${await run(mode)}`);
+    }
+  }
+
+  await mongoose.disconnect();
+  await mongod.stop();
+}
+
+main();
+```
+
+</details>
+
+## What these fixes do not cover
+
+The demo is a clean lab. A real checkout has rough edges, and it is better to know where they are:
+
+- **Several documents at once.** A single-document update is atomic. Booking a ticket touches the event, the coupon and a new booking, and those are separate documents. Changing them together needs a [transaction](https://www.mongodb.com/docs/drivers/node/current/crud/transactions/), and MongoDB transactions need a replica set. Read [what MongoDB does and does not make atomic](https://www.mongodb.com/docs/manual/core/write-operations-atomicity/) before you rely on it.
+- **The payment provider.** Your database cannot commit together with an outside payment gateway. For that boundary you need idempotency keys, webhook signature checks, de-duplicated webhook events, and a plan for "payment succeeded after the booking expired".
+- **More than one server.** Anything that holds the "check" in memory, like a cached count or a lock inside one process, stops working the moment you run two instances.
+
+## "But Node.js is single-threaded"
+
+It is, and it does not help. JavaScript runs one piece of code at a time, but every `await` hands control back, so another request runs in the gap. Add a second server instance and a database that handles requests in parallel, and the race window is wide open. All five demos above run in a single Node process.
+
+## The habit to keep
+
+When you review a feature, whether you wrote it, a teammate did, or an AI assistant produced it, testing that it *works* is the easy half. Add a second question:
+
+> What happens if two requests do this at exactly the same time? What if something else changes right after I check?
+
+## Checklist
+
+- [ ] Find every place where code reads something and then acts on what it read
+- [ ] Move the check into the write wherever you can (`findOneAndUpdate` with a condition, `updateOne` with a filter)
+- [ ] Freeze agreed values, like prices, as a quote instead of reading them again
+- [ ] Check permissions at the moment of the write, not only at the start of the request
+- [ ] Make workflow changes conditional on the current state
+- [ ] Use a transaction when several documents must change together
+- [ ] Use idempotency keys and signed, de-duplicated webhooks with payment providers
+- [ ] Test with two concurrent requests, not only one
