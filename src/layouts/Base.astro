@@ -12,9 +12,11 @@ interface Props {
   hand?: boolean;
   lens?: boolean;
   progress?: boolean;
+  // Link-preview image for this page (a path under /public). Defaults to the site image.
+  ogImage?: { src: string; width: number; height: number };
 }
 
-const { title, description, current, hand = false, lens = false, progress = false } = Astro.props;
+const { title, description, current, hand = false, lens = false, progress = false, ogImage } = Astro.props;
 const canonical = new URL(Astro.url.pathname, site.url);
 const fonts = hand
   ? 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Caveat:wght@500;600&display=swap'
@@ -34,9 +36,9 @@ const fonts = hand
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL('/og.png', site.url)} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image" content={new URL(ogImage?.src ?? '/og.png', site.url)} />
+    <meta property="og:image:width" content={String(ogImage?.width ?? 1200)} />
+    <meta property="og:image:height" content={String(ogImage?.height ?? 630)} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#121212" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

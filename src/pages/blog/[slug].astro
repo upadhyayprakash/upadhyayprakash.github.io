@@ -15,7 +15,7 @@ const intro = post.body?.trimStart().startsWith(post.data.description.slice(0, 4
 const date = post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 ---
 
-<Base title={`${post.data.title}, Prakash Upadhyay`} description={post.data.description} current="writing" progress>
+<Base title={`${post.data.title}, Prakash Upadhyay`} description={post.data.description} current="writing" progress ogImage={post.data.ogHero && post.data.heroImage ? { src: post.data.heroImage, width: 2560, height: 1440 } : undefined}>
   <article class="article container">
     <header class="article__head">
       <h1>{post.data.title}</h1>

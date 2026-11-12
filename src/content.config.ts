@@ -12,6 +12,8 @@ const blog = defineCollection({
     tags: z.array(z.string()),
     description: z.string(),
     heroImage: z.string().optional(),
+    // Use the hero image as the link-preview (Open Graph) image; others keep the site image. Size is 2560x1440.
+    ogHero: z.boolean().optional(),
     // Where the article first appeared (for example LinkedIn); the page links back to it.
     original: z.url().optional(),
   }),
