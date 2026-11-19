@@ -1,0 +1,286 @@
+---
+title: "Stable, unguessable preview deployments per Git branch, with GitHub Actions and Cloudflare Pages"
+date: "2026-11-20"
+slug: "stable-unguessable-preview-deployments-cloudflare-pages"
+tags: ["CI/CD", "GitHub Actions", "Cloudflare Pages", "Security"]
+description: "A design for giving every Git branch its own preview URL that stays the same across commits, needs no pull request, cannot be guessed, and cleans itself up. One keyed hash, two workflow files, and a plain list of what I have not verified."
+---
+A preview deployment is a temporary copy of your app, built from one branch, on its own URL. You send the link to a teammate, a designer or a first customer so they can try a change before it reaches production.
+
+Cloudflare Pages already gives every non-production deployment a public URL with no setup. That is enough for a link you need for a day. It stops being enough when the link has to survive the next commit, when the work is not ready for strangers, and when nobody wants to delete old previews by hand.
+
+This article is the design I settled on, and the reasoning behind it. By the end you will have:
+
+- five requirements a preview setup should meet, and why each one matters
+- seven ways of naming a preview URL, and why six of them fall short
+- a stateless scheme: a keyed hash of the repository and branch, so cleanup needs no database
+- two GitHub Actions workflows, one to deploy and one to clean up
+- access control and privacy headers for the preview
+- what rollback really looks like on previews
+- a short list of what I have **not** verified
+
+> **This is a design I have not yet run end to end.** The Cloudflare behaviour described here was checked against Cloudflare's documentation on 20 November 2026. The two workflow files were written from that research and have not been run against a real project. Anything marked **(to verify)** needs a test before you rely on it. The last section lists them all.
+
+## The problem, and five requirements
+
+I wanted previews for internal demos. Not a polished staging environment, just a link that does what a link should. I wrote down five requirements:
+
+1. **Stable across commits.** A new push to a branch updates the same URL. A link shared yesterday still works today.
+2. **No pull request needed.** Any pushed branch gets a preview, including a branch where nobody has opened a PR yet.
+3. **Unguessable.** The URL cannot be worked out from a branch name or a sequence number.
+4. **Cleaned up automatically.** Deleting the branch deletes its preview.
+5. **No link leakage.** If the link ends up in a chat message, a browser history or a `Referer` header, the app is still not open to the world.
+
+I also started with a sixth requirement, an instant rebuild-free rollback. It did not survive contact with the platform, and the rollback section explains why.
+
+## Six ways to name the URL
+
+The whole design hangs on one question: what do you put in the URL so that it is stable, derivable and not guessable? I compared seven answers.
+
+| Option | URL is based on | Why I rejected it |
+|---|---|---|
+| Commit SHA | `build-<sha>` | Changes on every push, so a link you shared goes stale at the next commit. Fails requirement 1. |
+| Pull request number | `pr-<n>` | Needs a PR, so it fails requirement 2. Numbers also count upward (`pr-1`, `pr-2`), so anyone can walk through them. |
+| Plain branch name | `feat-login` | Stable and PR-free, but guessable (`main`, `dev`, `feat-login`). Long names can also run into the 63-character limit on a DNS label. |
+| First-commit lineage plus a key-value store | first commit and branch name | Survives local branch renames and force-pushes, but it is a lot of machinery. A local rename breaks an open PR anyway, so I solved it with a team rule instead (below). |
+| Random token plus a database | random string, stored | Unguessable, with no link to the branch name. But you now keep a branch-to-token map and keep it in sync, including on cleanup. |
+| Plain hash of the branch name | `sha256(branch)` | Anyone can hash common branch names and check which ones exist. No secret involved. |
+| **Keyed hash (HMAC) of repository and branch** | `HMAC(secret, repo + branch)` | **Chosen.** Stateless, stable, needs no PR, and cannot be computed without the secret. |
+
+The plain hash is the one people reach for first. It looks unguessable and is not, which is why I kept it in the table.
+
+## The chosen design
+
+CI computes an HMAC-SHA256 of `repository + branch` with a secret key, keeps the first 12 hex characters, and uses that as the *branch name* it tells Cloudflare. The result looks like this:
+
+```text
+9f8a2c4b1e7d.your-project.pages.dev
+```
+
+Three properties fall out of that one idea.
+
+**It is stable.** The slug depends only on the repository and the branch, never on the commit. Every push to the same branch computes the same slug and updates the same URL.
+
+**It is unguessable.** An attacker who knows your repository name and a branch called `main` still cannot compute the slug, because the HMAC needs your secret. Twelve hex characters is 48 bits, about 281 trillion combinations. Use 16 characters if you want 64 bits.
+
+**Cleanup needs no database.** When a branch is deleted, CI recomputes the same slug from the deleted branch's name and removes the deployments that carry it. There is no map to maintain.
+
+Two small details matter in practice:
+
+- A 12-character hex string can never equal `main`, so with `main` as the production branch, every slug deploys as a preview.
+- Cloudflare turns a branch name into an alias by lowercasing it and replacing non-alphanumeric characters with hyphens, so a hex slug passes through unchanged. ([Cloudflare: preview deployments](https://developers.cloudflare.com/pages/configuration/preview-deployments/))
+
+### Branch renames
+
+Renaming a branch on your own machine looks to Git like a delete plus a new branch. It gets a new slug and closes any open PR. I chose not to design around this. The team rule is to rename branches in the GitHub or GitLab web UI, which keeps the PR attached, and to let CI concurrency cancel the pointless runs.
+
+## Setup
+
+You need a GitHub repository whose build command produces a static folder, a Cloudflare account with a Pages project, and an API token.
+
+1. Generate a long random value with `openssl rand -hex 32`. This is `CI_PREVIEW_SECRET`. Never print it in a log.
+2. In Cloudflare, create an API token with the **Cloudflare Pages: Edit** permission and note your account ID. ([Cloudflare Pages: API and tokens](https://developers.cloudflare.com/pages/configuration/api/))
+3. In the repository, add three Actions secrets: `CI_PREVIEW_SECRET`, `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
+4. Make sure the Pages project exists and its production branch is `main`.
+
+## The deploy workflow
+
+Save this as `.github/workflows/preview-deploy.yml`. Replace `your-project` and the build output folder.
+
+```yaml
+name: Deploy branch preview
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+# A newer push to the same branch cancels the older run.
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compute the preview slug
+        id: slug
+        env:
+          CI_PREVIEW_SECRET: ${{ secrets.CI_PREVIEW_SECRET }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          SLUG=$(printf '%s' "${REPO}-${BRANCH}" \
+            | openssl dgst -sha256 -hmac "$CI_PREVIEW_SECRET" \
+            | awk '{print $NF}' | cut -c1-12)
+          echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
+
+      - run: npm ci && npm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=your-project --branch=${{ steps.slug.outputs.slug }}
+
+      - name: Show the stable URL
+        run: echo "Preview https://${{ steps.slug.outputs.slug }}.your-project.pages.dev"
+```
+
+A few things worth noticing:
+
+- **`awk '{print $NF}'`.** `openssl dgst` prints a prefix before the hash (something like `SHA2-256(stdin)= `), so a bare `cut -c1-12` would take the prefix instead of the hex digits. Taking the last field avoids that.
+- **`printf '%s'`, not `echo`.** It keeps a stray newline out of the hashed input. The deploy and cleanup workflows must hash the exact same bytes, or cleanup will compute a different slug and find nothing.
+- **Concurrency.** `cancel-in-progress` means a rapid second push cancels the stale build instead of queueing behind it.
+- **The last step.** In a public repository the Actions log is public, so anyone can read the slug. The login in the access section is what protects you, not the secrecy of the URL. Use a private repository, or drop that step and read the URL from the Cloudflare dashboard.
+
+## The cleanup workflow
+
+Save this as `.github/workflows/preview-cleanup.yml`.
+
+```yaml
+name: Clean up deleted branch preview
+
+on:
+  delete:
+
+jobs:
+  cleanup:
+    if: github.event.ref_type == 'branch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Compute the same slug
+        id: slug
+        env:
+          CI_PREVIEW_SECRET: ${{ secrets.CI_PREVIEW_SECRET }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.event.ref }}
+        run: |
+          SLUG=$(printf '%s' "${REPO}-${BRANCH}" \
+            | openssl dgst -sha256 -hmac "$CI_PREVIEW_SECRET" \
+            | awk '{print $NF}' | cut -c1-12)
+          echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
+
+      - name: Delete the branch's deployments
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PROJECT: your-project
+          SLUG: ${{ steps.slug.outputs.slug }}
+        run: |
+          BASE="https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT/pages/projects/$PROJECT/deployments"
+          IDS=$(curl -s -H "Authorization: Bearer $CF_TOKEN" "$BASE?per_page=100" \
+            | jq -r --arg s "$SLUG" '.result[] | select(.deployment_trigger.metadata.branch == $s) | .id')
+          for ID in $IDS; do
+            curl -s -X DELETE -H "Authorization: Bearer $CF_TOKEN" "$BASE/$ID?force=true"
+          done
+```
+
+Two facts about this workflow come from GitHub's documentation. A `delete` event only runs a workflow file that exists on the **default branch**, so merge this file to `main` first. And no event fires when you delete more than three tags at once. ([GitHub: events that trigger workflows, `delete`](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#delete))
+
+The cleanup script is the part I trust least. **Check against the API reference:**
+
+- the REST path (`/accounts/.../pages/projects/.../deployments`),
+- the `deployment_trigger.metadata.branch` field I filter on,
+- pagination, since a project with more than 100 deployments needs more than one page,
+- the `force=true` flag.
+
+Cloudflare's CLI documents the same operation as `wrangler pages deployment delete <id> --project-name <project> --force`, and says the latest deployment for a branch cannot be deleted without forcing. If the REST version turns out fiddly, replacing the script with `wrangler pages deployment list` and `delete` may be simpler.
+
+## Access control
+
+By default every preview URL is public, and each commit's own `<hash>.your-project.pages.dev` link stays reachable. So the login is not optional if the preview shows anything private.
+
+In the Cloudflare dashboard, open the Pages project, go to Settings, General, and choose **Enable access policy**. Then set who may enter under Zero Trust, Access: for example, emails ending in your domain, with a one-time PIN or a Google login.
+
+What Cloudflare documents is that this protects **preview deployments** and **not** your production `*.pages.dev` address or custom domain, which stay public. ([Cloudflare: preview deployments](https://developers.cloudflare.com/pages/configuration/preview-deployments/))
+
+What the documentation does not say, and I have **not tested**, is whether the policy also covers the **branch alias** (`<slug>.your-project.pages.dev`), which is the URL this whole design hands out. The check is cheap. Enable the policy, open an alias in a private browser window, and see whether a login appears. If it loads without one, add an Access application for `*.your-project.pages.dev` and check again. Test the per-commit link the same way.
+
+I am deliberately not quoting a free-tier user limit for Access. Commentary online says up to 50 users, but the Cloudflare pages I read did not state a user figure, so read the current Zero Trust plan terms before budgeting on it.
+
+## Privacy headers
+
+The login handles who can open the preview. Headers handle what leaks afterwards. Create `public/_headers` (or the equivalent folder for your framework) so it ends up in the build output:
+
+```text
+/*
+  Referrer-Policy: no-referrer
+  X-Robots-Tag: noindex, nofollow
+```
+
+`Referrer-Policy: no-referrer` stops a link clicked inside the preview from sending the preview's address to the other site in the `Referer` header. Cloudflare documents that `_headers` applies to static asset responses (not to Functions or server-rendered responses) and allows up to 100 rules. It also says previews send `X-Robots-Tag: noindex` by default, so the second line is belt and braces. ([Cloudflare: headers](https://developers.cloudflare.com/pages/configuration/headers/))
+
+Whether `_headers` is applied on **preview** deployments is not stated on that page. Open a preview and read its response headers before you rely on it **(to verify)**.
+
+## Rollback: what actually works
+
+This is where my original design met reality. I had wanted a zero-rebuild rollback of a preview, and assumed Cloudflare's rollback button would do it.
+
+It will not. Cloudflare's one-click "Rollback to this deployment" works for **production** deployments only, and the documentation says preview deployments are not valid rollback targets. ([Cloudflare: rollbacks](https://developers.cloudflare.com/pages/configuration/rollbacks/)) A rebuild-free rollback of a preview is not a built-in feature. The options are:
+
+- **Revert and push.** `git revert` the bad commit and push. The alias updates after the next build. It is the simplest, and it leaves a clear history.
+- **Re-run an older workflow run.** In GitHub, re-run the deploy job for the last good commit. It rebuilds, so it takes the usual build time, and because the slug depends only on the branch it updates the same URL. Note that this deploys that older commit's code to the alias.
+- **Keep the build and redeploy it.** Upload the build folder as an Actions artifact on every run, then add a manual workflow that downloads the artifact of a chosen run and calls the same `pages deploy` with the same `--branch`. This is the only route to a no-rebuild rollback. I have **not tried it**, and artifacts expire, so it reaches back only as far as your retention setting.
+
+For the *production* site, the dashboard rollback does work and is instant.
+
+## Guardrails against wasted builds
+
+Previews are cheap, but a build per keystroke is not. Three habits keep them in check:
+
+- **Concurrency cancel**, already in the deploy workflow, cancels an older run when a newer push lands on the same branch.
+- **Rename in the web UI**, so the PR stays attached and no orphan preview is left behind.
+- **A branch name check**, in a hook or a short CI step, that rejects bad names before the first push and saves a rename later.
+
+## Limits, and what I would verify first
+
+Here is the honest state of this design.
+
+**Not run end to end.** Neither workflow has run against a real project. The first thing I would do is run both on a scratch Pages project and a throwaway repository, and confirm three things: the alias URL, an update on a second push, and cleanup on branch delete.
+
+**Things I would test, in order:**
+
+1. Whether the access policy from "Enable access policy" covers the **branch alias**, not just the per-commit link.
+2. Whether `_headers` is applied on **preview** deployments.
+3. The cleanup script's REST path, the `metadata.branch` filter and pagination. Check against the API reference.
+4. Cloudflare's current Pages plan limits (builds per month, deployments per project) and GitHub Actions free minutes, which differ for public and private repositories.
+5. The Zero Trust free-tier user limit, before I budget on any number.
+
+**Limits of the design itself:**
+
+- **The slug is an address, not a password.** It is hard to guess, but it is not a secret once it is pasted somewhere. The login is the protection.
+- **Forks.** Secrets are not passed to workflows triggered from forks, so outside contributors will not get previews this way.
+- **Real data.** Point previews at test data, not your production database.
+- **Server-side code.** Everything here assumes a static build on Pages. If previews run server code or a database, these assumptions do not hold, and the case deserves a proper security review. The same goes for previews that show real customer or personal data.
+- **Rollback is slower than I wanted.** It rebuilds unless you take on the untested artifact approach.
+
+## Checklist
+
+- [ ] Generate `CI_PREVIEW_SECRET` and store it only as an Actions secret
+- [ ] Create a Pages project with `main` as the production branch
+- [ ] Add the Pages: Edit token and account ID as secrets
+- [ ] Merge the cleanup workflow to the default branch
+- [ ] Enable the access policy, then test the branch alias and the per-commit link in a private window
+- [ ] Add `_headers` and check the response headers on a real preview
+- [ ] Run both workflows on a scratch project before trusting them
+- [ ] Confirm the cleanup script against the Cloudflare API reference
+
+## Sources
+
+All Cloudflare and GitHub pages were read on 20 November 2026.
+
+- [Cloudflare Pages: preview deployments](https://developers.cloudflare.com/pages/configuration/preview-deployments/) (alias naming, access policy scope, public by default)
+- [Cloudflare Pages: rollbacks](https://developers.cloudflare.com/pages/configuration/rollbacks/) (production only)
+- [Cloudflare Pages: headers](https://developers.cloudflare.com/pages/configuration/headers/) (`_headers` scope and limits)
+- [Cloudflare Pages: branch build controls](https://developers.cloudflare.com/pages/configuration/branch-build-controls/)
+- [Cloudflare Pages: API and tokens](https://developers.cloudflare.com/pages/configuration/api/) (the token needs Cloudflare Pages: Edit)
+- [Cloudflare Zero Trust: account limits](https://developers.cloudflare.com/cloudflare-one/account-limits/) (no user-seat figure found)
+- [cloudflare/wrangler-action](https://github.com/cloudflare/wrangler-action) (current major version v4; inputs `apiToken`, `accountId`, `command`)
+- [GitHub: events that trigger workflows, `delete`](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#delete)
